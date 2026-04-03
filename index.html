@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luquita PRO - Convertidor BCV en Vivo</title>
+
+    <!-- SEO & Fonts -->
+    <meta name="description"
+      content="Luquita: Convertidor de divisas profesional con tasas oficiales del BCV en tiempo real. Calcula USD, EUR y USDT a Bolívares.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/logo.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+
+    <style>
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --bg: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --accent-usd: #10b981;
+        --accent-eur: #3b82f6;
+        --accent-usdt: #f59e0b;
+        --glass: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Outfit', sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        background-image:
+          radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        background: linear-gradient(to right, #60a5fa, #34d399);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      /* Top Bar Controls */
+      .top-controls {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 40px;
+        background: var(--glass);
+        padding: 12px 24px;
+        border-radius: 50px;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .btn-refresh {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-refresh:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.4);
+        background: var(--primary-dark);
+      }
+
+      .btn-refresh:active {
+        transform: translateY(0);
+      }
+
+      .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #10b981;
+      }
+
+      .status-dot.loading {
+        background: #f59e0b;
+        box-shadow: 0 0 10px #f59e0b;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 0.4;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0.4;
+        }
+      }
+
+      /* Grid Layout */
+      .converter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 30px;
+        width: 100%;
+        max-width: 1200px;
+        animation: fadeIn 1s ease-out;
+      }
+
+      /* Premium Card Design */
+      .card {
+        background: var(--card-bg);
+        border-radius: 24px;
+        border: 1px solid var(--glass-border);
+        display: flex;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .card-sidebar {
+        width: 65px;
+        background: rgba(15, 23, 42, 0.6);
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        gap: 12px;
+        border-right: 1px solid var(--glass-border);
+      }
+
+      .suggestion-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+        align-self: center;
+        margin-bottom: 10px;
+      }
+
+      .btn-suggest {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        padding: 8px 0;
+        transition: all 0.2s;
+      }
+
+      .btn-suggest:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .card-content {
+        padding: 30px;
+        flex: 1;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .currency-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .card-usd .currency-icon {
+        color: var(--accent-usd);
+        background: rgba(16, 185, 129, 0.1);
+      }
+
+      .card-eur .currency-icon {
+        color: var(--accent-eur);
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      .card-usdt .currency-icon {
+        color: var(--accent-usdt);
+        background: rgba(245, 158, 11, 0.1);
+      }
+
+      .card-title {
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+
+      /* Input Styling */
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+        display: block;
+        font-weight: 500;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-wrapper input {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid var(--glass-border);
+        color: white;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        outline: none;
+        transition: all 0.3s;
+      }
+
+      .input-wrapper input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      .currency-tag {
+        position: absolute;
+        right: 18px;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.85rem;
+        pointer-events: none;
+      }
+
+      .rate-info {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .rate-value {
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      /* Live Summary Panel */
+      .summary-panel {
+        width: 100%;
+        max-width: 1200px;
+        margin-top: 40px;
+        background: var(--card-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 25px;
+        backdrop-filter: blur(20px);
+        animation: fadeIn 1.2s ease-out;
+      }
+
+      .summary-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .summary-grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .summary-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 15px 30px;
+        border-radius: 18px;
+        border: 1px solid var(--glass-border);
+        min-width: 160px;
+      }
+
+      .summary-val {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .summary-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .summary-separator {
+        font-size: 1.5rem;
+        color: var(--glass-border);
+        font-weight: 300;
+      }
+
+      @media (max-width: 768px) {
+        .summary-grid {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .summary-separator {
+          display: none;
+        }
+
+        .summary-item {
+          width: 100%;
+        }
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 40px 0 20px;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
+      footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--glass-border);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Botón Install PWA */
+      .pwa-btn {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, var(--primary), #8b5cf6);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+
+        40% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+
+        60% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+
+      /* Modal iOS */
+      .ios-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        padding: 2rem;
+        backdrop-filter: blur(5px);
+      }
+
+      .ios-modal {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        max-width: 400px;
+        text-align: center;
+        color: white;
+      }
+
+      .ios-modal h3 {
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .ios-modal ul {
+        text-align: left;
+        margin: 1.5rem 0;
+        list-style: none;
+        padding: 0;
+      }
+
+      .ios-modal li {
+        margin-bottom: 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      .btn-clean-mini {
+        background: rgba(255, 71, 87, 0.1);
+        border: 1px solid rgba(255, 71, 87, 0.2);
+        color: #ff6b6b;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-left: 10px;
+        transition: all 0.2s;
+      }
+
+      .btn-clean-mini:hover {
+        background: #ff4757;
+        color: white;
+      }
+
+      .close-modal {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.6rem 2rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <header>
+      <h1>💱 LUQUITA PRO</h1>
+      <p class="subtitle">Tasas oficiales del Banco Central de Venezuela en tiempo real</p>
+      <div id="currentDate" class="date-display" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
+      </div>
+    </header>
+
+    <div class="top-controls">
+      <button class="btn-refresh" onclick="refreshData()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2v6h-6"></path>
+          <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+          <path d="M3 22v-6h6"></path>
+          <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+        </svg>
+        Actualizar tasas
+      </button>
+      <div class="status-badge">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Tasas actualizadas</span>
+        <button onclick="forcePWACleanup()" class="btn-clean-mini" title="Limpiar App (Caché)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="converter-grid">
+      <!-- USD CARD -->
+      <div class="card card-usd">
+        <div class="card-sidebar">
+          <span class="suggestion-label">Sugeridos</span>
+          <button class="btn-suggest" onclick="suggest('usd', 10)">10</button>
+          <button class="btn-suggest" onclick="suggest('usd', 20)">20</button>
+          <button class="btn-suggest" onclick="suggest('usd', 30)">30</button>
+          <button class="btn-suggest" onclick="suggest('usd', 40)">40</button>
+          <button class="btn-suggest" onclick="suggest('usd', 50)">50</button>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="currency-icon">$</div>
+            <div class="card-title">Dólar Estadounidense</div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Dólares</label>
+            <div class="input-wrapper">
+              <input type="number" id="usd_val" step="any" placeholder="0.00" oninput="handleInput('usd', this.value)">
+              <span class="currency-tag">USD</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Bolívares</label>
+            <div class="input-wrapper">
+              <input type="number" id="bs_usd_val" step="any" placeholder="0.00"
+                oninput="handleInput('bs_usd', this.value)">
+              <span class="currency-tag">VES</span>
+            </div>
+          </div>
+
+          <div class="rate-info">
+            <span>Tasa Oficial</span>
+            <span class="rate-value" id="rate_usd_display">--.-- Bs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EUR CARD -->
+      <div class="card card-eur">
+        <div class="card-sidebar">
+          <span class="suggestion-label">Sugeridos</span>
+          <button class="btn-suggest" onclick="suggest('eur', 10)">10</button>
+          <button class="btn-suggest" onclick="suggest('eur', 20)">20</button>
+          <button class="btn-suggest" onclick="suggest('eur', 30)">30</button>
+          <button class="btn-suggest" onclick="suggest('eur', 40)">40</button>
+          <button class="btn-suggest" onclick="suggest('eur', 50)">50</button>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="currency-icon">€</div>
+            <div class="card-title">Euro</div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Euros</label>
+            <div class="input-wrapper">
+              <input type="number" id="eur_val" step="any" placeholder="0.00" oninput="handleInput('eur', this.value)">
+              <span class="currency-tag">EUR</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Bolívares</label>
+            <div class="input-wrapper">
+              <input type="number" id="bs_eur_val" step="any" placeholder="0.00"
+                oninput="handleInput('bs_eur', this.value)">
+              <span class="currency-tag">VES</span>
+            </div>
+          </div>
+
+          <div class="rate-info">
+            <span>Tasa Oficial</span>
+            <span class="rate-value" id="rate_eur_display">--.-- Bs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- USDT CARD -->
+      <div class="card card-usdt">
+        <div class="card-sidebar">
+          <span class="suggestion-label">Sugeridos</span>
+          <button class="btn-suggest" onclick="suggest('usdt', 10)">10</button>
+          <button class="btn-suggest" onclick="suggest('usdt', 20)">20</button>
+          <button class="btn-suggest" onclick="suggest('usdt', 30)">30</button>
+          <button class="btn-suggest" onclick="suggest('usdt', 40)">40</button>
+          <button class="btn-suggest" onclick="suggest('usdt', 50)">50</button>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="currency-icon">₮</div>
+            <div class="card-title">Tether (USDT)</div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en USDT</label>
+            <div class="input-wrapper">
+              <input type="number" id="usdt_val" step="any" placeholder="0.00"
+                oninput="handleInput('usdt', this.value)">
+              <span class="currency-tag">USDT</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Bolívares</label>
+            <div class="input-wrapper">
+              <input type="number" id="bs_usdt_val" step="any" placeholder="0.00"
+                oninput="handleInput('bs_usdt', this.value)">
+              <span class="currency-tag">VES</span>
+            </div>
+          </div>
+
+          <div class="rate-info">
+            <span>Tasa USDT</span>
+            <span class="rate-value" id="rate_usdt_display">--.-- Bs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY PANEL -->
+    <div class="summary-panel">
+      <div class="summary-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="20" x2="21" y2="20"></line>
+          <path d="M6 20V10"></path>
+          <path d="M10 20V4"></path>
+          <path d="M14 20V14"></path>
+          <path d="M18 20V8"></path>
+        </svg>
+        Resumen de conversión en vivo
+      </div>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-val" id="sum_usd">0.00</span>
+          <span class="summary-label">USD</span>
+        </div>
+        <div class="summary-separator">=</div>
+        <div class="summary-item">
+          <span class="summary-val" id="sum_eur">0.00</span>
+          <span class="summary-label">EUR</span>
+        </div>
+        <div class="summary-separator">=</div>
+        <div class="summary-item">
+          <span class="summary-val" id="sum_usdt">0.00</span>
+          <span class="summary-label">USDT</span>
+        </div>
+        <div class="summary-separator">=</div>
+        <div class="summary-item" style="border-color: var(--accent-usd);">
+          <span class="summary-val" id="sum_ves">0.00</span>
+          <span class="summary-label">VES (BCV)</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Calculado según datos oficiales del <a href="http://www.bcv.org.ve/" target="_blank">Banco Central de
+        Venezuela</a>.
+      <br>© 2026 Convertidor Pro VZLA - <span style="opacity: 0.5;">v.3.0.0</span>
+    </footer>
+
+    <!-- Botón de Instalación (PWA) -->
+    <button id="pwa_install_btn" class="pwa-btn" style="display: none;">
+      <span>📲 Instalar Luquita</span>
+    </button>
+
+    <!-- Modal de Instrucciones iPhone -->
+    <div id="ios_modal" class="ios-modal-overlay" style="display: none;">
+      <div class="ios-modal">
+        <h3>Instalar en iPhone 📱</h3>
+        <p>Sigue estos pasos para tener Luquita en tu pantalla de inicio:</p>
+        <ul>
+          <li>1. Pulsa el botón <strong>Compartir</strong> <span style="font-size: 1.2rem;">⎋</span> (abajo al centro en
+            Safari).</li>
+          <li>2. Busca y selecciona <strong>"Añadir a pantalla de inicio"</strong>.</li>
+          <li>3. Dale a <strong>"Añadir"</strong> arriba a la derecha.</li>
+        </ul>
+        <button class="close-modal"
+          onclick="document.getElementById('ios_modal').style.display='none'">¡Entendido!</button>
+      </div>
+    </div>
+
+    <script>
+      let rates = {
+        usd: 36.50,
+        eur: 39.20,
+        usdt: 36.40
+      };
+
+      // Usaremos DolarApi.com por su alta disponibilidad y soporte CORS
+      const API_USD = "https://ve.dolarapi.com/v1/dolares/oficial";
+      const API_EUR = "https://ve.dolarapi.com/v1/euros/oficial";
+
+      // Selectors
+      const els = {
+        usd: document.getElementById('usd_val'),
+        bs_usd: document.getElementById('bs_usd_val'),
+        eur: document.getElementById('eur_val'),
+        bs_eur: document.getElementById('bs_eur_val'),
+        usdt: document.getElementById('usdt_val'),
+        bs_usdt: document.getElementById('bs_usdt_val'),
+        rate_usd: document.getElementById('rate_usd_display'),
+        rate_eur: document.getElementById('rate_eur_display'),
+        rate_usdt: document.getElementById('rate_usdt_display'),
+        statusText: document.getElementById('statusText'),
+        statusDot: document.getElementById('statusDot'),
+        sum_usd: document.getElementById('sum_usd'),
+        sum_eur: document.getElementById('sum_eur'),
+        sum_usdt: document.getElementById('sum_usdt'),
+        sum_ves: document.getElementById('sum_ves')
+      };
+
+      // Fetch Rates
+      async function fetchRates() {
+        updateFormattedDate();
+        setLoading(true);
+
+        try {
+          // 1. Cargar tasas oficiales (BCV)
+          try {
+            const [resUsd, resEur] = await Promise.all([
+              fetch(API_USD),
+              fetch(API_EUR)
+            ]);
+
+            if (resUsd.ok && resEur.ok) {
+              const dataUsd = await resUsd.json();
+              const dataEur = await resEur.json();
+              rates.usd = dataUsd.promedio || dataUsd.price || dataUsd.venta || rates.usd;
+              rates.eur = dataEur.promedio || dataEur.price || dataEur.venta || rates.eur;
+            }
+          } catch (e) {
+            console.error("Error cargando BCV:", e);
+          }
+
+          // Actualizamos valores BCV en pantalla
+          updateDisplayRates();
+
+          // 2. Cargar Tasa USDT (Paralelo / Binance)
+          try {
+            const resParalelo = await fetch("https://ve.dolarapi.com/v1/dolares/paralelo");
+            if (resParalelo.ok) {
+              const dataUsdt = await resParalelo.json();
+              if (dataUsdt.promedio && dataUsdt.promedio > 100) {
+                rates.usdt = dataUsdt.promedio;
+                updateDisplayRates();
+                setLoading(false, "Sincronización Completa ✅");
+                return;
+              }
+            }
+          } catch (e) {
+            console.error("Error cargando Paralelo:", e);
+          }
+
+          // Fallback final ExchangeMonitor vía AllOrigins si DolarApi Paralelo falla
+          try {
+            const EM_URL = "https://exchangemonitor.net/venezuela/dolar-binance";
+            const res = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(EM_URL));
+            const data = await res.json();
+            const doc = new DOMParser().parseFromString(data.contents, "text/html");
+            const priceEl = doc.querySelector('.history-rate.fs-2');
+            
+            if (priceEl) {
+              const cleanPrice = parseFloat((priceEl.innerText || priceEl.textContent).replace(/[^0-9,.]/g, '').replace(',', '.'));
+              if (cleanPrice > 100) {
+                rates.usdt = cleanPrice;
+                updateDisplayRates();
+                setLoading(false, "Sincronización Completa ✅");
+                return;
+              }
+            }
+          } catch(e) {
+            console.error("Error cargando AllOrigins:", e);
+          }
+
+          // Si todo falla
+          setLoading(false, "Sincronización Parcial (Tasas Guardadas)");
+
+        } catch (error) {
+          console.error("Fetch error general:", error);
+          setLoading(false, "Modo Offline (Tasas Locales)");
+          updateDisplayRates();
+        }
+      }
+
+      function updateFormattedDate() {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateStr = new Date().toLocaleDateString('es-VE', options);
+        document.getElementById('currentDate').textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+      }
+
+      function updateDisplayRates() {
+        els.rate_usd.textContent = rates.usd.toFixed(2) + " Bs";
+        els.rate_eur.textContent = rates.eur.toFixed(2) + " Bs";
+        els.rate_usdt.textContent = rates.usdt.toFixed(2) + " Bs";
+      }
+
+      function setLoading(isLoading, text = "") {
+        if (isLoading) {
+          els.statusDot.classList.add('loading');
+          els.statusText.textContent = "Sincronizando BCV...";
+        } else {
+          els.statusDot.classList.remove('loading');
+          els.statusText.textContent = text;
+        }
+      }
+
+      // Logic for conversion
+      function handleInput(source, val) {
+        const amount = parseFloat(val);
+        if (isNaN(amount) || amount === 0) {
+          clearAllExcept(source);
+          updateSummary(0);
+          return;
+        }
+
+        let base_ves = 0;
+
+        // 1. Convert source to Base (VES)
+        switch (source) {
+          case 'usd': base_ves = amount * rates.usd; break;
+          case 'bs_usd': base_ves = amount; break;
+          case 'eur': base_ves = amount * rates.eur; break;
+          case 'bs_eur': base_ves = amount; break;
+          case 'usdt': base_ves = amount * rates.usdt; break;
+          case 'bs_usdt': base_ves = amount; break;
+        }
+
+        // 2. Update all other fields
+        updateAllFields(base_ves, source);
+
+        // 3. Update Summary
+        updateSummary(base_ves);
+      }
+
+      function updateAllFields(base_ves, skip) {
+        const vals = {
+          usd: (base_ves / rates.usd).toFixed(2),
+          eur: (base_ves / rates.eur).toFixed(2),
+          usdt: (base_ves / rates.usdt).toFixed(2),
+          bs: base_ves.toFixed(2)
+        };
+
+        if (skip !== 'usd') els.usd.value = vals.usd;
+        if (skip !== 'bs_usd') els.bs_usd.value = vals.bs;
+
+        if (skip !== 'eur') els.eur.value = vals.eur;
+        if (skip !== 'bs_eur') els.bs_eur.value = vals.bs;
+
+        if (skip !== 'usdt') els.usdt.value = vals.usdt;
+        if (skip !== 'bs_usdt') els.bs_usdt.value = vals.bs;
+      }
+
+      function updateSummary(base_ves) {
+        els.sum_usd.textContent = (base_ves / rates.usd).toFixed(2);
+        els.sum_eur.textContent = (base_ves / rates.eur).toFixed(2);
+        els.sum_usdt.textContent = (base_ves / rates.usdt).toFixed(2);
+        els.sum_ves.textContent = base_ves.toLocaleString('es-VE', { minimumFractionDigits: 2 });
+      }
+
+      function clearAllExcept(skip) {
+        const all = ['usd', 'bs_usd', 'eur', 'bs_eur', 'usdt', 'bs_usdt'];
+        all.forEach(key => {
+          if (key !== skip) els[key].value = "";
+        });
+
+        els.sum_usd.textContent = "0.00";
+        els.sum_eur.textContent = "0.00";
+        els.sum_usdt.textContent = "0.00";
+        els.sum_ves.textContent = "0.00";
+      }
+
+      function suggest(currency, val) {
+        const inputId = currency + "_val";
+        document.getElementById(inputId).value = val;
+        handleInput(currency, val);
+      }
+
+      function refreshData() {
+        // Ahora el botón de actualizar también limpia el caché de raíz
+        forcePWACleanup();
+      }
+
+      // Initial Load con Auto-Check de versión
+      window.addEventListener('DOMContentLoaded', () => {
+        fetchRates();
+        // Auto-actualización silenciosa si se deja abierta mucho tiempo
+        setInterval(fetchRates, 600000);
+      });
+
+      // Lógica de Instalación PWA
+      let deferredPrompt;
+      const installBtn = document.getElementById('pwa_install_btn');
+      const iosModal = document.getElementById('ios_modal');
+
+      // Detectar si ya está instalada
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'flex';
+      });
+
+      installBtn.addEventListener('click', async () => {
+        // Si es iOS
+        const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIos) {
+          iosModal.style.display = 'flex';
+          return;
+        }
+
+        // Si es Android/Chrome
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') installBtn.style.display = 'none';
+          deferredPrompt = null;
+        }
+      });
+
+      // Mostrar botón manualmente en iOS si no está instalado
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      const isIosDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIosDevice && !isStandalone) {
+        installBtn.style.display = 'flex';
+      }
+
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('SW Registered'))
+            .catch(err => console.log('SW Error', err));
+        });
+      }
+      // Forzar limpieza de Service Worker
+      async function forcePWACleanup() {
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (let registration of registrations) {
+            await registration.unregister();
+          }
+          window.location.reload(true);
+        } else {
+          window.location.reload(true);
+        }
+      }
+    </script>
+  </body>
+
+  </html>
