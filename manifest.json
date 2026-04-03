@@ -1,16 +1,30 @@
 {
-  "name": "Luquita Convertidor",
+  "id": "/?source=pwa",
+  "name": "Luquita Convertidor PRO",
   "short_name": "Luquita",
-  "start_url": "index.html",
+  "description": "Convertidor en tiempo real de BCV y Paralelo",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#2563eb",
+  "lang": "es-VE",
+  "dir": "ltr",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
       "sizes": "192x192 384x384 512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }
