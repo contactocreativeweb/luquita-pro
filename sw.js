@@ -1,9 +1,13 @@
-const CACHE_NAME = 'luquita-v2';
+const CACHE_NAME = 'luquita-v5';
 const ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/logo.png'
+  '/logo-512.png',
+  '/logo-192.png',
+  '/apple-touch-icon.png',
+  '/favicon-32x32.png',
+  '/favicon-16x16.png'
 ];
 
 self.addEventListener('install', (e) => {
@@ -24,7 +28,6 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Solo aplicamos network-first para nuestras rutas
   e.respondWith(
     fetch(e.request).then(response => {
       if(response && response.status === 200 && response.type === 'basic') {
