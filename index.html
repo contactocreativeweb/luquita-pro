@@ -799,6 +799,21 @@
       </div>
     </div>
 
+    <!-- Modal de Instrucciones Android -->
+    <div id="android_modal" class="ios-modal-overlay" style="display: none;">
+      <div class="ios-modal">
+        <h3>Añadir a Pantalla Principal 📱</h3>
+        <p>Para instalar Luquita en tu dispositivo Android o navegador web:</p>
+        <ul>
+          <li>1. Toca el menú de opciones <strong>(tres puntos ⋮)</strong> de tu navegador.</li>
+          <li>2. Busca y selecciona <strong>"Añadir a la pantalla de inicio"</strong> o <strong>"Instalar aplicación"</strong>.</li>
+          <li>3. Confirma seleccionando <strong>"Añadir"</strong> o <strong>"Instalar"</strong>.</li>
+        </ul>
+        <button class="close-modal"
+          onclick="document.getElementById('android_modal').style.display='none'">¡Entendido!</button>
+      </div>
+    </div>
+
     <script>
       let rates = {
         usd: 36.50,
@@ -1031,7 +1046,6 @@
       // Lógica de Instalación PWA
       let deferredPrompt;
       const installBtn = document.getElementById('pwa_install_btn');
-      const iosModal = document.getElementById('ios_modal');
 
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
@@ -1040,22 +1054,24 @@
       });
 
       installBtn.addEventListener('click', async () => {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const isIos = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
         // Si es iOS
-        const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         if (isIos) {
-          iosModal.style.display = 'flex';
+          document.getElementById('ios_modal').style.display = 'flex';
           return;
         }
 
-        // Si es Android/Chrome y tenemos el prompt
+        // Si es Android/Chrome y tenemos el prompt nativo
         if (deferredPrompt) {
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
           if (outcome === 'accepted') installBtn.style.display = 'none';
           deferredPrompt = null;
         } else {
-            // Si es Android/Chrome pero no hay prompt, mostrar alerta
-            alert("Para instalar la aplicación, abre el menú de tu navegador (tres puntos) y selecciona 'Añadir a la pantalla de inicio' o 'Instalar aplicación'.");
+            // Si es Android u otro navegador sin soporte nativo directo, mostrar el modal de instrucciones
+            document.getElementById('android_modal').style.display = 'flex';
         }
       });
 
