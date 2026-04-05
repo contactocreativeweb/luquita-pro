@@ -31,6 +31,93 @@
         --glass-border: rgba(255, 255, 255, 0.1);
       }
 
+      body.light-mode {
+        --bg: #ffffff;
+        --card-bg: #ffffff;
+        --text: #0f172a;
+        --text-muted: #64748b;
+        --glass: rgba(0, 0, 0, 0.02);
+        --glass-border: #e2e8f0;
+      }
+
+      body.light-mode {
+        background-image: none;
+      }
+
+      body.light-mode h1 {
+        background: linear-gradient(to right, #1d4ed8, #059669);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      body.light-mode .subtitle {
+        color: #475569;
+      }
+
+      body.light-mode .card {
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+      }
+      
+      body.light-mode .card:hover {
+        border-color: #cbd5e1;
+      }
+
+      body.light-mode .card-sidebar {
+        background: #f8fafc;
+        border-right: 1px solid #e2e8f0;
+      }
+
+      body.light-mode .btn-suggest:hover {
+        background: #e2e8f0;
+        color: #0f172a;
+      }
+
+      body.light-mode .input-wrapper input {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      body.light-mode .input-wrapper input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        background: #ffffff;
+      }
+
+      body.light-mode .currency-icon {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+      }
+
+      body.light-mode .btn-share-app {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        color: #0f172a;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      }
+
+      body.light-mode .btn-share-app:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+      }
+
+      body.light-mode .summary-item {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      }
+
+      body.light-mode footer {
+        color: #64748b;
+      }
+
+      body.light-mode footer > div {
+        color: #64748b !important;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -609,6 +696,19 @@
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
           </svg>
         </button>
+        <button onclick="toggleTheme()" class="btn-clean-mini" style="color: var(--text); border-color: var(--glass-border); width: 32px; height: 32px; border-radius: 50%;" title="Cambiar Tema">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
       </div>
     </div>
 
@@ -820,6 +920,26 @@
     </div>
 
     <script>
+      function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById('themeIcon');
+        if (body.classList.contains('light-mode')) {
+          body.classList.remove('light-mode');
+          localStorage.setItem('theme', 'dark');
+          icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        } else {
+          body.classList.add('light-mode');
+          localStorage.setItem('theme', 'light');
+          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+      }
+
+      // Inicializar tema al cargar
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('themeIcon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      }
+
       let rates = {
         usd: 36.50,
         eur: 39.20,
