@@ -787,15 +787,21 @@
     <div id="ios_modal" class="ios-modal-overlay" style="display: none;">
       <div class="ios-modal">
         <h3>Instalar en iPhone 📱</h3>
-        <p>Sigue estos pasos para tener Luquita en tu pantalla de inicio:</p>
+        <p id="ios_safari_msg" style="display: none; color: #ff6b6b; font-size: 0.95rem; margin-bottom: 12px;">⚠️ Para poder instalar la App, debes abrir este enlace en <strong>Safari</strong>.</p>
+        <p>Sigue estos pasos en Safari:</p>
         <ul>
-          <li>1. Pulsa el botón <strong>Compartir</strong> <span style="font-size: 1.2rem;">⎋</span> (abajo al centro en
-            Safari).</li>
+          <li>1. Pulsa el botón <strong>Compartir</strong> <span style="font-size: 1.2rem;">⎋</span> (abajo al centro).</li>
           <li>2. Busca y selecciona <strong>"Añadir a pantalla de inicio"</strong>.</li>
           <li>3. Dale a <strong>"Añadir"</strong> arriba a la derecha.</li>
         </ul>
-        <button class="close-modal"
-          onclick="document.getElementById('ios_modal').style.display='none'">¡Entendido!</button>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-share-app" onclick="copyUrlToClipboard()" style="margin: 0; background: var(--primary); border: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copiar Enlace
+          </button>
+          <button class="close-modal"
+            onclick="document.getElementById('ios_modal').style.display='none'">¡Entendido!</button>
+        </div>
       </div>
     </div>
 
@@ -1031,6 +1037,12 @@
         }
       }
 
+      function copyUrlToClipboard() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert("¡Enlace copiado! Ahora pégalo en Safari para instalar la app.");
+        });
+      }
+
       function refreshData() {
         // Ahora el botón de actualizar también limpia el caché de raíz
         forcePWACleanup();
@@ -1059,6 +1071,10 @@
 
         // Si es iOS
         if (isIos) {
+          const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+          const msgEl = document.getElementById('ios_safari_msg');
+          if (msgEl) msgEl.style.display = isSafari ? 'none' : 'block';
+          
           document.getElementById('ios_modal').style.display = 'flex';
           return;
         }
