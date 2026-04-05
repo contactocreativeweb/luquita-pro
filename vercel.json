@@ -1,6 +1,16 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/app.html" }
+    { "source": "/apple-touch-icon.png", "destination": "/apple-touch-icon.png" },
+    { "source": "/apple-touch-icon-precomposed.png", "destination": "/apple-touch-icon.png" },
+    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/favicon-32x32.png", "destination": "/favicon-32x32.png" },
+    { "source": "/favicon-16x16.png", "destination": "/favicon-16x16.png" },
+    { "source": "/logo.png", "destination": "/logo.png" },
+    { "source": "/logo-192.png", "destination": "/logo-192.png" },
+    { "source": "/logo-512.png", "destination": "/logo-512.png" },
+    { "source": "/manifest.json", "destination": "/manifest.json" },
+    { "source": "/sw.js", "destination": "/sw.js" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
