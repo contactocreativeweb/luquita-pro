@@ -892,7 +892,7 @@
     <footer>
       Calculado según datos oficiales del <a href="http://www.bcv.org.ve/" target="_blank">Banco Central de
         Venezuela</a>.
-      <br>© Creativeweb IA 2026 - Todos los Derechos Reservados - <span style="opacity: 0.5;">v.3.1.0</span>
+      <br>© Creativeweb IA 2026 - Todos los Derechos Reservados - <span style="opacity: 0.5;">v.3.1.1</span>
       <div id="visitCounter" style="margin-top: 10px; font-weight: 700; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 8px; animation: fadeIn 1.5s ease-out;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
         <span style="letter-spacing: 1px;">VISITAS:</span>
@@ -1190,17 +1190,18 @@
         forcePWACleanup();
       }
 
-      // Lógica de Contador de Visitas (KVDB.io para persistencia)
+      // Lógica de Contador de Visitas (CounterAPI.dev para persistencia)
       async function updateVisitCounter() {
-        const KVDB_KEY = 'luquita_pro_visits_v1';
-        // Usamos una clave pública para el contador
-        const url = `https://kvdb.io/4y9qE9s8Jg5r7vX2f3a6m1/${KVDB_KEY}+`; 
+        // Namespace: luquita_pro, Key: visits
+        const url = 'https://api.counterapi.dev/v1/luquita_pro/visits/up';
         
         try {
-          const res = await fetch(url, { method: 'POST' });
+          const res = await fetch(url);
           if (res.ok) {
-            const count = await res.text();
-            document.getElementById('visitCountValue').textContent = parseInt(count).toLocaleString();
+            const data = await res.json();
+            if (data && data.count) {
+              document.getElementById('visitCountValue').textContent = data.count.toLocaleString();
+            }
           }
         } catch (e) {
           console.error("Error actualizando visitas:", e);
