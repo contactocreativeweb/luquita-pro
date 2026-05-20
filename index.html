@@ -1192,20 +1192,25 @@
 
       // Lógica de Contador de Visitas (CounterAPI.dev para persistencia)
       async function updateVisitCounter() {
-        // Namespace: luquita_pro, Key: visits
-        const url = 'https://api.counterapi.dev/v1/luquita_pro/visits/up';
+        // Usamos un nuevo namespace por límites de la API y sumamos las visitas históricas
+        const url = 'https://api.counterapi.dev/v1/luquita_pro_v2/visits/up';
+        const baseVisits = 411; // Histórico de visitas antes de la migración
         
         try {
           const res = await fetch(url);
           if (res.ok) {
             const data = await res.json();
             if (data && data.count) {
-              document.getElementById('visitCountValue').textContent = data.count.toLocaleString();
+              document.getElementById('visitCountValue').textContent = (baseVisits + data.count).toLocaleString();
             }
+          } else {
+            // Si la API alcanza su límite, mostramos un aproximado
+            document.getElementById('visitCountValue').textContent = baseVisits + "+";
           }
         } catch (e) {
           console.error("Error actualizando visitas:", e);
-          document.getElementById('visitCounter').style.display = 'none';
+          // En lugar de ocultarlo, mostramos el histórico para que siempre esté visible
+          document.getElementById('visitCountValue').textContent = baseVisits + "+";
         }
       }
 
