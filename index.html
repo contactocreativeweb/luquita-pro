@@ -1152,53 +1152,60 @@
           return;
         }
 
-        let base_ves = 0;
+        let base_usd = 0;
+        let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
 
-        // 1. Convert source to Base (VES)
+        // 1. Convert source to Base (USD equivalent)
         switch (source) {
-          case 'usd': base_ves = amount * rates.usd; break;
-          case 'bs_usd': base_ves = amount; break;
-          case 'eur': base_ves = amount * rates.eur; break;
-          case 'bs_eur': base_ves = amount; break;
-          case 'usdt': base_ves = amount * rates.usdt; break;
-          case 'bs_usdt': base_ves = amount; break;
-          case 'manual': base_ves = amount * (rates.manual > 0 ? rates.manual : (rates.usdt - 20)); break;
-          case 'bs_manual': base_ves = amount; break;
+          case 'usd': base_usd = amount; break;
+          case 'bs_usd': base_usd = amount / rates.usd; break;
+          case 'eur': base_usd = amount * (rates.eur / rates.usd); break;
+          case 'bs_eur': base_usd = amount / rates.usd; break;
+          case 'usdt': base_usd = amount * (rates.usdt / rates.usd); break;
+          case 'bs_usdt': base_usd = amount / rates.usd; break;
+          case 'manual': base_usd = amount; break;
+          case 'bs_manual': base_usd = amount / manual_rate; break;
         }
 
         // 2. Update all other fields
-        updateAllFields(base_ves, source);
+        updateAllFields(base_usd, source);
 
         // 3. Update Summary
-        updateSummary(base_ves);
+        updateSummary(base_usd);
       }
 
-      function updateAllFields(base_ves, skip) {
+      function updateAllFields(base_usd, skip) {
+        let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
+
         const vals = {
-          usd: (base_ves / rates.usd).toFixed(2),
-          eur: (base_ves / rates.eur).toFixed(2),
-          usdt: (base_ves / rates.usdt).toFixed(2),
-          manual: rates.manual > 0 ? (base_ves / rates.manual).toFixed(2) : (base_ves / (rates.usdt - 20)).toFixed(2),
-          bs: base_ves.toFixed(2)
+          usd_amt: base_usd.toFixed(2),
+          usd_bs: (base_usd * rates.usd).toFixed(2),
+          eur_amt: (base_usd * (rates.usd / rates.eur)).toFixed(2),
+          eur_bs: (base_usd * rates.usd).toFixed(2),
+          usdt_amt: (base_usd * (rates.usd / rates.usdt)).toFixed(2),
+          usdt_bs: (base_usd * rates.usd).toFixed(2),
+          manual_amt: base_usd.toFixed(2),
+          manual_bs: (base_usd * manual_rate).toFixed(2)
         };
 
-        if (skip !== 'usd') els.usd.value = vals.usd;
-        if (skip !== 'bs_usd') els.bs_usd.value = vals.bs;
+        if (skip !== 'usd') els.usd.value = vals.usd_amt;
+        if (skip !== 'bs_usd') els.bs_usd.value = vals.usd_bs;
 
-        if (skip !== 'eur') els.eur.value = vals.eur;
-        if (skip !== 'bs_eur') els.bs_eur.value = vals.bs;
+        if (skip !== 'eur') els.eur.value = vals.eur_amt;
+        if (skip !== 'bs_eur') els.bs_eur.value = vals.eur_bs;
 
-        if (skip !== 'usdt') els.usdt.value = vals.usdt;
-        if (skip !== 'bs_usdt') els.bs_usdt.value = vals.bs;
+        if (skip !== 'usdt') els.usdt.value = vals.usdt_amt;
+        if (skip !== 'bs_usdt') els.bs_usdt.value = vals.usdt_bs;
         
-        if (skip !== 'manual') els.manual.value = vals.manual;
-        if (skip !== 'bs_manual') els.bs_manual.value = vals.bs;
+        if (skip !== 'manual') els.manual.value = vals.manual_amt;
+        if (skip !== 'bs_manual') els.bs_manual.value = vals.manual_bs;
       }
 
-      function updateSummary(base_ves) {
-        els.sum_usd.textContent = (base_ves / rates.usd).toFixed(2);
-        els.sum_eur.textContent = (base_ves / rates.eur).toFixed(2);
-        els.sum_usdt.textContent = (base_ves / rates.usdt).toFixed(2);
+      function updateSummary(base_usd) {
+        let base_ves = base_usd * rates.usd;
+        els.sum_usd.textContent = base_usd.toFixed(2);
+        els.sum_eur.textContent = (base_usd * (rates.usd / rates.eur)).toFixed(2);
+        els.sum_usdt.textContent = (base_usd * (rates.usd / rates.usdt)).toFixed(2);
         els.sum_ves.textContent = base_ves.toLocaleString('es-VE', { minimumFractionDigits: 2 });
       }
 
