@@ -1174,17 +1174,25 @@
         let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
 
         if (source === 'manual' || source === 'bs_manual') {
-          // --- MODO MANUAL: cada módulo aplica SU PROPIA tasa al mismo monto ---
+          // --- MODO MANUAL ---
+          // base_amount = cantidad de unidades ingresadas
           let base_amount = (source === 'manual') ? amount : (amount / manual_rate);
+          let bs_manual   = base_amount * manual_rate;
 
-          if (source !== 'usd')      els.usd.value      = base_amount.toFixed(2);
-          if (source !== 'bs_usd')   els.bs_usd.value   = (base_amount * rates.usd).toFixed(2);
-          if (source !== 'eur')      els.eur.value      = base_amount.toFixed(2);
-          if (source !== 'bs_eur')   els.bs_eur.value   = (base_amount * rates.eur).toFixed(2);
-          if (source !== 'usdt')     els.usdt.value     = base_amount.toFixed(2);
-          if (source !== 'bs_usdt')  els.bs_usdt.value  = (base_amount * rates.usdt).toFixed(2);
-          if (source !== 'manual')   els.manual.value   = base_amount.toFixed(2);
-          if (source !== 'bs_manual') els.bs_manual.value = (base_amount * manual_rate).toFixed(2);
+          // Cada módulo muestra cuántas unidades PROPIAS equivalen a los bs_manual
+          // así 517 USD ≠ 443 EUR ≠ 386 USDT
+          let usd_equiv  = bs_manual / rates.usd;
+          let eur_equiv  = bs_manual / rates.eur;
+          let usdt_equiv = bs_manual / rates.usdt;
+
+          if (source !== 'usd')       els.usd.value       = usd_equiv.toFixed(2);
+          if (source !== 'bs_usd')    els.bs_usd.value    = bs_manual.toFixed(2);
+          if (source !== 'eur')       els.eur.value       = eur_equiv.toFixed(2);
+          if (source !== 'bs_eur')    els.bs_eur.value    = bs_manual.toFixed(2);
+          if (source !== 'usdt')      els.usdt.value      = usdt_equiv.toFixed(2);
+          if (source !== 'bs_usdt')   els.bs_usdt.value   = bs_manual.toFixed(2);
+          if (source !== 'manual')    els.manual.value    = base_amount.toFixed(2);
+          if (source !== 'bs_manual') els.bs_manual.value = bs_manual.toFixed(2);
 
           updateSummary(base_amount, manual_rate, 'manual');
         } else {
