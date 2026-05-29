@@ -731,6 +731,50 @@
     </div>
 
     <div class="converter-grid">
+      <!-- USD CARD -->
+      <div class="card card-usd">
+        <div class="card-sidebar">
+          <span class="suggestion-label">Sugeridos</span>
+          <button class="btn-suggest" onclick="suggest('usd', 10)">10</button>
+          <button class="btn-suggest" onclick="suggest('usd', 20)">20</button>
+          <button class="btn-suggest" onclick="suggest('usd', 30)">30</button>
+          <button class="btn-suggest" onclick="suggest('usd', 40)">40</button>
+          <button class="btn-suggest" onclick="suggest('usd', 50)">50</button>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="currency-icon">$</div>
+            <div class="card-title">Dólar BCV</div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Dólares</label>
+            <div class="input-wrapper">
+              <input type="number" id="usd_val" step="any" placeholder="0.00" oninput="handleInput('usd', this.value)">
+              <span class="currency-tag">USD</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Bolívares</label>
+            <div class="input-wrapper">
+              <input type="number" id="bs_usd_val" step="any" placeholder="0.00"
+                oninput="handleInput('bs_usd', this.value)">
+              <span class="currency-tag">VES</span>
+            </div>
+          </div>
+
+          <div class="rate-info">
+            <span>Tasa Oficial</span>
+            <span class="rate-value" id="rate_usd_display">--.-- Bs</span>
+          </div>
+          <div class="rate-info" id="diff_usd_row" style="display:none;">
+            <span>Diferencia</span>
+            <span class="rate-value" id="diff_usd_display">-- Bs</span>
+          </div>
+        </div>
+      </div>
+
       <!-- MANUAL CARD -->
       <div class="card card-manual">
         <div class="card-sidebar">
@@ -775,50 +819,6 @@
           <div class="rate-info">
             <span>Tasa USDT</span>
             <span class="rate-value" id="rate_manual_ref_display">--.-- Bs</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- USD CARD -->
-      <div class="card card-usd">
-        <div class="card-sidebar">
-          <span class="suggestion-label">Sugeridos</span>
-          <button class="btn-suggest" onclick="suggest('usd', 10)">10</button>
-          <button class="btn-suggest" onclick="suggest('usd', 20)">20</button>
-          <button class="btn-suggest" onclick="suggest('usd', 30)">30</button>
-          <button class="btn-suggest" onclick="suggest('usd', 40)">40</button>
-          <button class="btn-suggest" onclick="suggest('usd', 50)">50</button>
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <div class="currency-icon">$</div>
-            <div class="card-title">Dólar BCV</div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Dólares</label>
-            <div class="input-wrapper">
-              <input type="number" id="usd_val" step="any" placeholder="0.00" oninput="handleInput('usd', this.value)">
-              <span class="currency-tag">USD</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Bolívares</label>
-            <div class="input-wrapper">
-              <input type="number" id="bs_usd_val" step="any" placeholder="0.00"
-                oninput="handleInput('bs_usd', this.value)">
-              <span class="currency-tag">VES</span>
-            </div>
-          </div>
-
-          <div class="rate-info">
-            <span>Tasa Oficial</span>
-            <span class="rate-value" id="rate_usd_display">--.-- Bs</span>
-          </div>
-          <div class="rate-info" id="diff_usd_row" style="display:none;">
-            <span>Diferencia</span>
-            <span class="rate-value" id="diff_usd_display">-- Bs</span>
           </div>
         </div>
       </div>
