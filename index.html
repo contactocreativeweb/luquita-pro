@@ -1166,80 +1166,84 @@
         const amount = parseFloat(val);
         if (isNaN(amount) || amount === 0) {
           clearAllExcept(source);
-          updateSummary(0);
+          hideDifferences();
+          updateSummary(0, 0, null);
           return;
         }
 
-        let base_usd = 0;
         let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
 
-        // 1. Convert source to Base (USD equivalent)
-        switch (source) {
-          case 'usd': base_usd = amount; break;
-          case 'bs_usd': base_usd = amount / rates.usd; break;
-          case 'eur': base_usd = amount * (rates.eur / rates.usd); break;
-          case 'bs_eur': base_usd = amount / rates.usd; break;
-          case 'usdt': base_usd = amount * (rates.usdt / rates.usd); break;
-          case 'bs_usdt': base_usd = amount / rates.usd; break;
-          case 'manual': base_usd = amount; break;
-          case 'bs_manual': base_usd = amount / manual_rate; break;
+        if (source === 'manual' || source === 'bs_manual') {
+          // --- MODO MANUAL: cada módulo aplica SU PROPIA tasa al mismo monto ---
+          let base_amount = (source === 'manual') ? amount : (amount / manual_rate);
+
+          if (source !== 'usd')      els.usd.value      = base_amount.toFixed(2);
+          if (source !== 'bs_usd')   els.bs_usd.value   = (base_amount * rates.usd).toFixed(2);
+          if (source !== 'eur')      els.eur.value      = base_amount.toFixed(2);
+          if (source !== 'bs_eur')   els.bs_eur.value   = (base_amount * rates.eur).toFixed(2);
+          if (source !== 'usdt')     els.usdt.value     = base_amount.toFixed(2);
+          if (source !== 'bs_usdt')  els.bs_usdt.value  = (base_amount * rates.usdt).toFixed(2);
+          if (source !== 'manual')   els.manual.value   = base_amount.toFixed(2);
+          if (source !== 'bs_manual') els.bs_manual.value = (base_amount * manual_rate).toFixed(2);
+
+          updateSummary(base_amount, manual_rate, 'manual');
+        } else {
+          // --- MODO NORMAL: convertir via USD como base ---
+          let base_usd = 0;
+          switch (source) {
+            case 'usd':     base_usd = amount; break;
+            case 'bs_usd':  base_usd = amount / rates.usd; break;
+            case 'eur':     base_usd = amount * (rates.eur / rates.usd); break;
+            case 'bs_eur':  base_usd = amount / rates.usd; break;
+            case 'usdt':    base_usd = amount * (rates.usdt / rates.usd); break;
+            case 'bs_usdt': base_usd = amount / rates.usd; break;
+          }
+
+          if (source !== 'usd')      els.usd.value      = base_usd.toFixed(2);
+          if (source !== 'bs_usd')   els.bs_usd.value   = (base_usd * rates.usd).toFixed(2);
+
+          const eur_amt = base_usd * (rates.usd / rates.eur);
+          if (source !== 'eur')      els.eur.value      = eur_amt.toFixed(2);
+          if (source !== 'bs_eur')   els.bs_eur.value   = (eur_amt * rates.eur).toFixed(2);
+
+          const usdt_amt = base_usd * (rates.usd / rates.usdt);
+          if (source !== 'usdt')     els.usdt.value     = usdt_amt.toFixed(2);
+          if (source !== 'bs_usdt')  els.bs_usdt.value  = (usdt_amt * rates.usdt).toFixed(2);
+
+          if (source !== 'manual')   els.manual.value   = base_usd.toFixed(2);
+          if (source !== 'bs_manual') els.bs_manual.value = (base_usd * manual_rate).toFixed(2);
+
+          updateSummary(base_usd, manual_rate, 'usd');
         }
-
-        // 2. Update all other fields
-        updateAllFields(base_usd, source);
-
-        // 3. Update Summary
-        updateSummary(base_usd);
       }
 
-      function updateAllFields(base_usd, skip) {
-        let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
-
-        const vals = {
-          usd_amt: base_usd.toFixed(2),
-          usd_bs: (base_usd * rates.usd).toFixed(2),
-          eur_amt: (base_usd * (rates.usd / rates.eur)).toFixed(2),
-          eur_bs: (base_usd * rates.usd).toFixed(2),
-          usdt_amt: (base_usd * (rates.usd / rates.usdt)).toFixed(2),
-          usdt_bs: (base_usd * rates.usd).toFixed(2),
-          manual_amt: base_usd.toFixed(2),
-          manual_bs: (base_usd * manual_rate).toFixed(2)
-        };
-
-        if (skip !== 'usd') els.usd.value = vals.usd_amt;
-        if (skip !== 'bs_usd') els.bs_usd.value = vals.usd_bs;
-
-        if (skip !== 'eur') els.eur.value = vals.eur_amt;
-        if (skip !== 'bs_eur') els.bs_eur.value = vals.eur_bs;
-
-        if (skip !== 'usdt') els.usdt.value = vals.usdt_amt;
-        if (skip !== 'bs_usdt') els.bs_usdt.value = vals.usdt_bs;
-        
-        if (skip !== 'manual') els.manual.value = vals.manual_amt;
-        if (skip !== 'bs_manual') els.bs_manual.value = vals.manual_bs;
-      }
-
-      function updateSummary(base_usd) {
-        let base_ves = base_usd * rates.usd;
-        els.sum_usd.textContent = base_usd.toFixed(2);
-        els.sum_eur.textContent = (base_usd * (rates.usd / rates.eur)).toFixed(2);
-        els.sum_usdt.textContent = (base_usd * (rates.usd / rates.usdt)).toFixed(2);
-        els.sum_ves.textContent = base_ves.toLocaleString('es-VE', { minimumFractionDigits: 2 });
-        updateDifferences(base_usd);
-      }
-
-      function updateDifferences(base_usd) {
-        if (base_usd === 0) {
-          els.diff_usd_row.style.display = 'none';
-          els.diff_eur_row.style.display = 'none';
-          els.diff_usdt_row.style.display = 'none';
-          return;
+      function updateSummary(base_amount, manual_rate, mode) {
+        if (mode === 'manual') {
+          let bs_manual = base_amount * manual_rate;
+          els.sum_usd.textContent  = base_amount.toFixed(2);
+          els.sum_eur.textContent  = base_amount.toFixed(2);
+          els.sum_usdt.textContent = base_amount.toFixed(2);
+          els.sum_ves.textContent  = bs_manual.toLocaleString('es-VE', { minimumFractionDigits: 2 });
+          updateDifferences(base_amount, manual_rate);
+        } else {
+          // base_amount here is base_usd
+          let base_usd = base_amount;
+          let bs_usd   = base_usd * rates.usd;
+          els.sum_usd.textContent  = base_usd.toFixed(2);
+          els.sum_eur.textContent  = (base_usd * (rates.usd / rates.eur)).toFixed(2);
+          els.sum_usdt.textContent = (base_usd * (rates.usd / rates.usdt)).toFixed(2);
+          els.sum_ves.textContent  = bs_usd.toLocaleString('es-VE', { minimumFractionDigits: 2 });
+          // Diferencia desde módulos oficiales: compara Bs manual vs Bs usd (misma base)
+          let bs_manual = base_usd * manual_rate;
+          updateDifferencesSimple(bs_manual - bs_usd);
         }
-        let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
-        let bs_manual = base_usd * manual_rate;
-        let bs_usd    = base_usd * rates.usd;
-        let bs_eur    = base_usd * rates.usd; // same base Bs
-        let bs_usdt   = base_usd * rates.usd;
+      }
+
+      function updateDifferences(base_amount, manual_rate) {
+        let bs_manual = base_amount * manual_rate;
+        let bs_usd    = base_amount * rates.usd;
+        let bs_eur    = base_amount * rates.eur;
+        let bs_usdt   = base_amount * rates.usdt;
 
         function applyDiff(rowEl, spanEl, diff) {
           rowEl.style.display = 'flex';
@@ -1251,6 +1255,24 @@
         applyDiff(els.diff_usd_row,  els.diff_usd,  bs_manual - bs_usd);
         applyDiff(els.diff_eur_row,  els.diff_eur,  bs_manual - bs_eur);
         applyDiff(els.diff_usdt_row, els.diff_usdt, bs_manual - bs_usdt);
+      }
+
+      function updateDifferencesSimple(diff) {
+        function applyDiff(rowEl, spanEl, d) {
+          rowEl.style.display = 'flex';
+          const sign = d >= 0 ? '+' : '';
+          spanEl.textContent = sign + d.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
+          spanEl.style.color = d >= 0 ? '#4ade80' : '#f87171';
+        }
+        applyDiff(els.diff_usd_row,  els.diff_usd,  diff);
+        applyDiff(els.diff_eur_row,  els.diff_eur,  diff);
+        applyDiff(els.diff_usdt_row, els.diff_usdt, diff);
+      }
+
+      function hideDifferences() {
+        els.diff_usd_row.style.display  = 'none';
+        els.diff_eur_row.style.display  = 'none';
+        els.diff_usdt_row.style.display = 'none';
       }
 
       function clearAllExcept(skip) {
