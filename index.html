@@ -148,6 +148,14 @@
         font-weight: 600 !important;
       }
 
+      /* Colores de diferencia más acentuados para modo claro */
+      body.light-mode #diff_usd_display,
+      body.light-mode #diff_eur_display,
+      body.light-mode #diff_usdt_display {
+        font-weight: 800 !important;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -1286,7 +1294,13 @@
           rowEl.style.display = 'flex';
           const sign = diff >= 0 ? '+' : '';
           spanEl.textContent = sign + diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
-          spanEl.style.color = diff >= 0 ? '#4ade80' : '#f87171';
+          
+          const isLight = document.body.classList.contains('light-mode');
+          if (diff >= 0) {
+            spanEl.style.color = isLight ? '#15803d' : '#4ade80'; // Verde oscuro en modo claro / Verde brillante en oscuro
+          } else {
+            spanEl.style.color = isLight ? '#b91c1c' : '#f87171'; // Rojo oscuro en modo claro / Rojo brillante en oscuro
+          }
 
           // El monto equivalente correspondiente a esta moneda en particular
           let card_base_amount = bs_manual / rate;
@@ -1317,7 +1331,13 @@
           rowEl.style.display = 'flex';
           const sign = d >= 0 ? '+' : '';
           spanEl.textContent = sign + d.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
-          spanEl.style.color = d >= 0 ? '#4ade80' : '#f87171';
+          
+          const isLight = document.body.classList.contains('light-mode');
+          if (d >= 0) {
+            spanEl.style.color = isLight ? '#15803d' : '#4ade80';
+          } else {
+            spanEl.style.color = isLight ? '#b91c1c' : '#f87171';
+          }
         }
         applyDiff(els.diff_usd_row,  els.diff_usd,  diff);
         applyDiff(els.diff_eur_row,  els.diff_eur,  diff);
