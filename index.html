@@ -1040,11 +1040,10 @@
         }
       }
 
-      // Inicializar tema al cargar
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-        document.getElementById('themeIcon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-      }
+      // Inicializar tema al cargar: siempre iniciar desde modo claro
+      document.body.classList.add('light-mode');
+      document.getElementById('themeIcon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      localStorage.setItem('theme', 'light');
 
       let rates = {
         usd: 36.50,
