@@ -138,6 +138,16 @@
         color: #64748b !important;
       }
 
+      body.light-mode #diff_usd_eq,
+      body.light-mode #diff_usd_bcv,
+      body.light-mode #diff_eur_eq,
+      body.light-mode #diff_eur_bcv,
+      body.light-mode #diff_usdt_eq,
+      body.light-mode #diff_usdt_bcv {
+        color: #000000 !important;
+        font-weight: 600 !important;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -1281,11 +1291,13 @@
           // Calcular la diferencia en la divisa correspondiente
           let diff_currency = diff / rate;
           const currencySign = diff_currency >= 0 ? '+' : '';
-          eqSpanEl.textContent = `${currencySign}${diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol}`;
+          eqSpanEl.textContent = `(${base_amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})${currencySign}${diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol}`;
 
           // Calcular el total BCV: monto a cambiar * tasa oficial
           let total_bcv = base_amount * rate;
-          bcvSpanEl.textContent = `| BCV: ${total_bcv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
+          // Calcular a cuántos dólares representa ese total de Bolívares oficiales
+          let total_bcv_in_currency = total_bcv / rate; // Obviamente es base_amount, pero lo mantendremos explícito.
+          bcvSpanEl.textContent = `| BCV: ${total_bcv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${total_bcv_in_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
         }
 
         let diff_usd  = bs_manual - (base_amount * rates.usd);
