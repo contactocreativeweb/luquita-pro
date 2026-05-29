@@ -816,6 +816,10 @@
             <span>Tasa Oficial</span>
             <span class="rate-value" id="rate_usd_display">--.-- Bs</span>
           </div>
+          <div class="rate-info" id="diff_usd_row" style="display:none;">
+            <span>Diferencia</span>
+            <span class="rate-value" id="diff_usd_display">-- Bs</span>
+          </div>
         </div>
       </div>
 
@@ -855,6 +859,10 @@
           <div class="rate-info">
             <span>Tasa Oficial</span>
             <span class="rate-value" id="rate_eur_display">--.-- Bs</span>
+          </div>
+          <div class="rate-info" id="diff_eur_row" style="display:none;">
+            <span>Diferencia</span>
+            <span class="rate-value" id="diff_eur_display">-- Bs</span>
           </div>
         </div>
       </div>
@@ -896,6 +904,10 @@
           <div class="rate-info">
             <span>Tasa USDT</span>
             <span class="rate-value" id="rate_usdt_display">--.-- Bs</span>
+          </div>
+          <div class="rate-info" id="diff_usdt_row" style="display:none;">
+            <span>Diferencia</span>
+            <span class="rate-value" id="diff_usdt_display">-- Bs</span>
           </div>
         </div>
       </div>
@@ -1043,7 +1055,13 @@
         sum_ves: document.getElementById('sum_ves'),
         manual: document.getElementById('manual_val'),
         bs_manual: document.getElementById('bs_manual_val'),
-        rate_manual_ref: document.getElementById('rate_manual_ref_display')
+        rate_manual_ref: document.getElementById('rate_manual_ref_display'),
+        diff_usd: document.getElementById('diff_usd_display'),
+        diff_usd_row: document.getElementById('diff_usd_row'),
+        diff_eur: document.getElementById('diff_eur_display'),
+        diff_eur_row: document.getElementById('diff_eur_row'),
+        diff_usdt: document.getElementById('diff_usdt_display'),
+        diff_usdt_row: document.getElementById('diff_usdt_row')
       };
 
       // Fetch Rates
@@ -1207,6 +1225,32 @@
         els.sum_eur.textContent = (base_usd * (rates.usd / rates.eur)).toFixed(2);
         els.sum_usdt.textContent = (base_usd * (rates.usd / rates.usdt)).toFixed(2);
         els.sum_ves.textContent = base_ves.toLocaleString('es-VE', { minimumFractionDigits: 2 });
+        updateDifferences(base_usd);
+      }
+
+      function updateDifferences(base_usd) {
+        if (base_usd === 0) {
+          els.diff_usd_row.style.display = 'none';
+          els.diff_eur_row.style.display = 'none';
+          els.diff_usdt_row.style.display = 'none';
+          return;
+        }
+        let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
+        let bs_manual = base_usd * manual_rate;
+        let bs_usd    = base_usd * rates.usd;
+        let bs_eur    = base_usd * rates.usd; // same base Bs
+        let bs_usdt   = base_usd * rates.usd;
+
+        function applyDiff(rowEl, spanEl, diff) {
+          rowEl.style.display = 'flex';
+          const sign = diff >= 0 ? '+' : '';
+          spanEl.textContent = sign + diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
+          spanEl.style.color = diff >= 0 ? '#4ade80' : '#f87171';
+        }
+
+        applyDiff(els.diff_usd_row,  els.diff_usd,  bs_manual - bs_usd);
+        applyDiff(els.diff_eur_row,  els.diff_eur,  bs_manual - bs_eur);
+        applyDiff(els.diff_usdt_row, els.diff_usdt, bs_manual - bs_usdt);
       }
 
       function clearAllExcept(skip) {
