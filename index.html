@@ -776,8 +776,9 @@
               <span>Diferencia</span>
               <span class="rate-value" id="diff_usd_display">-- Bs</span>
             </div>
-            <div style="display: flex; justify-content: flex-end; width: 100%;">
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
               <span id="diff_usd_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
+              <span id="diff_usd_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
             </div>
           </div>
         </div>
@@ -873,8 +874,9 @@
               <span>Diferencia</span>
               <span class="rate-value" id="diff_eur_display">-- Bs</span>
             </div>
-            <div style="display: flex; justify-content: flex-end; width: 100%;">
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
               <span id="diff_eur_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
+              <span id="diff_eur_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
             </div>
           </div>
         </div>
@@ -923,8 +925,9 @@
               <span>Diferencia</span>
               <span class="rate-value" id="diff_usdt_display">-- Bs</span>
             </div>
-            <div style="display: flex; justify-content: flex-end; width: 100%;">
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
               <span id="diff_usdt_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
+              <span id="diff_usdt_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
             </div>
           </div>
         </div>
@@ -1077,12 +1080,15 @@
         diff_usd: document.getElementById('diff_usd_display'),
         diff_usd_row: document.getElementById('diff_usd_row'),
         diff_usd_eq: document.getElementById('diff_usd_eq'),
+        diff_usd_bcv: document.getElementById('diff_usd_bcv'),
         diff_eur: document.getElementById('diff_eur_display'),
         diff_eur_row: document.getElementById('diff_eur_row'),
         diff_eur_eq: document.getElementById('diff_eur_eq'),
+        diff_eur_bcv: document.getElementById('diff_eur_bcv'),
         diff_usdt: document.getElementById('diff_usdt_display'),
         diff_usdt_row: document.getElementById('diff_usdt_row'),
-        diff_usdt_eq: document.getElementById('diff_usdt_eq')
+        diff_usdt_eq: document.getElementById('diff_usdt_eq'),
+        diff_usdt_bcv: document.getElementById('diff_usdt_bcv')
       };
 
       // Fetch Rates
@@ -1267,7 +1273,7 @@
       function updateDifferences(base_amount, manual_rate) {
         let bs_manual  = base_amount * manual_rate;
 
-        function applyDiff(rowEl, spanEl, eqSpanEl, diff, rate, symbol) {
+        function applyDiff(rowEl, spanEl, eqSpanEl, bcvSpanEl, diff, rate, symbol) {
           rowEl.style.display = 'flex';
           const sign = diff >= 0 ? '+' : '';
           spanEl.textContent = sign + diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
@@ -1277,15 +1283,19 @@
           let diff_currency = diff / rate;
           const currencySign = diff_currency >= 0 ? '+' : '';
           eqSpanEl.textContent = `${currencySign}${diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol}`;
+
+          // Calcular el total BCV: monto a cambiar * tasa oficial
+          let total_bcv = base_amount * rate;
+          bcvSpanEl.textContent = `| BCV: ${total_bcv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
         }
 
         let diff_usd  = bs_manual - (base_amount * rates.usd);
         let diff_eur  = bs_manual - (base_amount * rates.eur);
         let diff_usdt = bs_manual - (base_amount * rates.usdt);
 
-        applyDiff(els.diff_usd_row,  els.diff_usd,  els.diff_usd_eq,  diff_usd,  rates.usd,  'USD');
-        applyDiff(els.diff_eur_row,  els.diff_eur,  els.diff_eur_eq,  diff_eur,  rates.eur,  'EUR');
-        applyDiff(els.diff_usdt_row, els.diff_usdt, els.diff_usdt_eq, diff_usdt, rates.usdt, 'USDT');
+        applyDiff(els.diff_usd_row,  els.diff_usd,  els.diff_usd_eq,  els.diff_usd_bcv,  diff_usd,  rates.usd,  'USD');
+        applyDiff(els.diff_eur_row,  els.diff_eur,  els.diff_eur_eq,  els.diff_eur_bcv,  diff_eur,  rates.eur,  'EUR');
+        applyDiff(els.diff_usdt_row, els.diff_usdt, els.diff_usdt_eq, els.diff_usdt_bcv, diff_usdt, rates.usdt, 'USDT');
       }
 
       function updateDifferencesSimple(diff) {
