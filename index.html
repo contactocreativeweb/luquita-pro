@@ -1162,7 +1162,7 @@
           case 'bs_eur': base_ves = amount; break;
           case 'usdt': base_ves = amount * rates.usdt; break;
           case 'bs_usdt': base_ves = amount; break;
-          case 'manual': base_ves = amount * rates.manual; break;
+          case 'manual': base_ves = amount * (rates.manual > 0 ? rates.manual : (rates.usdt - 20)); break;
           case 'bs_manual': base_ves = amount; break;
         }
 
@@ -1178,7 +1178,7 @@
           usd: (base_ves / rates.usd).toFixed(2),
           eur: (base_ves / rates.eur).toFixed(2),
           usdt: (base_ves / rates.usdt).toFixed(2),
-          manual: rates.manual > 0 ? (base_ves / rates.manual).toFixed(2) : "0.00",
+          manual: rates.manual > 0 ? (base_ves / rates.manual).toFixed(2) : (base_ves / (rates.usdt - 20)).toFixed(2),
           bs: base_ves.toFixed(2)
         };
 
