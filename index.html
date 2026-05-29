@@ -848,6 +848,47 @@
           <div class="rate-info">
             <span>Tasa USDT</span>
             <span class="rate-value" id="rate_usdt_display">--.-- Bs</span>
+      </div>
+
+      <!-- MANUAL CARD -->
+      <div class="card card-manual">
+        <div class="card-sidebar">
+          <span class="suggestion-label">Sugeridos</span>
+          <button class="btn-suggest" onclick="suggest('manual', 10)">10</button>
+          <button class="btn-suggest" onclick="suggest('manual', 20)">20</button>
+          <button class="btn-suggest" onclick="suggest('manual', 30)">30</button>
+          <button class="btn-suggest" onclick="suggest('manual', 40)">40</button>
+          <button class="btn-suggest" onclick="suggest('manual', 50)">50</button>
+        </div>
+        <div class="card-content">
+          <div class="card-header">
+            <div class="currency-icon" style="color: #a855f7; background: rgba(168, 85, 247, 0.1);">✍️</div>
+            <div class="card-title">Cambio Manual</div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Tasa Manual</label>
+            <div class="input-wrapper">
+              <input type="number" id="rate_manual_val" step="any" placeholder="0.00" oninput="updateManualRate()">
+              <span class="currency-tag">Bs</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto a cambiar</label>
+            <div class="input-wrapper">
+              <input type="number" id="manual_val" step="any" placeholder="0.00" oninput="handleInput('manual', this.value)">
+              <span class="currency-tag">#</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Monto en Bolívares</label>
+            <div class="input-wrapper">
+              <input type="number" id="bs_manual_val" step="any" placeholder="0.00"
+                oninput="handleInput('bs_manual', this.value)">
+              <span class="currency-tag">VES</span>
+            </div>
           </div>
         </div>
       </div>
@@ -966,7 +1007,8 @@
       let rates = {
         usd: 36.50,
         eur: 39.20,
-        usdt: 36.40
+        usdt: 36.40,
+        manual: 0
       };
 
       // Usaremos DolarApi.com por su alta disponibilidad y soporte CORS
@@ -989,7 +1031,9 @@
         sum_usd: document.getElementById('sum_usd'),
         sum_eur: document.getElementById('sum_eur'),
         sum_usdt: document.getElementById('sum_usdt'),
-        sum_ves: document.getElementById('sum_ves')
+        sum_ves: document.getElementById('sum_ves'),
+        manual: document.getElementById('manual_val'),
+        bs_manual: document.getElementById('bs_manual_val')
       };
 
       // Fetch Rates
@@ -1107,6 +1151,8 @@
           case 'bs_eur': base_ves = amount; break;
           case 'usdt': base_ves = amount * rates.usdt; break;
           case 'bs_usdt': base_ves = amount; break;
+          case 'manual': base_ves = amount * rates.manual; break;
+          case 'bs_manual': base_ves = amount; break;
         }
 
         // 2. Update all other fields
@@ -1121,6 +1167,7 @@
           usd: (base_ves / rates.usd).toFixed(2),
           eur: (base_ves / rates.eur).toFixed(2),
           usdt: (base_ves / rates.usdt).toFixed(2),
+          manual: rates.manual > 0 ? (base_ves / rates.manual).toFixed(2) : "0.00",
           bs: base_ves.toFixed(2)
         };
 
@@ -1132,6 +1179,9 @@
 
         if (skip !== 'usdt') els.usdt.value = vals.usdt;
         if (skip !== 'bs_usdt') els.bs_usdt.value = vals.bs;
+        
+        if (skip !== 'manual') els.manual.value = vals.manual;
+        if (skip !== 'bs_manual') els.bs_manual.value = vals.bs;
       }
 
       function updateSummary(base_ves) {
@@ -1142,9 +1192,9 @@
       }
 
       function clearAllExcept(skip) {
-        const all = ['usd', 'bs_usd', 'eur', 'bs_eur', 'usdt', 'bs_usdt'];
+        const all = ['usd', 'bs_usd', 'eur', 'bs_eur', 'usdt', 'bs_usdt', 'manual', 'bs_manual'];
         all.forEach(key => {
-          if (key !== skip) els[key].value = "";
+          if (key !== skip && els[key]) els[key].value = "";
         });
 
         els.sum_usd.textContent = "0.00";
@@ -1157,6 +1207,19 @@
         const inputId = currency + "_val";
         document.getElementById(inputId).value = val;
         handleInput(currency, val);
+      }
+
+      function updateManualRate() {
+        rates.manual = parseFloat(document.getElementById('rate_manual_val').value) || 0;
+        const manualVal = document.getElementById('manual_val').value;
+        if (manualVal) {
+          handleInput('manual', manualVal);
+        } else {
+          const bsManualVal = document.getElementById('bs_manual_val').value;
+          if (bsManualVal) {
+             handleInput('bs_manual', bsManualVal);
+          }
+        }
       }
 
       async function shareApp() {
