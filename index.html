@@ -1207,20 +1207,19 @@
             case 'bs_usdt': base_usd = amount / rates.usd; break;
           }
 
-          if (source !== 'usd')      els.usd.value      = base_usd.toFixed(2);
-          if (source !== 'bs_usd')   els.bs_usd.value   = (base_usd * rates.usd).toFixed(2);
+          if (source !== 'usd')     els.usd.value     = base_usd.toFixed(2);
+          if (source !== 'bs_usd')  els.bs_usd.value  = (base_usd * rates.usd).toFixed(2);
 
           const eur_amt = base_usd * (rates.usd / rates.eur);
-          if (source !== 'eur')      els.eur.value      = eur_amt.toFixed(2);
-          if (source !== 'bs_eur')   els.bs_eur.value   = (eur_amt * rates.eur).toFixed(2);
+          if (source !== 'eur')     els.eur.value     = eur_amt.toFixed(2);
+          if (source !== 'bs_eur') els.bs_eur.value   = (eur_amt * rates.eur).toFixed(2);
 
           const usdt_amt = base_usd * (rates.usd / rates.usdt);
-          if (source !== 'usdt')     els.usdt.value     = usdt_amt.toFixed(2);
-          if (source !== 'bs_usdt')  els.bs_usdt.value  = (usdt_amt * rates.usdt).toFixed(2);
+          if (source !== 'usdt')    els.usdt.value    = usdt_amt.toFixed(2);
+          if (source !== 'bs_usdt') els.bs_usdt.value = (usdt_amt * rates.usdt).toFixed(2);
 
-          if (source !== 'manual')   els.manual.value   = base_usd.toFixed(2);
-          if (source !== 'bs_manual') els.bs_manual.value = (base_usd * manual_rate).toFixed(2);
-
+          // No se propaga al manual — el manual es independiente
+          hideDifferences();
           updateSummary(base_usd, manual_rate, 'usd');
         }
       }
