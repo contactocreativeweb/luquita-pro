@@ -773,7 +773,7 @@
           </div>
 
           <div class="rate-info">
-            <span>Ref. USDT (-20 Bs)</span>
+            <span>Tasa USDT</span>
             <span class="rate-value" id="rate_manual_ref_display">--.-- Bs</span>
           </div>
         </div>
@@ -1148,7 +1148,7 @@
         els.rate_usd.textContent = rates.usd.toFixed(2) + " Bs";
         els.rate_eur.textContent = rates.eur.toFixed(2) + " Bs";
         els.rate_usdt.textContent = rates.usdt.toFixed(2) + " Bs";
-        els.rate_manual_ref.textContent = (rates.usdt - 20).toFixed(2) + " Bs";
+        els.rate_manual_ref.textContent = rates.usdt.toFixed(2) + " Bs";
       }
 
       function setLoading(isLoading, text = "") {
