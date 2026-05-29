@@ -1171,7 +1171,7 @@
           return;
         }
 
-        let manual_rate = rates.manual > 0 ? rates.manual : (rates.usdt - 20);
+        let manual_rate = rates.manual > 0 ? rates.manual : rates.usdt;
 
         if (source === 'manual' || source === 'bs_manual') {
           // --- MODO MANUAL ---
@@ -1179,16 +1179,17 @@
           let base_amount = (source === 'manual') ? amount : (amount / manual_rate);
           let bs_manual   = base_amount * manual_rate;
 
-          // USD recibe el mismo número (400 USD), EUR y USDT reciben la conversión cruzada
-          let eur_equiv  = base_amount * (rates.usd / rates.eur);
-          let usdt_equiv = base_amount * (rates.usd / rates.usdt);
+          // Propagar solo bolívares a los otros módulos, y cada uno convierte independientemente a su tasa oficial
+          let usd_equiv  = bs_manual / rates.usd;
+          let eur_equiv  = bs_manual / rates.eur;
+          let usdt_equiv = bs_manual / rates.usdt;
 
-          if (source !== 'usd')       els.usd.value       = base_amount.toFixed(2);
-          if (source !== 'bs_usd')    els.bs_usd.value    = (base_amount * rates.usd).toFixed(2);
+          if (source !== 'usd')       els.usd.value       = usd_equiv.toFixed(2);
+          if (source !== 'bs_usd')    els.bs_usd.value    = bs_manual.toFixed(2);
           if (source !== 'eur')       els.eur.value       = eur_equiv.toFixed(2);
-          if (source !== 'bs_eur')    els.bs_eur.value    = (eur_equiv * rates.eur).toFixed(2);
+          if (source !== 'bs_eur')    els.bs_eur.value    = bs_manual.toFixed(2);
           if (source !== 'usdt')      els.usdt.value      = usdt_equiv.toFixed(2);
-          if (source !== 'bs_usdt')   els.bs_usdt.value   = (usdt_equiv * rates.usdt).toFixed(2);
+          if (source !== 'bs_usdt')   els.bs_usdt.value   = bs_manual.toFixed(2);
           if (source !== 'manual')    els.manual.value    = base_amount.toFixed(2);
           if (source !== 'bs_manual') els.bs_manual.value = bs_manual.toFixed(2);
 
@@ -1225,9 +1226,9 @@
       function updateSummary(base_amount, manual_rate, mode) {
         if (mode === 'manual') {
           let bs_manual = base_amount * manual_rate;
-          els.sum_usd.textContent  = base_amount.toFixed(2);
-          els.sum_eur.textContent  = base_amount.toFixed(2);
-          els.sum_usdt.textContent = base_amount.toFixed(2);
+          els.sum_usd.textContent  = (bs_manual / rates.usd).toFixed(2);
+          els.sum_eur.textContent  = (bs_manual / rates.eur).toFixed(2);
+          els.sum_usdt.textContent = (bs_manual / rates.usdt).toFixed(2);
           els.sum_ves.textContent  = bs_manual.toLocaleString('es-VE', { minimumFractionDigits: 2 });
           updateDifferences(base_amount, manual_rate);
         } else {
@@ -1244,7 +1245,6 @@
 
       function updateDifferences(base_amount, manual_rate) {
         let bs_manual  = base_amount * manual_rate;
-        let bs_oficial = base_amount * rates.usd; // todos los módulos muestran el equivalente en USD
 
         function applyDiff(rowEl, spanEl, diff) {
           rowEl.style.display = 'flex';
@@ -1253,10 +1253,13 @@
           spanEl.style.color = diff >= 0 ? '#4ade80' : '#f87171';
         }
 
-        let diff = bs_manual - bs_oficial;
-        applyDiff(els.diff_usd_row,  els.diff_usd,  diff);
-        applyDiff(els.diff_eur_row,  els.diff_eur,  diff);
-        applyDiff(els.diff_usdt_row, els.diff_usdt, diff);
+        let diff_usd  = bs_manual - (base_amount * rates.usd);
+        let diff_eur  = bs_manual - (base_amount * rates.eur);
+        let diff_usdt = bs_manual - (base_amount * rates.usdt);
+
+        applyDiff(els.diff_usd_row,  els.diff_usd,  diff_usd);
+        applyDiff(els.diff_eur_row,  els.diff_eur,  diff_eur);
+        applyDiff(els.diff_usdt_row, els.diff_usdt, diff_usdt);
       }
 
       function updateDifferencesSimple(diff) {
