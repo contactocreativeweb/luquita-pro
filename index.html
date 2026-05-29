@@ -1240,9 +1240,7 @@
           els.sum_eur.textContent  = (base_usd * (rates.usd / rates.eur)).toFixed(2);
           els.sum_usdt.textContent = (base_usd * (rates.usd / rates.usdt)).toFixed(2);
           els.sum_ves.textContent  = bs_usd.toLocaleString('es-VE', { minimumFractionDigits: 2 });
-          // Diferencia desde módulos oficiales: compara Bs manual vs Bs usd (misma base)
-          let bs_manual = base_usd * manual_rate;
-          updateDifferencesSimple(bs_manual - bs_usd);
+          // Diferencias ocultas en modo no-manual (ya las ocultó hideDifferences() antes)
         }
       }
 
