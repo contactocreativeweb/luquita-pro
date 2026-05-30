@@ -1322,9 +1322,9 @@
 
           // Calcular el total BCV: monto a cambiar * tasa oficial
           let total_bcv = base_amount * rate;
-          // Calcular a cuántos dólares representa ese total de Bolívares oficiales
-          let total_bcv_in_currency = total_bcv / rate; // Obviamente es base_amount, pero lo mantendremos explícito.
-          bcvSpanEl.textContent = `| BCV: ${total_bcv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${total_bcv_in_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
+          // El equivalente en USD del total BCV según tasa oficial BCV
+          let total_bcv_in_usd = total_bcv / rates.usd;
+          bcvSpanEl.textContent = `| BCV: ${total_bcv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${total_bcv_in_usd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
         }
 
         let diff_usd  = bs_manual - (base_amount * rates.usd);
