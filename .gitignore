@@ -3,3 +3,11 @@ node_modules
 .DS_Store
 dist
 .env
+.env.local
+.env.*.local
+
+# Archivos de desarrollo/prueba — no deben ir a producción
+app.html
+test_*.js
+*.test.js
+*.spec.js

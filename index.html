@@ -1126,6 +1126,12 @@
         diff_usdt_bcv: document.getElementById('diff_usdt_bcv')
       };
 
+      // Validar que una tasa esté dentro de un rango razonable para Venezuela (100–10000 Bs)
+      function validateRate(val, fallback) {
+        const n = parseFloat(val);
+        return (Number.isFinite(n) && n > 100 && n < 10000) ? n : fallback;
+      }
+
       // Fetch Rates
       async function fetchRates() {
         updateFormattedDate();
@@ -1142,8 +1148,8 @@
             if (resUsd.ok && resEur.ok) {
               const dataUsd = await resUsd.json();
               const dataEur = await resEur.json();
-              rates.usd = dataUsd.promedio || dataUsd.price || dataUsd.venta || rates.usd;
-              rates.eur = dataEur.promedio || dataEur.price || dataEur.venta || rates.eur;
+              rates.usd = validateRate(dataUsd.promedio ?? dataUsd.price ?? dataUsd.venta, rates.usd);
+              rates.eur = validateRate(dataEur.promedio ?? dataEur.price ?? dataEur.venta, rates.eur);
             }
           } catch (e) {
             console.error("Error cargando BCV:", e);
@@ -1157,8 +1163,9 @@
             const resParalelo = await fetch("https://ve.dolarapi.com/v1/dolares/paralelo");
             if (resParalelo.ok) {
               const dataUsdt = await resParalelo.json();
-              if (dataUsdt.promedio && dataUsdt.promedio > 100) {
-                rates.usdt = dataUsdt.promedio;
+              const usdt = validateRate(dataUsdt.promedio, 0);
+              if (usdt > 0) {
+                rates.usdt = usdt;
                 updateDisplayRates();
                 setLoading(false, "Sincronización Completa ✅");
                 return;
@@ -1177,8 +1184,9 @@
             const priceEl = doc.querySelector('.history-rate.fs-2');
             
             if (priceEl) {
-              const cleanPrice = parseFloat((priceEl.innerText || priceEl.textContent).replace(/[^0-9,.]/g, '').replace(',', '.'));
-              if (cleanPrice > 100) {
+              const rawText = (priceEl.innerText || priceEl.textContent).replace(/[^0-9,.]/g, '').replace(',', '.');
+              const cleanPrice = validateRate(parseFloat(rawText), 0);
+              if (cleanPrice > 0) {
                 rates.usdt = cleanPrice;
                 updateDisplayRates();
                 setLoading(false, "Sincronización Completa ✅");
