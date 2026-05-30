@@ -1293,7 +1293,13 @@
         function applyDiff(rowEl, spanEl, eqSpanEl, bcvSpanEl, diff, rate, symbol) {
           rowEl.style.display = 'flex';
           const sign = diff >= 0 ? '+' : '';
-          spanEl.textContent = sign + diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
+          
+          // Calcular la diferencia en la divisa correspondiente
+          let diff_currency = diff / rate;
+          const currencySign = diff_currency >= 0 ? '+' : '';
+
+          // Mostrar la diferencia principal y al lado cuántos dólares/euros/usdt son según tasa banco central
+          spanEl.textContent = sign + diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs (' + currencySign + diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + symbol + ')';
           
           const isLight = document.body.classList.contains('light-mode');
           if (diff >= 0) {
@@ -1302,10 +1308,8 @@
             spanEl.style.color = isLight ? '#b91c1c' : '#f87171'; // Rojo oscuro en modo claro / Rojo brillante en oscuro
           }
 
-          // Calcular la diferencia en la divisa correspondiente
-          let diff_currency = diff / rate;
-          const currencySign = diff_currency >= 0 ? '+' : '';
-          eqSpanEl.textContent = `(${base_amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})${currencySign}${diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol}`;
+          // La segunda línea ahora sólo mostrará el monto a cambiar para ese módulo
+          eqSpanEl.textContent = `(${base_amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
 
           // Calcular el total BCV: monto a cambiar * tasa oficial
           let total_bcv = base_amount * rate;
