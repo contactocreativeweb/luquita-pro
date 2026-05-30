@@ -1298,15 +1298,8 @@
           let diff_currency = diff / rate;
           const currencySign = diff_currency >= 0 ? '+' : '';
 
-          // Mostrar la diferencia principal y al lado cuántos dólares/euros/usdt son según tasa banco central
-          spanEl.textContent = sign + diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs (' + currencySign + diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + symbol + ')';
-          
-          const isLight = document.body.classList.contains('light-mode');
-          if (diff >= 0) {
-            spanEl.style.color = isLight ? '#15803d' : '#4ade80'; // Verde oscuro en modo claro / Verde brillante en oscuro
-          } else {
-            spanEl.style.color = isLight ? '#b91c1c' : '#f87171'; // Rojo oscuro en modo claro / Rojo brillante en oscuro
-          }
+          // Ocultamos la línea verde del span principal ya que se duplicaba con el renglón | BCV de abajo
+          spanEl.style.display = 'none';
 
           // Ocultamos la línea redundante anterior o le cambiamos el estilo para que sea la primera línea del BCV
           eqSpanEl.style.display = 'block';
