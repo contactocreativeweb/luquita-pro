@@ -144,7 +144,7 @@
       body.light-mode #diff_eur_bcv,
       body.light-mode #diff_usdt_eq,
       body.light-mode #diff_usdt_bcv {
-        color: #000000 !important;
+        color: #94a3b8 !important;
         font-weight: 600 !important;
       }
 
@@ -152,6 +152,7 @@
       body.light-mode #diff_usd_display,
       body.light-mode #diff_eur_display,
       body.light-mode #diff_usdt_display {
+        color: #94a3b8 !important;
         font-weight: 800 !important;
         text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
       }
@@ -846,6 +847,16 @@
           <div class="rate-info">
             <span>Tasa USDT</span>
             <span class="rate-value" id="rate_manual_ref_display">--.-- Bs</span>
+          </div>
+          <div class="rate-info" id="diff_manual_row" style="display:none; flex-direction: column; align-items: stretch; gap: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <span>Diferencia</span>
+              <span class="rate-value" id="diff_manual_display">-- Bs</span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
+              <span id="diff_manual_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
+              <span id="diff_manual_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
+            </div>
           </div>
         </div>
       </div>
