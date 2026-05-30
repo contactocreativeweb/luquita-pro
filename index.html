@@ -1308,8 +1308,13 @@
             spanEl.style.color = isLight ? '#b91c1c' : '#f87171'; // Rojo oscuro en modo claro / Rojo brillante en oscuro
           }
 
-          // La segunda línea ahora sólo mostrará el monto a cambiar para ese módulo
-          eqSpanEl.textContent = `(${base_amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
+          // Ocultamos la línea redundante anterior o le cambiamos el estilo para que sea la primera línea del BCV
+          eqSpanEl.style.display = 'block';
+          eqSpanEl.textContent = `| BCV: ${sign}${diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${currencySign}${diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
+          
+          // Estilo elegante idéntico al BCV original
+          eqSpanEl.style.fontSize = '0.75rem';
+          eqSpanEl.style.fontWeight = '500';
 
           // Calcular el total BCV: monto a cambiar * tasa oficial
           let total_bcv = base_amount * rate;
