@@ -1074,6 +1074,13 @@
       document.getElementById('themeIcon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
       localStorage.setItem('theme', 'light');
 
+      // Evitar que el scroll del mouse cambie el valor de los inputs numéricos
+      document.addEventListener('wheel', function(e) {
+        if (document.activeElement && document.activeElement.type === 'number') {
+          document.activeElement.blur();
+        }
+      }, { passive: true });
+
       let rates = {
         usd: 36.50,
         eur: 39.20,
