@@ -1,4 +1,4 @@
-const CACHE_NAME = 'luquita-v7';
+const CACHE_NAME = 'luquita-v8';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -7,9 +7,7 @@ const STATIC_ASSETS = [
   '/logo-192.png',
   '/apple-touch-icon.png',
   '/favicon-32x32.png',
-  '/favicon-16x16.png',
-  '/losroques4.jpg',
-  '/roquesnoche.jpg'
+  '/favicon-16x16.png'
 ];
 
 // Dominios externos que NUNCA se cachean (APIs en tiempo real)

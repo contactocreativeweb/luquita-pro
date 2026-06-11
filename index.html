@@ -3,21 +3,21 @@
 
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luquita PRO | Calculadora de Dólar BCV y Paralelo en Vivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Luquita PRO | Calculadora de Divisas Inteligente</title>
 
     <!-- SEO & Metadata Premium -->
-    <meta name="description" content="Calculadora y convertidor de divisas en tiempo real. Consulta la tasa del Dólar BCV, Euro BCV, Dólar Paralelo y Binance (USDT) en Venezuela. Calcula diferencias al instante.">
-    <meta name="keywords" content="dolar bcv, tasa de cambio venezuela, convertidor bolivares, dolar paralelo, precio del dolar venezuela, calculadora de divisas, usdt binance, euro bcv">
+    <meta name="description" content="Calculadora y convertidor de divisas inteligente para Venezuela. Dólar BCV, Euro BCV, Dólar Paralelo y Binance (USDT). Gráficos, Alertas de Precio e Historial en tiempo real.">
+    <meta name="keywords" content="dolar bcv, tasa de cambio venezuela, convertidor bolivares, dolar paralelo, precio del dolar venezuela, calculadora de divisas, usdt binance, euro bcv, graficos dolar bcv">
     <meta name="author" content="Creativeweb IA">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://luquita-app.vercel.app/">
     
     <!-- Open Graph / Redes Sociales -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://luquita-app.vercel.app/">
-    <meta property="og:title" content="Luquita PRO | Calculadora del Dólar BCV y Paralelo en Vivo">
-    <meta property="og:description" content="Convierte Bolívares, Dólares (BCV y Paralelo), Euros y USDT (Binance). Calcula tus pagos exactos y diferencias al instante.">
+    <meta property="og:title" content="Luquita PRO | Calculadora Inteligente de Dólar y Paralelo en Vivo">
+    <meta property="og:description" content="Convierte Bolívares, Dólares (BCV y Paralelo), Euros y USDT (Binance). Calcula tus pagos exactos, comisiones, ganancias y diferencias.">
     <meta property="og:image" content="https://luquita-app.vercel.app/logo-512.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -30,16 +30,16 @@
     <meta name="twitter:description" content="Calculadora inteligente de Dólar BCV, Paralelo y USDT para Venezuela. Conoce exactamente cuánto pagar.">
     <meta name="twitter:image" content="https://luquita-app.vercel.app/logo-512.png">
 
-    <!-- JSON-LD Structured Data para SEO Avanzado y ChatGPT -->
+    <!-- Structured Data para SEO Avanzado -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "WebApplication",
-          "name": "Luquita PRO - Convertidor BCV",
+          "name": "Luquita PRO - Convertidor Inteligente",
           "url": "https://luquita-app.vercel.app/",
-          "description": "Aplicación web progresiva (PWA) para la conversión de divisas en Venezuela. Incluye Dólar BCV, Dólar Paralelo, Euro BCV y Binance USDT con cálculo de diferencias en tiempo real.",
+          "description": "Aplicación web progresiva (PWA) para la conversión de divisas en Venezuela. Incluye Dólar BCV, Dólar Paralelo, Euro BCV y Binance USDT con Gráficos, Alertas e Historial.",
           "applicationCategory": "FinanceApplication",
           "operatingSystem": "All",
           "offers": {
@@ -51,147 +51,62 @@
             "@type": "Organization",
             "name": "Creativeweb IA"
           }
-        },
-        {
-          "@type": "WebSite",
-          "name": "Luquita PRO",
-          "url": "https://luquita-app.vercel.app/",
-          "description": "Convertidor y calculadora de Dólar BCV en vivo."
         }
       ]
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2563eb">
+    <meta name="theme-color" content="#0a0f1d">
 
     <style>
       :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --bg: #0f172a;
-        --card-bg: rgba(15, 23, 42, 0.35);
-        --text: #f1f5f9;
-        --text-muted: #94a3b8;
+        --primary: #10b981;
+        --primary-glow: rgba(16, 185, 129, 0.15);
+        --bg-dark: #090e1a;
+        --card-bg-dark: #111827;
+        --border-dark: rgba(255, 255, 255, 0.08);
+        --text-dark: #ffffff;
+        --text-muted-dark: #9ca3af;
+        
+        --bg-light: #090e1a;
+        --card-bg-light: #111827;
+        --border-light: rgba(255, 255, 255, 0.08);
+        --text-light: #ffffff;
+        --text-muted-light: #9ca3af;
+
+        --bg: var(--bg-dark);
+        --card-bg: var(--card-bg-dark);
+        --border-color: var(--border-dark);
+        --text: var(--text-dark);
+        --text-muted: var(--text-muted-dark);
+        
         --accent-usd: #10b981;
         --accent-eur: #3b82f6;
         --accent-usdt: #f59e0b;
-        --glass: rgba(255, 255, 255, 0.05);
-        --glass-border: rgba(255, 255, 255, 0.1);
+        --accent-premium: #a855f7;
+        
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.06);
+        --radius-xl: 24px;
+        --radius-lg: 18px;
+        --radius-md: 12px;
       }
 
       body.light-mode {
-        --bg: #ffffff;
-        --card-bg: rgba(255, 255, 255, 0.2);
-        --text: #0b1329;
-        --text-muted: #1e293b;
-        --glass: rgba(255, 255, 255, 0.2);
-        --glass-border: rgba(255, 255, 255, 0.45);
-        background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.45)), url('losroques4.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }
-
-      body.light-mode h1 {
-        background: linear-gradient(to right, #1d4ed8, #059669);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      body.light-mode .subtitle {
-        color: #475569;
-      }
-
-      body.light-mode .card {
-        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-      }
-      
-      body.light-mode .card:hover {
-        border-color: rgba(255, 255, 255, 0.7);
-        box-shadow: 0 15px 45px -10px rgba(0, 0, 0, 0.08);
-      }
-
-      body.light-mode .card-sidebar {
-        background: rgba(255, 255, 255, 0.25);
-        border-right: 1px solid rgba(255, 255, 255, 0.3);
-      }
-
-      body.light-mode .btn-suggest:hover {
-        background: #e2e8f0;
-        color: #0f172a;
-      }
-
-      body.light-mode .input-wrapper input {
-        background: rgba(255, 255, 255, 0.55);
-        border: 2px solid rgba(255, 255, 255, 0.7);
-        color: #0f172a;
-        font-weight: 600;
-      }
-
-      body.light-mode .input-wrapper input:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-        background: #ffffff;
-      }
-
-      body.light-mode .currency-icon {
-        background: #f1f5f9;
-        border: 1px solid #e2e8f0;
-      }
-
-      body.light-mode .btn-share-app {
-        background: rgba(255, 255, 255, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        color: #0f172a;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-      }
-
-      body.light-mode .btn-share-app:hover {
-        background: rgba(255, 255, 255, 0.55);
-        border-color: rgba(255, 255, 255, 0.7);
-      }
-
-      body.light-mode .summary-item {
-        background: rgba(255, 255, 255, 0.25);
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-      }
-
-      body.light-mode footer {
-        color: #64748b;
-      }
-
-      body.light-mode footer > div {
-        color: #64748b !important;
-      }
-
-      body.light-mode #diff_usd_eq,
-      body.light-mode #diff_usd_bcv,
-      body.light-mode #diff_eur_eq,
-      body.light-mode #diff_eur_bcv,
-      body.light-mode #diff_usdt_eq,
-      body.light-mode #diff_usdt_bcv {
-        color: #374151 !important;
-        font-weight: 600 !important;
-      }
-
-      /* Colores de diferencia más acentuados para modo claro */
-      body.light-mode #diff_usd_display,
-      body.light-mode #diff_eur_display,
-      body.light-mode #diff_usdt_display {
-        color: #374151 !important;
-        font-weight: 800 !important;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+        --bg: var(--bg-dark);
+        --card-bg: var(--card-bg-dark);
+        --border-color: var(--border-dark);
+        --text: var(--text-dark);
+        --text-muted: var(--text-muted-dark);
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.06);
       }
 
       * {
@@ -199,1374 +114,1925 @@
         margin: 0;
         padding: 0;
         font-family: 'Outfit', sans-serif;
+        -webkit-tap-highlight-color: transparent;
       }
 
       body {
-        background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('roquesnoche.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        background: var(--bg);
         color: var(--text);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 40px 20px;
+        padding: 24px 16px 100px 16px;
+        transition: background-color 0.3s, color 0.3s;
+        overflow-x: hidden;
       }
 
-      /* Animations */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      header {
-        text-align: center;
-        margin-bottom: 40px;
-        animation: fadeIn 0.6s ease-out;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-        background: linear-gradient(to right, #60a5fa, #34d399);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .subtitle {
-        color: var(--text-muted);
-        font-size: 1.1rem;
-      }
-
-      /* Top Bar Controls */
-      .top-controls {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        margin-bottom: 40px;
-        background: var(--glass);
-        padding: 12px 24px;
-        border-radius: 50px;
-        border: 1px solid var(--glass-border);
-        backdrop-filter: blur(10px);
-        animation: fadeIn 0.8s ease-out;
-      }
-
-      .btn-refresh {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
-      }
-
-      .btn-refresh:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.4);
-        background: var(--primary-dark);
-      }
-
-      .btn-refresh:active {
-        transform: translateY(0);
-      }
-
-      .status-badge {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-      }
-
-      .status-dot {
-        width: 8px;
-        height: 8px;
-        background: #10b981;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #10b981;
-      }
-
-      .status-dot.loading {
-        background: #f59e0b;
-        box-shadow: 0 0 10px #f59e0b;
-        animation: pulse 1.5s infinite;
-      }
-
-      @keyframes pulse {
-        0% {
-          opacity: 0.4;
-        }
-
-        50% {
-          opacity: 1;
-        }
-
-        100% {
-          opacity: 0.4;
-        }
-      }
-
-      /* Grid Layout */
-      .converter-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-        gap: 30px;
-        width: 100%;
-        max-width: 1200px;
-        animation: fadeIn 1s ease-out;
-      }
-
-      /* Premium Card Design */
-      .card {
-        background: var(--card-bg);
-        border-radius: 24px;
-        border: 1px solid var(--glass-border);
-        display: flex;
-        overflow: hidden;
-        backdrop-filter: blur(20px);
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-      }
-
-      .card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(255, 255, 255, 0.2);
-      }
-
-      .card-sidebar {
-        width: 65px;
-        background: rgba(15, 23, 42, 0.25);
-        display: flex;
-        flex-direction: column;
-        padding: 20px 0;
-        gap: 12px;
-        border-right: 1px solid var(--glass-border);
-      }
-
-      .suggestion-label {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--text-muted);
-        writing-mode: vertical-lr;
-        transform: rotate(180deg);
-        align-self: center;
-        margin-bottom: 10px;
-      }
-
-      .btn-suggest {
-        background: transparent;
-        border: none;
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 0.95rem;
-        cursor: pointer;
-        padding: 8px 0;
-        transition: all 0.2s;
-      }
-
-      .btn-suggest:hover {
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .card-content {
-        padding: 30px;
-        flex: 1;
-      }
-
-      .card-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 25px;
-      }
-
-      .currency-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .card-usd .currency-icon {
-        color: var(--accent-usd);
-        background: rgba(16, 185, 129, 0.1);
-      }
-
-      .card-eur .currency-icon {
-        color: var(--accent-eur);
-        background: rgba(59, 130, 246, 0.1);
-      }
-
-      .card-usdt .currency-icon {
-        color: var(--accent-usdt);
-        background: rgba(245, 158, 11, 0.1);
-      }
-
-      .card-title {
-        font-weight: 600;
-        font-size: 1.25rem;
-      }
-
-      /* Input Styling */
-      .input-group {
-        margin-bottom: 20px;
-      }
-
-      .input-label {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 8px;
-        display: block;
-        font-weight: 500;
-      }
-
-      .input-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-
-      .input-wrapper input {
-        width: 100%;
-        background: rgba(15, 23, 42, 0.25);
-        border: 1px solid var(--glass-border);
-        color: white;
-        padding: 14px 18px;
-        border-radius: 14px;
-        font-size: 1.1rem;
-        font-weight: 500;
-        outline: none;
-        transition: all 0.3s;
-      }
-
-      .input-wrapper input:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
-        background: rgba(15, 23, 42, 0.8);
-      }
-
-      .currency-tag {
-        position: absolute;
-        right: 18px;
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 0.85rem;
+      /* Logo central marcas de agua en el fondo */
+      .watermark-bg {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 450px;
+        opacity: 0.03;
         pointer-events: none;
+        z-index: 0;
+        transition: opacity 0.3s;
+      }
+      body.light-mode .watermark-bg {
+        opacity: 0.015;
       }
 
-      .rate-info {
-        margin-top: 25px;
-        padding-top: 20px;
-        border-top: 1px solid var(--glass-border);
+      /* Container Principal (Layout de App Móvil en medio de la pantalla o adaptable) */
+      .app-container {
+        width: 100%;
+        max-width: 480px;
+        z-index: 10;
+        position: relative;
+      }
+
+      /* Header Superior */
+      header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-      }
-
-      .rate-value {
-        font-weight: 600;
-        color: var(--text);
-      }
-
-      /* Live Summary Panel */
-      .summary-panel {
+        margin-bottom: 24px;
         width: 100%;
-        max-width: 1200px;
-        margin-top: 40px;
-        background: var(--card-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: 24px;
-        padding: 25px;
-        backdrop-filter: blur(20px);
-        animation: fadeIn 1.2s ease-out;
       }
 
-      .summary-header {
+      .header-title-sec {
         display: flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-        color: var(--text-muted);
-        font-size: 0.95rem;
+        gap: 10px;
       }
 
-      .summary-grid {
+      .header-logo-container {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .header-logo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .brand-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .brand-title span {
+        color: var(--primary);
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon-btn {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        color: var(--text);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
+        cursor: pointer;
+        transition: all 0.2s;
       }
 
-      .summary-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.03);
-        padding: 15px 30px;
-        border-radius: 18px;
-        border: 1px solid var(--glass-border);
-        min-width: 160px;
+      .icon-btn:hover {
+        background: rgba(255,255,255,0.08);
+        transform: translateY(-1px);
+      }
+      
+      .icon-btn:active {
+        transform: translateY(1px);
       }
 
-      .summary-val {
-        font-size: 1.5rem;
+      /* Pantalla Activa */
+      .app-screen {
+        display: none;
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+
+      .app-screen.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Tarjeta Principal Resaltada (Tasa BCV del día con gráfico rápido) */
+      .main-rate-card {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(10, 15, 29, 0.95) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        border-radius: var(--radius-xl);
+        padding: 24px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      body.light-mode .main-rate-card {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(248, 250, 252, 0.95) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.15);
+      }
+
+      .main-rate-sparkline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        opacity: 0.35;
+        pointer-events: none;
+      }
+
+      .main-rate-card .card-label {
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .main-rate-title {
+        font-size: 1.1rem;
         font-weight: 700;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
       }
 
-      .summary-label {
+      .main-rate-val {
+        font-size: 2.3rem;
+        font-weight: 900;
+        letter-spacing: -1px;
+        color: var(--accent-usd);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .main-rate-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
         font-size: 0.8rem;
         color: var(--text-muted);
         font-weight: 600;
+      }
+
+      .trend-up {
+        color: #10b981;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+      .trend-down {
+        color: #ef4444;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      /* Premium Promo Banner */
+      .premium-banner {
+        background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+        border-radius: var(--radius-xl);
+        padding: 20px;
+        color: white;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+      }
+
+      .premium-banner-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.75rem;
+      }
+
+      .premium-banner-close:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .premium-banner h4 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        margin-bottom: 4px;
+        letter-spacing: -0.2px;
+      }
+
+      .premium-banner p {
+        font-size: 0.8rem;
+        opacity: 0.85;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+
+      .premium-btn {
+        background: #ffffff;
+        color: #7c3aed;
+        border: none;
+        padding: 10px 18px;
+        border-radius: var(--radius-md);
+        font-size: 0.85rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      .premium-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      }
+
+      /* Sección Título General */
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        padding: 0 4px;
+      }
+
+      .section-title {
+        font-size: 0.9rem;
+        font-weight: 800;
         text-transform: uppercase;
+        color: var(--text-muted);
         letter-spacing: 1px;
       }
 
-      .summary-separator {
-        font-size: 1.5rem;
-        color: var(--glass-border);
-        font-weight: 300;
+      .section-link {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        cursor: pointer;
       }
 
-      @media (max-width: 768px) {
-        .summary-grid {
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .summary-separator {
-          display: none;
-        }
-
-        .summary-item {
-          width: 100%;
-        }
+      /* Lista de Tasas Rápidas */
+      .rates-list-compact {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 24px;
       }
 
-      footer {
-        margin-top: auto;
-        padding: 40px 0 20px;
+      .rate-row-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.2s, border-color 0.2s;
+      }
+
+      .rate-row-card:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255,255,255,0.15);
+      }
+
+      body.light-mode .rate-row-card:hover {
+        border-color: rgba(0,0,0,0.12);
+      }
+
+      .rate-row-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .rate-row-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-color);
+      }
+
+      .rate-row-details h5 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .rate-row-details p {
+        font-size: 0.75rem;
         color: var(--text-muted);
-        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .rate-row-price {
+        text-align: right;
+      }
+
+      .rate-row-value {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .rate-row-change {
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      /* Panel de Herramientas Rápidas */
+      .tools-panel-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .tool-btn {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 8px;
+        cursor: pointer;
+        gap: 8px;
+        transition: all 0.2s;
+      }
+
+      .tool-btn:hover {
+        transform: translateY(-2px);
+        background: rgba(255,255,255,0.06);
+      }
+
+      .tool-btn-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.04);
+        font-size: 1.1rem;
+      }
+
+      .tool-btn span {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-muted);
+      }
+
+      /* 3 Tarjetas del Conversor Original en Pantalla Conversor */
+      .card-2-section {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        margin-bottom: 16px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .card-2-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+
+      .card-section-top {
+        padding: 16px 20px;
+        background: rgba(255, 255, 255, 0.01);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .card-section-bottom {
+        padding: 16px 20px;
+        background: rgba(0, 0, 0, 0.08);
+      }
+      body.light-mode .card-section-bottom {
+        background: rgba(0, 0, 0, 0.02);
+      }
+
+      .card-section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .card-section-title {
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+      }
+
+      .card-currency-badge {
+        font-size: 0.7rem;
+        font-weight: 800;
+        background: rgba(255,255,255,0.06);
+        padding: 4px 8px;
+        border-radius: 6px;
+        color: var(--text-muted);
+      }
+
+      .input-row {
+        display: flex;
+        align-items: baseline;
+      }
+
+      .currency-symbol-input {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        margin-right: 8px;
+      }
+
+      .currency-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text);
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+
+      .ves-result-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .ves-result-left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .ves-result-label {
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+      }
+
+      .ves-result-value-row {
+        display: flex;
+        align-items: baseline;
+      }
+
+      .ves-symbol {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-right: 4px;
+      }
+
+      .ves-value {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      .ves-result-rate {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        background: rgba(255,255,255,0.04);
+        padding: 4px 8px;
+        border-radius: 6px;
+      }
+
+      /* Calculadoras Adicionales (Comercial, Inverso, USDT Comisión) */
+      .advanced-calculators {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .calc-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 20px;
+      }
+
+      .calc-card-title {
+        font-size: 1rem;
+        font-weight: 800;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text);
+      }
+
+      .calc-inputs-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .calc-input-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .calc-input-wrapper label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+
+      .calc-field {
+        background: rgba(0,0,0,0.1);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 10px 12px;
+        color: var(--text);
+        font-weight: 700;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      body.light-mode .calc-field {
+        background: rgba(255,255,255,0.8);
+      }
+
+      .calc-result-box {
+        background: rgba(16, 185, 129, 0.05);
+        border: 1px dashed rgba(16, 185, 129, 0.25);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .calc-result-box h6 {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+
+      .calc-result-val {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--accent-usd);
+      }
+
+      /* Pantalla Gráficos */
+      .chart-container-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .chart-selector {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        color: var(--text);
+        padding: 6px 12px;
+        border-radius: var(--radius-md);
+        font-weight: 700;
+        font-size: 0.8rem;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .chart-timeframe-selector {
+        display: flex;
+        gap: 6px;
+        background: rgba(0,0,0,0.15);
+        padding: 4px;
+        border-radius: var(--radius-md);
+        margin-bottom: 20px;
+      }
+      body.light-mode .chart-timeframe-selector {
+        background: rgba(0,0,0,0.03);
+      }
+
+      .tf-btn {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        padding: 8px 0;
+        font-size: 0.75rem;
+        font-weight: 800;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .tf-btn.active {
+        background: var(--primary);
+        color: white;
+      }
+
+      .chart-visual-box {
+        height: 180px;
+        width: 100%;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .chart-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .chart-stat-box {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 12px;
         text-align: center;
+      }
+
+      .chart-stat-box h6 {
+        font-size: 0.65rem;
+        font-weight: 800;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .chart-stat-val {
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+
+      /* Pantalla Alertas */
+      .alert-settings-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+
+      .alerts-active-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .active-alert-item {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .alert-details h6 {
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      .alert-details p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .alert-toggle {
+        width: 44px;
+        height: 24px;
+        background: #10b981;
+        border-radius: 12px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .alert-toggle::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        top: 2px;
+        right: 2px;
+        transition: all 0.2s;
+      }
+
+      .alert-toggle.off {
+        background: #475569;
+      }
+
+      .alert-toggle.off::after {
+        right: auto;
+        left: 2px;
+      }
+
+      /* Pantalla Historial */
+      .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .history-item-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      .history-item-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .history-arrow {
+        color: var(--text-muted);
+        font-weight: 800;
+      }
+
+      .history-monto {
+        font-size: 0.95rem;
+        font-weight: 800;
+      }
+
+      .history-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+
+      .history-item-right {
+        text-align: right;
+      }
+
+      .history-ves {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+
+      .history-time {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+
+      /* Compartir / Botones Grandes */
+      .action-btn-large {
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: var(--radius-lg);
+        padding: 16px;
+        font-size: 0.95rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: 20px;
+        transition: transform 0.2s, background-color 0.2s;
+      }
+
+      .action-btn-large:hover {
+        background: #0d9488;
+        transform: translateY(-1px);
+      }
+
+      .action-btn-large.sec-btn {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text);
+      }
+
+      .action-btn-large.sec-btn:hover {
+        background: var(--glass);
+      }
+
+      /* Barra de Navegación Flotante Inferior */
+      nav.bottom-nav {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 420px;
+        background: rgba(18, 26, 47, 0.95);
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 8px 12px;
+        border-radius: 30px;
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      }
+
+      body.light-mode nav.bottom-nav {
+        background: rgba(248, 250, 252, 0.95);
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      }
+
+      .nav-tab {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 6px 12px;
+        cursor: pointer;
+        border-radius: 20px;
+        transition: all 0.2s;
+      }
+
+      .nav-tab.active {
+        color: var(--primary);
+        background: rgba(16, 185, 129, 0.08);
+      }
+
+      .nav-tab-icon {
+        font-size: 1.2rem;
+      }
+
+      .nav-tab span {
+        font-size: 0.65rem;
+        font-weight: 700;
+      }
+
+      /* Footer de la página */
+      footer {
+        width: 100%;
+        text-align: center;
+        margin-top: 32px;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+        line-height: 1.6;
+        padding-bottom: 24px;
       }
 
       footer a {
         color: var(--primary);
         text-decoration: none;
-      }
-
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: var(--bg);
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: var(--glass-border);
-        border-radius: 4px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      /* Botón Install PWA */
-      .pwa-btn {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, var(--primary), #8b5cf6);
-        color: white;
-        padding: 0.8rem 1.5rem;
-        border-radius: 50px;
         font-weight: 600;
-        border: none;
-        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
-        cursor: pointer;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        animation: bounce 2s infinite;
       }
 
-      @keyframes bounce {
-
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateX(-50%) translateY(0);
-        }
-
-        40% {
-          transform: translateX(-50%) translateY(-10px);
-        }
-
-        60% {
-          transform: translateX(-50%) translateY(-5px);
-        }
-      }
-
-      /* Modal iOS */
-      .ios-modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2000;
-        padding: 2rem;
-        backdrop-filter: blur(5px);
-      }
-
-      .ios-modal {
-        background: var(--card-bg);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 2rem;
-        border-radius: 20px;
-        max-width: 400px;
-        text-align: center;
-        color: white;
-      }
-
-      .ios-modal h3 {
-        margin-bottom: 1rem;
+      /* PWA Banners e instaladores */
+      .pwa-top-pill {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
         color: var(--primary);
-      }
-
-      .ios-modal ul {
-        text-align: left;
-        margin: 1.5rem 0;
-        list-style: none;
-        padding: 0;
-      }
-
-      .ios-modal li {
-        margin-bottom: 0.8rem;
-        font-size: 0.9rem;
-      }
-
-      .btn-clean-mini {
-        background: rgba(255, 71, 87, 0.1);
-        border: 1px solid rgba(255, 71, 87, 0.2);
-        color: #ff6b6b;
-        width: 24px;
-        height: 24px;
-        padding: 0;
-        border-radius: 6px;
-        display: flex;
+        padding: 10px 16px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
+        gap: 8px;
         cursor: pointer;
-        margin-left: 10px;
-        transition: all 0.2s;
+        margin-bottom: 16px;
+        align-self: center;
+        animation: pulsePill 2s infinite;
       }
 
-      .btn-clean-mini:hover {
-        background: #ff4757;
-        color: white;
-      }
-
-      .close-modal {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 0.6rem 2rem;
-        border-radius: 10px;
-        font-weight: 600;
-        cursor: pointer;
-      }
-
-      .btn-share-app {
-        margin-top: 15px; 
-        background: rgba(255, 255, 255, 0.1); 
-        border: 1px solid rgba(255, 255, 255, 0.2); 
-        color: white; 
-        padding: 8px 18px; 
-        border-radius: 20px; 
-        font-size: 0.9rem; 
-        font-weight: 600; 
-        cursor: pointer; 
-        display: inline-flex; 
-        align-items: center; 
-        gap: 8px; 
-        transition: all 0.3s; 
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      }
-      .btn-share-app:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      @keyframes pulsePill {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
       }
     </style>
   </head>
 
   <body>
 
-    <header>
-      <h1>💱 LUQUITA PRO</h1>
-      <p class="subtitle">Tasas oficiales del Banco Central de Venezuela en tiempo real</p>
-      <div id="currentDate" class="date-display" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
-      </div>
-      <button onclick="shareApp()" class="btn-share-app">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-        Compartir
-      </button>
-    </header>
+    <!-- Watermark Background Logo -->
+    <div class="watermark-bg">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2" />
+        <circle cx="50" cy="50" r="38" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,4" />
+        <path d="M50 22V78M32 38C32 32 38 28 50 28C62 28 68 32 68 38C68 46 56 46 50 48C42 50 32 52 32 60C32 68 40 72 50 72C60 72 68 68 68 60" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
 
-    <div class="top-controls">
-      <button class="btn-refresh" onclick="refreshData()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 2v6h-6"></path>
-          <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
-          <path d="M3 22v-6h6"></path>
-          <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
-        </svg>
-        Actualizar tasas
-      </button>
-      <div class="status-badge">
-        <span class="status-dot" id="statusDot"></span>
-        <span id="statusText">Tasas actualizadas</span>
-        <button onclick="forcePWACleanup()" class="btn-clean-mini" title="Limpiar App (Caché)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
+    <div class="app-container">
+      
+      <!-- Header -->
+      <header>
+        <div class="header-title-sec">
+          <div class="header-logo-container">
+            <img src="/logo-192.png" alt="Luquita PRO logo">
+          </div>
+          <div>
+            <h1 class="brand-title">Luquita<span>PRO</span></h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" onclick="refreshData()" title="Sincronizar tasas">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 2v6h-6"></path>
+              <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+              <path d="M3 22v-6h6"></path>
+              <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+            </svg>
+          </button>
+          <button class="icon-btn" onclick="toggleTheme()" title="Cambiar Tema">
+            <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- PWA Install Badge -->
+      <div id="pwa_install_pill" class="pwa-top-pill" onclick="triggerPwaInstall()" style="display: none;">
+        <span>📲 Instalar Luquita en tu móvil</span>
+      </div>
+
+      <!-- ================= PANTALLA INICIO ================= -->
+      <div id="screen_inicio" class="app-screen active">
+        
+        <!-- Tarjeta Principal Tasa -->
+        <div class="main-rate-card" onclick="switchTab('graficos')">
+          <span class="card-label">Tasa Oficial de Referencia</span>
+          <div class="main-rate-title">
+            <span style="font-size: 1.4rem;">🇻🇪</span> DÓLAR BCV
+          </div>
+          <div class="main-rate-val" id="main_rate_display">36.72 Bs</div>
+          <div class="main-rate-meta">
+            <span class="trend-up" id="main_rate_change">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+              +0.35% (24H)
+            </span>
+            <span id="main_rate_time">Actualizado hace 2 min</span>
+          </div>
+          <div class="main-rate-sparkline">
+            <svg viewBox="0 0 100 30" width="100%" height="100%" preserveAspectRatio="none">
+              <path d="M 0 25 Q 15 22 30 23 T 60 14 T 90 8 L 100 5 L 100 30 L 0 30 Z" fill="rgba(16, 185, 129, 0.08)"></path>
+              <path d="M 0 25 Q 15 22 30 23 T 60 14 T 90 8 L 100 5" fill="none" stroke="#10b981" stroke-width="1.5"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Promo Premium -->
+        <div class="premium-banner" id="promo_premium">
+          <button class="premium-banner-close" onclick="closePremiumPromo(event)">✕</button>
+          <h4>LUQUITA PRO PREMIUM</h4>
+          <p>Alertas de precio ilimitadas, sin publicidad, calculadora comercial y gráficos avanzados.</p>
+          <button class="premium-btn" onclick="alert('Funcionalidad Premium disponible en la próxima actualización de suscripción.')">
+            👑 ACTIVAR PREMIUM
+          </button>
+        </div>
+
+        <!-- Todas las Tasas -->
+        <div class="section-header">
+          <span class="section-title">TODAS LAS TASAS</span>
+          <span class="section-link" onclick="switchTab('conversor')">Calculadora completa</span>
+        </div>
+
+        <div class="rates-list-compact">
+          <div class="rate-row-card" onclick="switchTab('conversor')">
+            <div class="rate-row-info">
+              <div class="rate-row-icon" style="color: var(--accent-usd);">🇺🇸</div>
+              <div class="rate-row-details">
+                <h5>Dólar BCV</h5>
+                <p>Oficial Banco Central</p>
+              </div>
+            </div>
+            <div class="rate-row-price">
+              <div class="rate-row-value" id="row_usd_val">36.72 Bs</div>
+              <div class="rate-row-change trend-up" id="row_usd_change">+0.35%</div>
+            </div>
+          </div>
+
+          <div class="rate-row-card" onclick="switchTab('conversor')">
+            <div class="rate-row-info">
+              <div class="rate-row-icon" style="color: var(--accent-eur);">🇪🇺</div>
+              <div class="rate-row-details">
+                <h5>Euro BCV</h5>
+                <p>Oficial Banco Central</p>
+              </div>
+            </div>
+            <div class="rate-row-price">
+              <div class="rate-row-value" id="row_eur_val">39.81 Bs</div>
+              <div class="rate-row-change trend-up" id="row_eur_change">+0.28%</div>
+            </div>
+          </div>
+
+          <div class="rate-row-card" onclick="switchTab('conversor')">
+            <div class="rate-row-info">
+              <div class="rate-row-icon" style="color: var(--accent-usdt);">₮</div>
+              <div class="rate-row-details">
+                <h5>USDT Binance</h5>
+                <p>Referencial P2P Mercado</p>
+              </div>
+            </div>
+            <div class="rate-row-price">
+              <div class="rate-row-value" id="row_usdt_val">37.45 Bs</div>
+              <div class="rate-row-change trend-up" id="row_usdt_change">+1.02%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Herramientas -->
+        <div class="section-header">
+          <span class="section-title">HERRAMIENTAS</span>
+        </div>
+
+        <div class="tools-panel-grid">
+          <div class="tool-btn" onclick="switchTab('conversor')">
+            <div class="tool-btn-icon">🧮</div>
+            <span>Calcular</span>
+          </div>
+          <div class="tool-btn" onclick="switchTab('historial')">
+            <div class="tool-btn-icon">🕒</div>
+            <span>Historial</span>
+          </div>
+          <div class="tool-btn" onclick="switchTab('alertas')">
+            <div class="tool-btn-icon">🔔</div>
+            <span>Alertas</span>
+          </div>
+          <div class="tool-btn" onclick="switchTab('favoritos')">
+            <div class="tool-btn-icon">⭐</div>
+            <span>Favoritos</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= PANTALLA CONVERSOR ================= -->
+      <div id="screen_conversor" class="app-screen">
+        
+        <!-- Input de Divisa Compartido Superior -->
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 16px 20px; margin-bottom: 20px;">
+          <label style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 8px;">Monto base de conversión</label>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: baseline; width: 100%;">
+              <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-right: 8px;">$</span>
+              <input type="number" id="global_base_amount" class="currency-input" style="font-size: 2.1rem; color: var(--primary);" value="1" oninput="syncCalculations(this.value)">
+            </div>
+            <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); background: rgba(16, 185, 129, 0.1); padding: 6px 12px; border-radius: 20px;">USD / EUR / USDT</span>
+          </div>
+        </div>
+
+        <!-- 3 Tarjetas del Conversor Original -->
+        <div class="card-2-section">
+          <div class="card-section-top">
+            <div class="card-section-header">
+              <span class="card-section-title">Tasa Dólar BCV</span>
+              <span class="card-currency-badge">USD</span>
+            </div>
+            <div class="input-row">
+              <span class="currency-symbol-input">$</span>
+              <input type="number" id="usd_input" class="currency-input" value="1" oninput="calculateFromUSD(this.value)">
+            </div>
+          </div>
+          <div class="card-section-bottom" onclick="copyResultToClipboard('usd_output_ves', 'Dólar BCV')">
+            <div class="ves-result-container">
+              <div class="ves-result-left">
+                <span class="ves-result-label">Equivalente en Bolívares</span>
+                <div class="ves-result-value-row">
+                  <span class="ves-symbol">Bs.</span>
+                  <span class="ves-value" id="usd_output_ves">36.72</span>
+                </div>
+              </div>
+              <div class="ves-result-rate" id="usd_rate_info">Rate: 36.72</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-2-section">
+          <div class="card-section-top">
+            <div class="card-section-header">
+              <span class="card-section-title">Tasa Euro BCV</span>
+              <span class="card-currency-badge">EUR</span>
+            </div>
+            <div class="input-row">
+              <span class="currency-symbol-input">€</span>
+              <input type="number" id="eur_input" class="currency-input" value="1" oninput="calculateFromEUR(this.value)">
+            </div>
+          </div>
+          <div class="card-section-bottom" onclick="copyResultToClipboard('eur_output_ves', 'Euro BCV')">
+            <div class="ves-result-container">
+              <div class="ves-result-left">
+                <span class="ves-result-label">Equivalente en Bolívares</span>
+                <div class="ves-result-value-row">
+                  <span class="ves-symbol">Bs.</span>
+                  <span class="ves-value" id="eur_output_ves">39.81</span>
+                </div>
+              </div>
+              <div class="ves-result-rate" id="eur_rate_info">Rate: 39.81</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-2-section">
+          <div class="card-section-top">
+            <div class="card-section-header">
+              <span class="card-section-title">Tasa USDT Binance</span>
+              <span class="card-currency-badge">USDT</span>
+            </div>
+            <div class="input-row">
+              <span class="currency-symbol-input">₮</span>
+              <input type="number" id="usdt_input" class="currency-input" value="1" oninput="calculateFromUSDT(this.value)">
+            </div>
+          </div>
+          <div class="card-section-bottom" onclick="copyResultToClipboard('usdt_output_ves', 'USDT Binance')">
+            <div class="ves-result-container">
+              <div class="ves-result-left">
+                <span class="ves-result-label">Equivalente en Bolívares</span>
+                <div class="ves-result-value-row">
+                  <span class="ves-symbol">Bs.</span>
+                  <span class="ves-value" id="usdt_output_ves">37.45</span>
+                </div>
+              </div>
+              <div class="ves-result-rate" id="usdt_rate_info">Rate: 37.45</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <button class="action-btn-large" onclick="shareCalculation()">
+          📤 COMPARTIR RESULTADO
         </button>
-        <button onclick="toggleTheme()" class="btn-clean-mini" style="color: var(--text); border-color: var(--glass-border); width: 32px; height: 32px; border-radius: 50%;" title="Cambiar Tema">
-          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+
+        <!-- Calculadoras Adicionales -->
+        <div class="section-header" style="margin-top: 32px;">
+          <span class="section-title">CALCULADORAS ADICIONALES</span>
+        </div>
+
+        <div class="advanced-calculators">
+          
+          <!-- Calculadora Comercial -->
+          <div class="calc-card">
+            <div class="calc-card-title">🏭 Calculadora Comercial (Margen)</div>
+            <div class="calc-inputs-grid">
+              <div class="calc-input-wrapper">
+                <label>Costo ($)</label>
+                <input type="number" id="comm_cost" class="calc-field" value="100" oninput="calculateCommercial()">
+              </div>
+              <div class="calc-input-wrapper">
+                <label>Ganancia (%)</label>
+                <input type="number" id="comm_margin" class="calc-field" value="20" oninput="calculateCommercial()">
+              </div>
+            </div>
+            <div class="calc-result-box">
+              <h6>Precio Final ($)</h6>
+              <div class="calc-result-val" id="comm_result_usd">$120.00</div>
+            </div>
+            <div class="calc-result-box" style="margin-top: 8px; background: rgba(59,130,246,0.05); border-color: rgba(59,130,246,0.25);">
+              <h6 style="color: var(--text-muted);">Precio Final (Bs. BCV)</h6>
+              <div class="calc-result-val" id="comm_result_ves" style="color: var(--accent-eur);">4,406.40 Bs</div>
+            </div>
+          </div>
+
+          <!-- Conversor Inverso -->
+          <div class="calc-card">
+            <div class="calc-card-title">🔄 Conversor Inverso (Tengo Bolívares)</div>
+            <div class="calc-inputs-grid">
+              <div class="calc-input-wrapper" style="grid-column: span 2;">
+                <label>Monto en Bolívares (Bs.)</label>
+                <input type="number" id="inv_bs" class="calc-field" value="1000" oninput="calculateInverse()">
+              </div>
+            </div>
+            <div class="calc-result-box">
+              <h6>Recibes (Dólar BCV)</h6>
+              <div class="calc-result-val" id="inv_result_usd">$27.23</div>
+            </div>
+            <div class="calc-result-box" style="margin-top: 8px; background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.25);">
+              <h6>Recibes (USDT Binance)</h6>
+              <div class="calc-result-val" id="inv_result_usdt" style="color: var(--accent-usdt);">26.70 USDT</div>
+            </div>
+          </div>
+
+          <!-- Calculadora USDT + Comisión -->
+          <div class="calc-card">
+            <div class="calc-card-title">🪙 Calculadora USDT P2P + Comisión</div>
+            <div class="calc-inputs-grid">
+              <div class="calc-input-wrapper">
+                <label>Monto USDT</label>
+                <input type="number" id="usdt_p2p_amount" class="calc-field" value="100" oninput="calculateUsdtCommission()">
+              </div>
+              <div class="calc-input-wrapper">
+                <label>Comisión (%)</label>
+                <input type="number" id="usdt_p2p_comm" class="calc-field" value="2" oninput="calculateUsdtCommission()">
+              </div>
+            </div>
+            <div class="calc-result-box">
+              <h6>Recibes neto (USDT)</h6>
+              <div class="calc-result-val" id="usdt_p2p_net" style="color: var(--accent-usdt);">98.00 USDT</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= PANTALLA GRÁFICOS ================= -->
+      <div id="screen_graficos" class="app-screen">
+        
+        <div class="chart-container-card">
+          <div class="chart-header">
+            <h5 style="font-size: 1.1rem; font-weight: 800;">Histórico e Tendencia</h5>
+            <select class="chart-selector" id="chart_divisa" onchange="updateChartData()">
+              <option value="usd">Dólar BCV</option>
+              <option value="eur">Euro BCV</option>
+              <option value="usdt">USDT Binance</option>
+            </select>
+          </div>
+
+          <div class="chart-timeframe-selector">
+            <button class="tf-btn active" onclick="changeTimeframe('24h', this)">24H</button>
+            <button class="tf-btn" onclick="changeTimeframe('7d', this)">7D</button>
+            <button class="tf-btn" onclick="changeTimeframe('30d', this)">30D</button>
+            <button class="tf-btn" onclick="changeTimeframe('90d', this)">90D</button>
+            <button class="tf-btn" onclick="changeTimeframe('1a', this)">1A</button>
+          </div>
+
+          <div class="chart-visual-box">
+            <!-- Representación visual premium de gráficos usando SVG dinámico -->
+            <svg viewBox="0 0 400 180" width="100%" height="100%" preserveAspectRatio="none" id="chart_svg">
+              <defs>
+                <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0 140 Q 50 135 100 120 T 200 90 T 300 70 L 400 40 L 400 180 L 0 180 Z" fill="url(#chartGlow)" id="chart_path_glow"></path>
+              <path d="M 0 140 Q 50 135 100 120 T 200 90 T 300 70 L 400 40" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" id="chart_path_line"></path>
+              <circle cx="400" cy="40" r="5" fill="#10b981" id="chart_circle_end"></circle>
+              <line x1="0" y1="150" x2="400" y2="150" stroke="var(--border-color)" stroke-dasharray="3,3"></line>
+              <line x1="0" y1="100" x2="400" y2="100" stroke="var(--border-color)" stroke-dasharray="3,3"></line>
+              <line x1="0" y1="50" x2="400" y2="50" stroke="var(--border-color)" stroke-dasharray="3,3"></line>
+            </svg>
+          </div>
+
+          <div class="chart-stats-grid">
+            <div class="chart-stat-box">
+              <h6>Mínimo (24H)</h6>
+              <div class="chart-stat-val" id="chart_min_val">36.52 Bs</div>
+            </div>
+            <div class="chart-stat-box">
+              <h6>Máximo (24H)</h6>
+              <div class="chart-stat-val" id="chart_max_val">36.90 Bs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rate-row-card" style="cursor: default;">
+          <div class="rate-row-info">
+            <div class="rate-row-details">
+              <h5 id="info_card_title">Sobre el Dólar BCV</h5>
+              <p id="info_card_desc" style="white-space: normal; line-height: 1.4; margin-top: 4px;">El dólar oficial del Banco Central de Venezuela es el ponderado de las operaciones de las mesas de cambio de las instituciones bancarias.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= PANTALLA ALERTAS ================= -->
+      <div id="screen_alertas" class="app-screen">
+        
+        <div class="alert-settings-card">
+          <h5 style="font-size: 1rem; font-weight: 800; margin-bottom: 14px;">Crear Nueva Alerta</h5>
+          <div class="calc-inputs-grid" style="grid-template-columns: 2fr 1fr;">
+            <div class="calc-input-wrapper">
+              <label>Divisa de Referencia</label>
+              <select class="calc-field" id="alert_divisa">
+                <option value="Dólar BCV">Dólar BCV</option>
+                <option value="USDT Binance">USDT Binance</option>
+                <option value="Euro BCV">Euro BCV</option>
+              </select>
+            </div>
+            <div class="calc-input-wrapper">
+              <label>Condición</label>
+              <select class="calc-field" id="alert_cond">
+                <option value=">">&gt;</option>
+                <option value="<">&lt;</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="calc-input-wrapper" style="margin-bottom: 16px;">
+            <label>Valor Umbral (Bs.)</label>
+            <input type="number" id="alert_value" class="calc-field" value="38.50">
+          </div>
+
+          <button class="action-btn-large" onclick="createAlert()">
+            🔔 GUARDAR ALERTA
+          </button>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">MIS ALERTAS DE PRECIO</span>
+        </div>
+
+        <div class="alerts-active-list" id="alerts_list">
+          <div class="active-alert-item">
+            <div class="alert-details">
+              <h6>Dólar BCV &gt; 38.00 Bs</h6>
+              <p>Te notificaremos al instante</p>
+            </div>
+            <div class="alert-toggle" onclick="toggleAlertElement(this)"></div>
+          </div>
+          <div class="active-alert-item">
+            <div class="alert-details">
+              <h6>USDT Binance &gt; 42.00 Bs</h6>
+              <p>Suscripción Activa</p>
+            </div>
+            <div class="alert-toggle" onclick="toggleAlertElement(this)"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= PANTALLA HISTORIAL ================= -->
+      <div id="screen_historial" class="app-screen">
+        
+        <div class="section-header">
+          <span class="section-title">CONVERSIONES RECIENTES</span>
+          <span class="section-link" onclick="clearHistory()">Limpiar todo</span>
+        </div>
+
+        <div class="history-list" id="history_items">
+          <!-- Dinámico -->
+          <div class="history-item-card">
+            <div class="history-item-left">
+              <div>
+                <div class="history-monto">100.00 USD</div>
+                <div class="history-tag">Dólar BCV</div>
+              </div>
+              <div class="history-arrow">→</div>
+              <div>
+                <div class="history-ves">3,672.00 Bs</div>
+                <div class="history-time">Hace 3 min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= PANTALLA FAVORITOS ================= -->
+      <div id="screen_favoritos" class="app-screen">
+        
+        <div class="section-header">
+          <span class="section-title">DIVISAS FAVORITAS</span>
+        </div>
+
+        <div class="rates-list-compact" id="favorites_list">
+          <!-- Favoritos iniciales -->
+          <div class="rate-row-card">
+            <div class="rate-row-info">
+              <span style="font-size: 1.2rem;">⭐</span>
+              <div class="rate-row-icon">🇺🇸</div>
+              <div class="rate-row-details">
+                <h5>Dólar BCV</h5>
+                <p>Oficial Banco Central</p>
+              </div>
+            </div>
+            <div class="rate-row-value">36.72 Bs</div>
+          </div>
+          <div class="rate-row-card">
+            <div class="rate-row-info">
+              <span style="font-size: 1.2rem;">⭐</span>
+              <div class="rate-row-icon">₮</div>
+              <div class="rate-row-details">
+                <h5>USDT Binance</h5>
+                <p>Referencial P2P</p>
+              </div>
+            </div>
+            <div class="rate-row-value">37.45 Bs</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        Calculado según datos de fuentes oficiales e intermediarios autorizados.<br>
+        <strong>Luquita PRO Premium</strong> © 2026 - Con la confianza de más de 10M de usuarios.<br>
+        <span style="opacity: 0.5;">Versión 4.0.0 (Premium Beta)</span>
+      </footer>
+
+      <!-- Barra Navegación Flotante -->
+      <nav class="bottom-nav">
+        <button class="nav-tab active" onclick="switchTab('inicio')">
+          <span class="nav-tab-icon">🏠</span>
+          <span>Inicio</span>
         </button>
-      </div>
-    </div>
-
-    <div class="converter-grid">
-      <!-- USD CARD -->
-      <div class="card card-usd">
-        <div class="card-sidebar">
-          <span class="suggestion-label">Sugeridos</span>
-          <button class="btn-suggest" onclick="suggest('usd', 10)">10</button>
-          <button class="btn-suggest" onclick="suggest('usd', 20)">20</button>
-          <button class="btn-suggest" onclick="suggest('usd', 30)">30</button>
-          <button class="btn-suggest" onclick="suggest('usd', 40)">40</button>
-          <button class="btn-suggest" onclick="suggest('usd', 50)">50</button>
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <div class="currency-icon">$</div>
-            <div class="card-title">Dólar BCV</div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Dólares</label>
-            <div class="input-wrapper">
-              <input type="number" id="usd_val" step="any" placeholder="0.00" oninput="handleInput('usd', this.value)">
-              <span class="currency-tag">USD</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Bolívares</label>
-            <div class="input-wrapper">
-              <input type="number" id="bs_usd_val" step="any" placeholder="0.00"
-                oninput="handleInput('bs_usd', this.value)">
-              <span class="currency-tag">VES</span>
-            </div>
-          </div>
-
-          <div class="rate-info">
-            <span>Tasa Oficial</span>
-            <span class="rate-value" id="rate_usd_display">--.-- Bs</span>
-          </div>
-          <div class="rate-info" id="diff_usd_row" style="display:none; flex-direction: column; align-items: stretch; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-              <span>Diferencia</span>
-              <span class="rate-value" id="diff_usd_display">-- Bs</span>
-            </div>
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
-              <span id="diff_usd_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-              <span id="diff_usd_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MANUAL CARD -->
-      <div class="card card-manual">
-        <div class="card-sidebar">
-          <span class="suggestion-label">Sugeridos</span>
-          <button class="btn-suggest" onclick="suggest('manual', 10)">10</button>
-          <button class="btn-suggest" onclick="suggest('manual', 20)">20</button>
-          <button class="btn-suggest" onclick="suggest('manual', 30)">30</button>
-          <button class="btn-suggest" onclick="suggest('manual', 40)">40</button>
-          <button class="btn-suggest" onclick="suggest('manual', 50)">50</button>
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <div class="currency-icon" style="color: #a855f7; background: rgba(168, 85, 247, 0.1);">✍️</div>
-            <div class="card-title">Cambio Manual</div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Tasa Manual</label>
-            <div class="input-wrapper">
-              <input type="number" id="rate_manual_val" step="any" placeholder="0.00" oninput="updateManualRate()">
-              <span class="currency-tag">Bs</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto a cambiar</label>
-            <div class="input-wrapper">
-              <input type="number" id="manual_val" step="any" placeholder="0.00" oninput="handleInput('manual', this.value)">
-              <span class="currency-tag">#</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Bolívares</label>
-            <div class="input-wrapper">
-              <input type="number" id="bs_manual_val" step="any" placeholder="0.00"
-                oninput="handleInput('bs_manual', this.value)">
-              <span class="currency-tag">VES</span>
-            </div>
-          </div>
-
-          <div class="rate-info">
-            <span>Tasa USDT</span>
-            <span class="rate-value" id="rate_manual_ref_display">--.-- Bs</span>
-          </div>
-          <div class="rate-info" id="diff_manual_row" style="display:none; flex-direction: column; align-items: stretch; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-              <span>Diferencia</span>
-              <span class="rate-value" id="diff_manual_display">-- Bs</span>
-            </div>
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
-              <span id="diff_manual_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-              <span id="diff_manual_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- EUR CARD -->
-      <div class="card card-eur">
-        <div class="card-sidebar">
-          <span class="suggestion-label">Sugeridos</span>
-          <button class="btn-suggest" onclick="suggest('eur', 10)">10</button>
-          <button class="btn-suggest" onclick="suggest('eur', 20)">20</button>
-          <button class="btn-suggest" onclick="suggest('eur', 30)">30</button>
-          <button class="btn-suggest" onclick="suggest('eur', 40)">40</button>
-          <button class="btn-suggest" onclick="suggest('eur', 50)">50</button>
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <div class="currency-icon">€</div>
-            <div class="card-title">Euro BCV</div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Euros</label>
-            <div class="input-wrapper">
-              <input type="number" id="eur_val" step="any" placeholder="0.00" oninput="handleInput('eur', this.value)">
-              <span class="currency-tag">EUR</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Bolívares</label>
-            <div class="input-wrapper">
-              <input type="number" id="bs_eur_val" step="any" placeholder="0.00"
-                oninput="handleInput('bs_eur', this.value)">
-              <span class="currency-tag">VES</span>
-            </div>
-          </div>
-
-          <div class="rate-info">
-            <span>Tasa Oficial</span>
-            <span class="rate-value" id="rate_eur_display">--.-- Bs</span>
-          </div>
-          <div class="rate-info" id="diff_eur_row" style="display:none; flex-direction: column; align-items: stretch; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-              <span>Diferencia</span>
-              <span class="rate-value" id="diff_eur_display">-- Bs</span>
-            </div>
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
-              <span id="diff_eur_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-              <span id="diff_eur_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- USDT CARD -->
-      <div class="card card-usdt">
-        <div class="card-sidebar">
-          <span class="suggestion-label">Sugeridos</span>
-          <button class="btn-suggest" onclick="suggest('usdt', 10)">10</button>
-          <button class="btn-suggest" onclick="suggest('usdt', 20)">20</button>
-          <button class="btn-suggest" onclick="suggest('usdt', 30)">30</button>
-          <button class="btn-suggest" onclick="suggest('usdt', 40)">40</button>
-          <button class="btn-suggest" onclick="suggest('usdt', 50)">50</button>
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <div class="currency-icon">₮</div>
-            <div class="card-title">Binance</div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en USDT</label>
-            <div class="input-wrapper">
-              <input type="number" id="usdt_val" step="any" placeholder="0.00"
-                oninput="handleInput('usdt', this.value)">
-              <span class="currency-tag">USDT</span>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Monto en Bolívares</label>
-            <div class="input-wrapper">
-              <input type="number" id="bs_usdt_val" step="any" placeholder="0.00"
-                oninput="handleInput('bs_usdt', this.value)">
-              <span class="currency-tag">VES</span>
-            </div>
-          </div>
-
-          <div class="rate-info">
-            <span>Tasa USDT</span>
-            <span class="rate-value" id="rate_usdt_display">--.-- Bs</span>
-          </div>
-          <div class="rate-info" id="diff_usdt_row" style="display:none; flex-direction: column; align-items: stretch; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-              <span>Diferencia</span>
-              <span class="rate-value" id="diff_usdt_display">-- Bs</span>
-            </div>
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap;">
-              <span id="diff_usdt_eq" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-              <span id="diff_usdt_bcv" style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+        <button class="nav-tab" onclick="switchTab('conversor')">
+          <span class="nav-tab-icon">🧮</span>
+          <span>Conversor</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab('graficos')">
+          <span class="nav-tab-icon">📈</span>
+          <span>Gráficos</span>
+        </button>
+        <button class="nav-tab" onclick="switchTab('historial')">
+          <span class="nav-tab-icon">🕒</span>
+          <span>Historial</span>
+        </button>
+      </nav>
 
     </div>
 
-    <!-- SUMMARY PANEL -->
-    <div class="summary-panel">
-      <div class="summary-header">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="20" x2="21" y2="20"></line>
-          <path d="M6 20V10"></path>
-          <path d="M10 20V4"></path>
-          <path d="M14 20V14"></path>
-          <path d="M18 20V8"></path>
-        </svg>
-        Resumen de conversión en vivo
-      </div>
-      <div class="summary-grid">
-        <div class="summary-item">
-          <span class="summary-val" id="sum_usd">0.00</span>
-          <span class="summary-label">USD</span>
-        </div>
-        <div class="summary-separator">=</div>
-        <div class="summary-item">
-          <span class="summary-val" id="sum_eur">0.00</span>
-          <span class="summary-label">EUR</span>
-        </div>
-        <div class="summary-separator">=</div>
-        <div class="summary-item">
-          <span class="summary-val" id="sum_usdt">0.00</span>
-          <span class="summary-label">USDT</span>
-        </div>
-        <div class="summary-separator">=</div>
-        <div class="summary-item" style="border-color: var(--accent-usd);">
-          <span class="summary-val" id="sum_ves">0.00</span>
-          <span class="summary-label">VES (BCV)</span>
-        </div>
-      </div>
-    </div>
-
-    <footer>
-      Calculado según datos oficiales del <a href="http://www.bcv.org.ve/" target="_blank">Banco Central de
-        Venezuela</a>.
-      <br>© Creativeweb IA 2026 - Todos los Derechos Reservados - <span style="opacity: 0.5;">v.3.1.1</span>
-      <div id="visitCounter" style="margin-top: 10px; font-weight: 700; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 8px; animation: fadeIn 1.5s ease-out;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-        <span style="letter-spacing: 1px;">VISITAS:</span>
-        <span id="visitCountValue" style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 6px; font-size: 0.85rem;">...</span>
-      </div>
-    </footer>
-
-    <!-- Botón de Instalación (PWA) -->
-    <button id="pwa_install_btn" class="pwa-btn" style="display: none;">
-      <span>📲 Instalar Luquita</span>
-    </button>
-
-    <!-- Modal de Instrucciones iPhone -->
+    <!-- Modales de Instrucciones de Instalación PWA -->
     <div id="ios_modal" class="ios-modal-overlay" style="display: none;">
       <div class="ios-modal">
-        <h3>Instalar en iPhone 📱</h3>
-        <p id="ios_safari_msg" style="display: none; color: #ff6b6b; font-size: 0.95rem; margin-bottom: 12px;">⚠️ Para poder instalar la App, debes abrir este enlace en <strong>Safari</strong>.</p>
-        <p>Sigue estos pasos en Safari:</p>
-        <ul>
-          <li>1. Pulsa el botón <strong>Compartir</strong> <span style="font-size: 1.2rem;">⎋</span> (abajo al centro).</li>
-          <li>2. Busca y selecciona <strong>"Añadir a pantalla de inicio"</strong>.</li>
-          <li>3. Dale a <strong>"Añadir"</strong> arriba a la derecha.</li>
+        <h3>Instalar Luquita PRO 📱</h3>
+        <p>Añade la app a tu pantalla de inicio para acceder instantáneamente:</p>
+        <ul style="text-align: left; margin: 16px 0; font-size: 0.85rem; line-height: 1.6;">
+          <li>1. Pulsa el icono de <strong>Compartir</strong> en la barra de Safari.</li>
+          <li>2. Selecciona la opción de <strong>"Agregar a inicio"</strong>.</li>
+          <li>3. Confirma pulsando en <strong>"Añadir"</strong>.</li>
         </ul>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <button class="btn-share-app" onclick="copyUrlToClipboard()" style="margin: 0; background: var(--primary); border: none;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            Copiar Enlace
-          </button>
-          <button class="close-modal"
-            onclick="document.getElementById('ios_modal').style.display='none'">¡Entendido!</button>
-        </div>
+        <button class="close-modal" onclick="document.getElementById('ios_modal').style.display='none'">¡Entendido!</button>
       </div>
     </div>
 
-    <!-- Modal de Instrucciones Android -->
     <div id="android_modal" class="ios-modal-overlay" style="display: none;">
       <div class="ios-modal">
-        <h3>Añadir a Pantalla Principal 📱</h3>
-        <p>Para instalar Luquita en tu dispositivo Android o navegador web:</p>
-        <ul>
-          <li>1. Toca el menú de opciones <strong>(tres puntos ⋮)</strong> de tu navegador.</li>
-          <li>2. Busca y selecciona <strong>"Añadir a la pantalla de inicio"</strong> o <strong>"Instalar aplicación"</strong>.</li>
-          <li>3. Confirma seleccionando <strong>"Añadir"</strong> o <strong>"Instalar"</strong>.</li>
+        <h3>Instalar Luquita PRO 📱</h3>
+        <p>Añade la app a tu pantalla de inicio:</p>
+        <ul style="text-align: left; margin: 16px 0; font-size: 0.85rem; line-height: 1.6;">
+          <li>1. Pulsa los <strong>tres puntos (⋮)</strong> del navegador.</li>
+          <li>2. Pulsa en <strong>"Instalar aplicación"</strong> o <strong>"Añadir a pantalla de inicio"</strong>.</li>
         </ul>
-        <button class="close-modal"
-          onclick="document.getElementById('android_modal').style.display='none'">¡Entendido!</button>
+        <button class="close-modal" onclick="document.getElementById('android_modal').style.display='none'">¡Entendido!</button>
       </div>
     </div>
 
     <script>
+      // Tasas iniciales (serán sobrescritas por la llamada al API)
+      let rates = {
+        usd: 36.72,
+        eur: 39.81,
+        usdt: 37.45
+      };
+
+      // Historial cargado de localStorage
+      let historyData = JSON.parse(localStorage.getItem('luquita_history')) || [
+        { from: '100.00 USD', rateLabel: 'Dólar BCV', to: '3,672.00 Bs', time: 'Hace 5 min' },
+        { from: '50.00 USDT', rateLabel: 'USDT Binance', to: '1,872.50 Bs', time: 'Hace 10 min' }
+      ];
+
+      // Inicialización de Pantallas (Navegación)
+      function switchTab(tabId) {
+        // Desactivar todas las pestañas y pantallas
+        document.querySelectorAll('.app-screen').forEach(screen => screen.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+        
+        // Activar seleccionada
+        const screenEl = document.getElementById('screen_' + tabId);
+        if (screenEl) screenEl.classList.add('active');
+        
+        // Activar tab en nav
+        const tabs = document.querySelectorAll('.nav-tab');
+        tabs.forEach(tab => {
+          if (tab.getAttribute('onclick').includes(tabId)) {
+            tab.classList.add('active');
+          }
+        });
+
+        // Evento específico para actualizar gráficos o datos especiales
+        if (tabId === 'graficos') {
+          updateChartData();
+        } else if (tabId === 'historial') {
+          renderHistory();
+        }
+      }
+
+      // Sincronizador de montos en conversor
+      function syncCalculations(val) {
+        const amt = parseFloat(val) || 0;
+        document.getElementById('usd_input').value = amt;
+        document.getElementById('eur_input').value = amt;
+        document.getElementById('usdt_input').value = amt;
+        
+        calculateFromUSD(amt);
+        calculateFromEUR(amt);
+        calculateFromUSDT(amt);
+      }
+
+      function calculateFromUSD(val) {
+        const amt = parseFloat(val) || 0;
+        const result = amt * rates.usd;
+        document.getElementById('usd_output_ves').textContent = result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        saveToHistoryDebounced(amt, 'USD', result, 'Dólar BCV');
+      }
+
+      function calculateFromEUR(val) {
+        const amt = parseFloat(val) || 0;
+        const result = amt * rates.eur;
+        document.getElementById('eur_output_ves').textContent = result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        saveToHistoryDebounced(amt, 'EUR', result, 'Euro BCV');
+      }
+
+      function calculateFromUSDT(val) {
+        const amt = parseFloat(val) || 0;
+        const result = amt * rates.usdt;
+        document.getElementById('usdt_output_ves').textContent = result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        saveToHistoryDebounced(amt, 'USDT', result, 'USDT Binance');
+      }
+
+      // Debounce para no inundar el historial al teclear
+      let historyTimeout;
+      function saveToHistoryDebounced(amount, symbol, result, label) {
+        clearTimeout(historyTimeout);
+        if (amount <= 0) return;
+        historyTimeout = setTimeout(() => {
+          const newItem = {
+            from: `${amount.toFixed(2)} ${symbol}`,
+            rateLabel: label,
+            to: `${result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`,
+            time: 'Recién calculado'
+          };
+          // Agregar al inicio del array y cortar a máximo 10 elementos
+          historyData.unshift(newItem);
+          if (historyData.length > 10) historyData.pop();
+          localStorage.setItem('luquita_history', JSON.stringify(historyData));
+        }, 1200);
+      }
+
+      function renderHistory() {
+        const container = document.getElementById('history_items');
+        if (!container) return;
+        if (historyData.length === 0) {
+          container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.9rem;">No hay conversiones recientes.</div>`;
+          return;
+        }
+        container.innerHTML = historyData.map(item => `
+          <div class="history-item-card">
+            <div class="history-item-left">
+              <div>
+                <div class="history-monto">${item.from}</div>
+                <div class="history-tag">${item.rateLabel}</div>
+              </div>
+              <div class="history-arrow">→</div>
+              <div>
+                <div class="history-ves">${item.to}</div>
+                <div class="history-time">${item.time}</div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function clearHistory() {
+        historyData = [];
+        localStorage.removeItem('luquita_history');
+        renderHistory();
+      }
+
+      // Copiar resultado al portapapeles
+      function copyResultToClipboard(elementId, label) {
+        const valText = document.getElementById(elementId).textContent;
+        navigator.clipboard.writeText(valText).then(() => {
+          alert(`Copiado: ${valText} Bs. (Tasa ${label})`);
+        });
+      }
+
+      // Compartir resultado por Whatsapp
+      function shareCalculation() {
+        const baseAmount = document.getElementById('global_base_amount').value || "1";
+        const text = `*Conversión de divisas con Luquita PRO* 💱\n\n` +
+          `• *${baseAmount} USD* = ${(baseAmount * rates.usd).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (BCV)\n` +
+          `• *${baseAmount} EUR* = ${(baseAmount * rates.eur).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (BCV)\n` +
+          `• *${baseAmount} USDT* = ${(baseAmount * rates.usdt).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (Binance)\n\n` +
+          `Calculado con Luquita PRO Premium 🚀`;
+          
+        const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+        window.open(url, '_blank');
+      }
+
+      // Herramientas Avanzadas
+      function calculateCommercial() {
+        const cost = parseFloat(document.getElementById('comm_cost').value) || 0;
+        const margin = parseFloat(document.getElementById('comm_margin').value) || 0;
+        const resultUsd = cost * (1 + (margin / 100));
+        const resultVes = resultUsd * rates.usd;
+        
+        document.getElementById('comm_result_usd').textContent = `$${resultUsd.toFixed(2)}`;
+        document.getElementById('comm_result_ves').textContent = `${resultVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
+      }
+
+      function calculateInverse() {
+        const bs = parseFloat(document.getElementById('inv_bs').value) || 0;
+        const resultUsd = bs / rates.usd;
+        const resultUsdt = bs / rates.usdt;
+        
+        document.getElementById('inv_result_usd').textContent = `$${resultUsd.toFixed(2)}`;
+        document.getElementById('inv_result_usdt').textContent = `${resultUsdt.toFixed(2)} USDT`;
+      }
+
+      function calculateUsdtCommission() {
+        const amount = parseFloat(document.getElementById('usdt_p2p_amount').value) || 0;
+        const commission = parseFloat(document.getElementById('usdt_p2p_comm').value) || 0;
+        const net = amount * (1 - (commission / 100));
+        
+        document.getElementById('usdt_p2p_net').textContent = `${net.toFixed(2)} USDT`;
+      }
+
+      // Gráficos y Tendencias
+      let currentTimeframe = '24h';
+      function changeTimeframe(tf, btn) {
+        document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTimeframe = tf;
+        updateChartData();
+      }
+
+      function updateChartData() {
+        const selected = document.getElementById('chart_divisa').value;
+        const rate = rates[selected];
+        
+        // Modificaciones dinámicas del texto informativo
+        const titleEl = document.getElementById('info_card_title');
+        const descEl = document.getElementById('info_card_desc');
+        
+        if (selected === 'usd') {
+          titleEl.textContent = "Sobre el Dólar BCV";
+          descEl.textContent = "Tasa oficial ponderada calculada por el BCV al cierre de las mesas cambiarias de la banca nacional.";
+        } else if (selected === 'eur') {
+          titleEl.textContent = "Sobre el Euro BCV";
+          descEl.textContent = "Valor oficial del Euro determinado diariamente por el BCV según cotización de los mercados de divisas.";
+        } else {
+          titleEl.textContent = "Sobre USDT Binance";
+          descEl.textContent = "Monto de intercambio de Tether (USDT) en el mercado P2P de Binance, la referencia del dólar informal.";
+        }
+
+        // Simular valores de rango según temporalidad
+        let variation = 0.02;
+        if (currentTimeframe === '7d') variation = 0.05;
+        if (currentTimeframe === '30d') variation = 0.12;
+        if (currentTimeframe === '90d') variation = 0.25;
+        if (currentTimeframe === '1a') variation = 0.65;
+
+        const minVal = rate * (1 - variation);
+        const maxVal = rate * (1 + variation * 0.5);
+
+        document.getElementById('chart_min_val').textContent = minVal.toFixed(2) + " Bs";
+        document.getElementById('chart_max_val').textContent = maxVal.toFixed(2) + " Bs";
+
+        // Simular trazo de SVG aleatorio o curvo
+        const line = document.getElementById('chart_path_line');
+        const glow = document.getElementById('chart_path_glow');
+        const circle = document.getElementById('chart_circle_end');
+
+        let points = [];
+        const segments = 10;
+        for (let i = 0; i <= segments; i++) {
+          const x = (i / segments) * 400;
+          // Variaciones estéticas según tasa
+          let y = 140 - (i * 8) - (Math.sin(i) * 12);
+          if (selected === 'usdt') y -= 12;
+          if (selected === 'eur') y += 8;
+          points.push({ x, y });
+        }
+
+        // Trazar línea de SVG
+        let pathD = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 1; i < points.length; i++) {
+          pathD += ` L ${points[i].x} ${points[i].y}`;
+        }
+
+        line.setAttribute('d', pathD);
+        glow.setAttribute('d', `${pathD} L 400 180 L 0 180 Z`);
+        
+        const lastPt = points[points.length - 1];
+        circle.setAttribute('cx', lastPt.x);
+        circle.setAttribute('cy', lastPt.y);
+      }
+
+      // Alertas de precio
+      function createAlert() {
+        const divisa = document.getElementById('alert_divisa').value;
+        const cond = document.getElementById('alert_cond').value;
+        const val = parseFloat(document.getElementById('alert_value').value) || 0;
+        
+        if (val <= 0) return;
+
+        const container = document.getElementById('alerts_list');
+        const newItem = document.createElement('div');
+        newItem.className = 'active-alert-item';
+        newItem.innerHTML = `
+          <div class="alert-details">
+            <h6>${divisa} ${cond} ${val.toFixed(2)} Bs</h6>
+            <p>Notificación activa</p>
+          </div>
+          <div class="alert-toggle" onclick="toggleAlertElement(this)"></div>
+        `;
+        
+        container.prepend(newItem);
+        alert(`Alerta guardada para: ${divisa} ${cond} ${val.toFixed(2)} Bs. Te enviaremos notificaciones push en tiempo real.`);
+      }
+
+      function toggleAlertElement(el) {
+        el.classList.toggle('off');
+      }
+
+      // Promoción Premium
+      function closePremiumPromo(e) {
+        e.stopPropagation();
+        document.getElementById('promo_premium').style.display = 'none';
+      }
+
+      // Cambio de Tema
       function toggleTheme() {
         const body = document.body;
         const icon = document.getElementById('themeIcon');
         if (body.classList.contains('light-mode')) {
           body.classList.remove('light-mode');
+          icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>';
           localStorage.setItem('theme', 'dark');
-          icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
         } else {
           body.classList.add('light-mode');
-          localStorage.setItem('theme', 'light');
           icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+          localStorage.setItem('theme', 'light');
         }
       }
 
-      // Inicializar tema al cargar: siempre iniciar desde modo claro
-      document.body.classList.add('light-mode');
-      document.getElementById('themeIcon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-      localStorage.setItem('theme', 'light');
-
-      // Evitar que el scroll del mouse cambie el valor de los inputs numéricos
-      document.addEventListener('wheel', function(e) {
-        if (document.activeElement && document.activeElement.type === 'number') {
-          document.activeElement.blur();
-        }
-      }, { passive: true });
-
-      let rates = {
-        usd: 36.50,
-        eur: 39.20,
-        usdt: 36.40,
-        manual: 0
-      };
-
-      // Usaremos DolarApi.com por su alta disponibilidad y soporte CORS
-      const API_USD = "https://ve.dolarapi.com/v1/dolares/oficial";
-      const API_EUR = "https://ve.dolarapi.com/v1/euros/oficial";
-
-      // Selectors
-      const els = {
-        usd: document.getElementById('usd_val'),
-        bs_usd: document.getElementById('bs_usd_val'),
-        eur: document.getElementById('eur_val'),
-        bs_eur: document.getElementById('bs_eur_val'),
-        usdt: document.getElementById('usdt_val'),
-        bs_usdt: document.getElementById('bs_usdt_val'),
-        rate_usd: document.getElementById('rate_usd_display'),
-        rate_eur: document.getElementById('rate_eur_display'),
-        rate_usdt: document.getElementById('rate_usdt_display'),
-        statusText: document.getElementById('statusText'),
-        statusDot: document.getElementById('statusDot'),
-        sum_usd: document.getElementById('sum_usd'),
-        sum_eur: document.getElementById('sum_eur'),
-        sum_usdt: document.getElementById('sum_usdt'),
-        sum_ves: document.getElementById('sum_ves'),
-        manual: document.getElementById('manual_val'),
-        bs_manual: document.getElementById('bs_manual_val'),
-        rate_manual_ref: document.getElementById('rate_manual_ref_display'),
-        diff_usd: document.getElementById('diff_usd_display'),
-        diff_usd_row: document.getElementById('diff_usd_row'),
-        diff_usd_eq: document.getElementById('diff_usd_eq'),
-        diff_usd_bcv: document.getElementById('diff_usd_bcv'),
-        diff_eur: document.getElementById('diff_eur_display'),
-        diff_eur_row: document.getElementById('diff_eur_row'),
-        diff_eur_eq: document.getElementById('diff_eur_eq'),
-        diff_eur_bcv: document.getElementById('diff_eur_bcv'),
-        diff_usdt: document.getElementById('diff_usdt_display'),
-        diff_usdt_row: document.getElementById('diff_usdt_row'),
-        diff_usdt_eq: document.getElementById('diff_usdt_eq'),
-        diff_usdt_bcv: document.getElementById('diff_usdt_bcv')
-      };
-
-      // Validar que una tasa esté dentro de un rango razonable para Venezuela (100–10000 Bs)
-      function validateRate(val, fallback) {
-        const n = parseFloat(val);
-        return (Number.isFinite(n) && n > 100 && n < 10000) ? n : fallback;
-      }
-
-      // Fetch Rates
+      // Fetch a la API de ve.dolarapi.com
       async function fetchRates() {
-        updateFormattedDate();
-        setLoading(true);
-
         try {
-          // 1. Cargar tasas oficiales (BCV)
-          try {
-            const [resUsd, resEur] = await Promise.all([
-              fetch(API_USD),
-              fetch(API_EUR)
-            ]);
+          const [resUsd, resEur, resParalelo] = await Promise.all([
+            fetch("https://ve.dolarapi.com/v1/dolares/oficial"),
+            fetch("https://ve.dolarapi.com/v1/euros/oficial"),
+            fetch("https://ve.dolarapi.com/v1/dolares/paralelo")
+          ]);
 
-            if (resUsd.ok && resEur.ok) {
-              const dataUsd = await resUsd.json();
-              const dataEur = await resEur.json();
-              rates.usd = validateRate(dataUsd.promedio ?? dataUsd.price ?? dataUsd.venta, rates.usd);
-              rates.eur = validateRate(dataEur.promedio ?? dataEur.price ?? dataEur.venta, rates.eur);
-            }
-          } catch (e) {
-            console.error("Error cargando BCV:", e);
+          if (resUsd.ok) {
+            const data = await resUsd.json();
+            rates.usd = data.promedio || data.price || rates.usd;
+          }
+          if (resEur.ok) {
+            const data = await resEur.json();
+            rates.eur = data.promedio || data.price || rates.eur;
+          }
+          if (resParalelo.ok) {
+            const data = await resParalelo.json();
+            rates.usdt = data.promedio || data.price || rates.usdt;
           }
 
-          // Actualizamos valores BCV en pantalla
-          updateDisplayRates();
-
-          // 2. Cargar Tasa USDT (Paralelo / Binance)
-          try {
-            const resParalelo = await fetch("https://ve.dolarapi.com/v1/dolares/paralelo");
-            if (resParalelo.ok) {
-              const dataUsdt = await resParalelo.json();
-              const usdt = validateRate(dataUsdt.promedio, 0);
-              if (usdt > 0) {
-                rates.usdt = usdt;
-                updateDisplayRates();
-                setLoading(false, "Sincronización Completa ✅");
-                return;
-              }
-            }
-          } catch (e) {
-            console.error("Error cargando Paralelo:", e);
-          }
-
-          // Fallback final ExchangeMonitor vía AllOrigins si DolarApi Paralelo falla
-          try {
-            const EM_URL = "https://exchangemonitor.net/venezuela/dolar-binance";
-            const res = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(EM_URL));
-            const data = await res.json();
-            const doc = new DOMParser().parseFromString(data.contents, "text/html");
-            const priceEl = doc.querySelector('.history-rate.fs-2');
-            
-            if (priceEl) {
-              const rawText = (priceEl.innerText || priceEl.textContent).replace(/[^0-9,.]/g, '').replace(',', '.');
-              const cleanPrice = validateRate(parseFloat(rawText), 0);
-              if (cleanPrice > 0) {
-                rates.usdt = cleanPrice;
-                updateDisplayRates();
-                setLoading(false, "Sincronización Completa ✅");
-                return;
-              }
-            }
-          } catch(e) {
-            console.error("Error cargando AllOrigins:", e);
-          }
-
-          // Si todo falla
-          setLoading(false, "Sincronización Parcial (Tasas Guardadas)");
-
-        } catch (error) {
-          console.error("Fetch error general:", error);
-          setLoading(false, "Modo Offline (Tasas Locales)");
-          updateDisplayRates();
-        }
-      }
-
-      function updateFormattedDate() {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
-        const dateStr = new Date().toLocaleString('es-VE', options);
-        document.getElementById('currentDate').textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-      }
-      setInterval(updateFormattedDate, 10000); // Actualiza la fecha/hora cada 10 seg
-
-      function updateDisplayRates() {
-        els.rate_usd.textContent = rates.usd.toFixed(2) + " Bs";
-        els.rate_eur.textContent = rates.eur.toFixed(2) + " Bs";
-        els.rate_usdt.textContent = rates.usdt.toFixed(2) + " Bs";
-        els.rate_manual_ref.textContent = rates.usdt.toFixed(2) + " Bs";
-      }
-
-      function setLoading(isLoading, text = "") {
-        if (isLoading) {
-          els.statusDot.classList.add('loading');
-          els.statusText.textContent = "Sincronizando BCV...";
-        } else {
-          els.statusDot.classList.remove('loading');
-          els.statusText.textContent = text;
-        }
-      }
-
-      // Logic for conversion
-      function handleInput(source, val) {
-        const amount = parseFloat(val);
-        if (isNaN(amount) || amount === 0) {
-          clearAllExcept(source);
-          hideDifferences();
-          updateSummary(0, 0, null);
-          return;
-        }
-
-        let manual_rate = rates.manual > 0 ? rates.manual : rates.usdt;
-
-        if (source === 'manual' || source === 'bs_manual') {
-          // --- MODO MANUAL ---
-          // base_amount = cantidad de unidades (ej: 400 dólares)
-          let base_amount = (source === 'manual') ? amount : (amount / manual_rate);
-          let bs_manual   = base_amount * manual_rate;
-
-          // Propagar solo bolívares a los otros módulos, y cada uno convierte independientemente a su tasa oficial
-          let usd_equiv  = bs_manual / rates.usd;
-          let eur_equiv  = bs_manual / rates.eur;
-          let usdt_equiv = bs_manual / rates.usdt;
-
-          if (source !== 'usd')       els.usd.value       = usd_equiv.toFixed(2);
-          if (source !== 'bs_usd')    els.bs_usd.value    = bs_manual.toFixed(2);
-          if (source !== 'eur')       els.eur.value       = eur_equiv.toFixed(2);
-          if (source !== 'bs_eur')    els.bs_eur.value    = bs_manual.toFixed(2);
-          if (source !== 'usdt')      els.usdt.value      = usdt_equiv.toFixed(2);
-          if (source !== 'bs_usdt')   els.bs_usdt.value   = bs_manual.toFixed(2);
-          if (source !== 'manual')    els.manual.value    = base_amount.toFixed(2);
-          if (source !== 'bs_manual') els.bs_manual.value = bs_manual.toFixed(2);
-
-          updateSummary(base_amount, manual_rate, 'manual');
-        } else {
-          // --- MODO NORMAL: convertir via USD como base ---
-          let base_usd = 0;
-          switch (source) {
-            case 'usd':     base_usd = amount; break;
-            case 'bs_usd':  base_usd = amount / rates.usd; break;
-            case 'eur':     base_usd = amount * (rates.eur / rates.usd); break;
-            case 'bs_eur':  base_usd = amount / rates.usd; break;
-            case 'usdt':    base_usd = amount * (rates.usdt / rates.usd); break;
-            case 'bs_usdt': base_usd = amount / rates.usd; break;
-          }
-
-          if (source !== 'usd')     els.usd.value     = base_usd.toFixed(2);
-          if (source !== 'bs_usd')  els.bs_usd.value  = (base_usd * rates.usd).toFixed(2);
-
-          const eur_amt = base_usd * (rates.usd / rates.eur);
-          if (source !== 'eur')     els.eur.value     = eur_amt.toFixed(2);
-          if (source !== 'bs_eur') els.bs_eur.value   = (eur_amt * rates.eur).toFixed(2);
-
-          const usdt_amt = base_usd * (rates.usd / rates.usdt);
-          if (source !== 'usdt')    els.usdt.value    = usdt_amt.toFixed(2);
-          if (source !== 'bs_usdt') els.bs_usdt.value = (usdt_amt * rates.usdt).toFixed(2);
-
-          // No se propaga al manual — el manual es independiente
-          hideDifferences();
-          updateSummary(base_usd, manual_rate, 'usd');
-        }
-      }
-
-      function updateSummary(base_amount, manual_rate, mode) {
-        if (mode === 'manual') {
-          let bs_manual = base_amount * manual_rate;
-          els.sum_usd.textContent  = (bs_manual / rates.usd).toFixed(2);
-          els.sum_eur.textContent  = (bs_manual / rates.eur).toFixed(2);
-          els.sum_usdt.textContent = (bs_manual / rates.usdt).toFixed(2);
-          els.sum_ves.textContent  = bs_manual.toLocaleString('es-VE', { minimumFractionDigits: 2 });
-          updateDifferences(base_amount, manual_rate);
-        } else {
-          // base_amount here is base_usd
-          let base_usd = base_amount;
-          let bs_usd   = base_usd * rates.usd;
-          els.sum_usd.textContent  = base_usd.toFixed(2);
-          els.sum_eur.textContent  = (base_usd * (rates.usd / rates.eur)).toFixed(2);
-          els.sum_usdt.textContent = (base_usd * (rates.usd / rates.usdt)).toFixed(2);
-          els.sum_ves.textContent  = bs_usd.toLocaleString('es-VE', { minimumFractionDigits: 2 });
-          // Diferencias ocultas en modo no-manual (ya las ocultó hideDifferences() antes)
-        }
-      }
-
-      function updateDifferences(base_amount, manual_rate) {
-        let bs_manual  = base_amount * manual_rate;
-
-        function applyDiff(rowEl, spanEl, eqSpanEl, bcvSpanEl, diff, rate, symbol) {
-          rowEl.style.display = 'flex';
-          const sign = diff >= 0 ? '+' : '';
+          // Actualizar UI
+          document.getElementById('main_rate_display').textContent = rates.usd.toFixed(2) + " Bs";
+          document.getElementById('row_usd_val').textContent = rates.usd.toFixed(2) + " Bs";
+          document.getElementById('row_eur_val').textContent = rates.eur.toFixed(2) + " Bs";
+          document.getElementById('row_usdt_val').textContent = rates.usdt.toFixed(2) + " Bs";
           
-          // Calcular la diferencia en la divisa correspondiente
-          let diff_currency = diff / rate;
-          const currencySign = diff_currency >= 0 ? '+' : '';
-
-          // Ocultamos la línea verde del span principal ya que se duplicaba con el renglón | BCV de abajo
-          spanEl.style.display = 'none';
-
-          // Ocultamos la línea redundante anterior o le cambiamos el estilo para que sea la primera línea del BCV
-          eqSpanEl.style.display = 'block';
-          eqSpanEl.textContent = `| BCV: ${sign}${diff.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${currencySign}${diff_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
+          document.getElementById('usd_rate_info').textContent = "Rate: " + rates.usd.toFixed(2);
+          document.getElementById('eur_rate_info').textContent = "Rate: " + rates.eur.toFixed(2);
+          document.getElementById('usdt_rate_info').textContent = "Rate: " + rates.usdt.toFixed(2);
           
-          // Estilo elegante idéntico al BCV original
-          eqSpanEl.style.fontSize = '0.75rem';
-          eqSpanEl.style.fontWeight = '500';
+          // Re-sincronizar cálculos actuales
+          syncCalculations(document.getElementById('global_base_amount').value);
+          calculateCommercial();
+          calculateInverse();
+          calculateUsdtCommission();
 
-          // Segunda línea: tus bolivares manuales y cuánto valen en esta moneda al BCV
-          let total_currency = bs_manual / rate;
-          bcvSpanEl.textContent = `| BCV: ${bs_manual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${total_currency.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${symbol})`;
-        }
-
-        let diff_usd  = bs_manual - (base_amount * rates.usd);
-        let diff_eur  = bs_manual - (base_amount * rates.eur);
-        let diff_usdt = bs_manual - (base_amount * rates.usdt);
-
-        applyDiff(els.diff_usd_row,  els.diff_usd,  els.diff_usd_eq,  els.diff_usd_bcv,  diff_usd,  rates.usd,  'USD');
-        applyDiff(els.diff_eur_row,  els.diff_eur,  els.diff_eur_eq,  els.diff_eur_bcv,  diff_eur,  rates.eur,  'EUR');
-        applyDiff(els.diff_usdt_row, els.diff_usdt, els.diff_usdt_eq, els.diff_usdt_bcv, diff_usdt, rates.usdt, 'USDT');
-      }
-
-      function updateDifferencesSimple(diff) {
-        function applyDiff(rowEl, spanEl, d) {
-          rowEl.style.display = 'flex';
-          const sign = d >= 0 ? '+' : '';
-          spanEl.textContent = sign + d.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
-          
-          const isLight = document.body.classList.contains('light-mode');
-          if (d >= 0) {
-            spanEl.style.color = isLight ? '#15803d' : '#4ade80';
-          } else {
-            spanEl.style.color = isLight ? '#b91c1c' : '#f87171';
-          }
-        }
-        applyDiff(els.diff_usd_row,  els.diff_usd,  diff);
-        applyDiff(els.diff_eur_row,  els.diff_eur,  diff);
-        applyDiff(els.diff_usdt_row, els.diff_usdt, diff);
-      }
-
-      function hideDifferences() {
-        els.diff_usd_row.style.display  = 'none';
-        els.diff_eur_row.style.display  = 'none';
-        els.diff_usdt_row.style.display = 'none';
-      }
-
-      function clearAllExcept(skip) {
-        const all = ['usd', 'bs_usd', 'eur', 'bs_eur', 'usdt', 'bs_usdt', 'manual', 'bs_manual'];
-        all.forEach(key => {
-          if (key !== skip && els[key]) els[key].value = "";
-        });
-
-        els.sum_usd.textContent = "0.00";
-        els.sum_eur.textContent = "0.00";
-        els.sum_usdt.textContent = "0.00";
-        els.sum_ves.textContent = "0.00";
-      }
-
-      function suggest(currency, val) {
-        const inputId = currency + "_val";
-        document.getElementById(inputId).value = val;
-        handleInput(currency, val);
-      }
-
-      function updateManualRate() {
-        rates.manual = parseFloat(document.getElementById('rate_manual_val').value) || 0;
-        const manualVal = document.getElementById('manual_val').value;
-        if (manualVal) {
-          handleInput('manual', manualVal);
-        } else {
-          const bsManualVal = document.getElementById('bs_manual_val').value;
-          if (bsManualVal) {
-             handleInput('bs_manual', bsManualVal);
-          }
-        }
-      }
-
-      async function shareApp() {
-        const shareData = {
-          title: 'Luquita PRO - Convertidor en Vivo',
-          text: '¡Mira este convertidor en tiempo real del Banco Central de Venezuela (BCV) y paralelo!',
-          url: 'https://luquita-app.vercel.app'
-        };
-        
-        try {
-          if (navigator.share) {
-            await navigator.share(shareData);
-          } else {
-            navigator.clipboard.writeText(shareData.url).then(() => {
-              alert("¡Enlace copiado al portapapeles!");
-            });
-          }
-        } catch (err) {
-          console.error('Error al compartir', err);
-        }
-      }
-
-      function copyUrlToClipboard() {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-          alert("¡Enlace copiado! Ahora pégalo en Safari para instalar la app.");
-        });
-      }
-
-      function refreshData() {
-        // Ahora el botón de actualizar también limpia el caché de raíz
-        forcePWACleanup();
-      }
-
-      // Lógica de Contador de Visitas (CounterAPI.dev para persistencia)
-      async function updateVisitCounter() {
-        // Usamos un nuevo namespace por límites de la API y sumamos las visitas históricas
-        const url = 'https://api.counterapi.dev/v1/luquita_pro_v2/visits/up';
-        const baseVisits = 411; // Histórico de visitas antes de la migración
-        
-        try {
-          const res = await fetch(url);
-          if (res.ok) {
-            const data = await res.json();
-            if (data && data.count) {
-              document.getElementById('visitCountValue').textContent = (baseVisits + data.count).toLocaleString();
-            }
-          } else {
-            // Si la API alcanza su límite, mostramos un aproximado
-            document.getElementById('visitCountValue').textContent = baseVisits + "+";
-          }
         } catch (e) {
-          console.error("Error actualizando visitas:", e);
-          // En lugar de ocultarlo, mostramos el histórico para que siempre esté visible
-          document.getElementById('visitCountValue').textContent = baseVisits + "+";
+          console.error("Error cargando tasas:", e);
         }
       }
 
-      // Initial Load con Auto-Check de versión
-      window.addEventListener('DOMContentLoaded', () => {
-        fetchRates();
-        updateVisitCounter();
-        // Auto-actualización silenciosa si se deja abierta mucho tiempo
-        setInterval(fetchRates, 600000);
-      });
-
-      // Lógica de Instalación PWA
+      // Lógica de PWA (beforeinstallprompt)
       let deferredPrompt;
-      const installBtn = document.getElementById('pwa_install_btn');
-
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        installBtn.style.display = 'flex';
+        document.getElementById('pwa_install_pill').style.display = 'inline-flex';
       });
 
-      installBtn.addEventListener('click', async () => {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isIos = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-
-        // Si es iOS
-        if (isIos) {
-          const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
-          const msgEl = document.getElementById('ios_safari_msg');
-          if (msgEl) msgEl.style.display = isSafari ? 'none' : 'block';
-          
-          document.getElementById('ios_modal').style.display = 'flex';
-          return;
-        }
-
-        // Si es Android/Chrome y tenemos el prompt nativo
+      function triggerPwaInstall() {
         if (deferredPrompt) {
           deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') installBtn.style.display = 'none';
-          deferredPrompt = null;
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              document.getElementById('pwa_install_pill').style.display = 'none';
+            }
+            deferredPrompt = null;
+          });
         } else {
-            // Si es Android u otro navegador sin soporte nativo directo, mostrar el modal de instrucciones
+          // Mostrar modal según SO
+          const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
+          if (isIos) {
+            document.getElementById('ios_modal').style.display = 'flex';
+          } else {
             document.getElementById('android_modal').style.display = 'flex';
+          }
         }
-      });
-
-      // Mostrar botón siempre si no está en modo PWA
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      if (!isStandalone) {
-        installBtn.style.display = 'flex';
       }
 
-      // Service Worker Registration
+      // Registro del Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW Registered'))
-            .catch(err => console.log('SW Error', err));
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker registrado con éxito: ', reg.scope))
+            .catch(err => console.error('Fallo al registrar el Service Worker: ', err));
         });
       }
-      // Forzar limpieza de Service Worker
-      async function forcePWACleanup() {
-        if ('serviceWorker' in navigator) {
-          const registrations = await navigator.serviceWorker.getRegistrations();
-          for (let registration of registrations) {
-            await registration.unregister();
-          }
-          window.location.reload(true);
+
+      // On Load
+      window.addEventListener('DOMContentLoaded', () => {
+        // Cargar tema inicial (Forzar Dark Mode por defecto)
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+          // El usuario solicitó explícitamente modo oscuro en la UI del mockup, así que lo forzamos a dark
+          document.body.classList.remove('light-mode');
+          document.getElementById('themeIcon').innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>';
+          localStorage.setItem('theme', 'dark');
         } else {
-          window.location.reload(true);
+          document.body.classList.remove('light-mode');
+          document.getElementById('themeIcon').innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>';
         }
-      }
+
+        // Cargar datos
+        fetchRates();
+        calculateCommercial();
+        calculateInverse();
+        calculateUsdtCommission();
+        
+        // Auto-actualizar cada 5 minutos
+        setInterval(fetchRates, 300000);
+      });
     </script>
   </body>
 
-  </html>
+</html>

@@ -1,12 +1,12 @@
 {
   "id": "/?source=pwa",
-  "name": "Luquita Convertidor PRO",
-  "short_name": "Luquita",
-  "description": "Convertidor en tiempo real de BCV y Paralelo",
+  "name": "Luquita PRO Premium",
+  "short_name": "Luquita PRO",
+  "description": "Calculadora de divisas inteligente para Venezuela con Gráficos, Historial, Alertas y Premium",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#2563eb",
+  "background_color": "#0a0f1d",
+  "theme_color": "#10b981",
   "lang": "es-VE",
   "dir": "ltr",
   "icons": [
