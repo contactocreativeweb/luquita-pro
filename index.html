@@ -1117,6 +1117,38 @@
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.02); }
       }
+
+      /* Desktop Layout Adjustments */
+      @media (min-width: 768px) {
+        .app-container {
+          max-width: 960px;
+        }
+
+        .app-screen.active#screen_inicio {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px;
+          align-items: start;
+        }
+
+        .app-screen.active#screen_conversor {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          align-items: start;
+        }
+
+        #screen_conversor > .action-btn-large {
+          grid-column: 1 / -1;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        #screen_conversor > div {
+          margin-bottom: 0 !important;
+          height: 100%;
+        }
+      }
     </style>
   </head>
 
@@ -1168,8 +1200,9 @@
       <!-- ================= PANTALLA INICIO ================= -->
       <div id="screen_inicio" class="app-screen active">
         
-        <!-- Tarjeta Principal Tasa -->
-        <div class="main-rate-card" onclick="switchTab('graficos')">
+        <div class="inicio-left-col">
+          <!-- Tarjeta Principal Tasa -->
+          <div class="main-rate-card" onclick="switchTab('graficos')">
           <span class="card-label">Tasa Oficial de Referencia</span>
           <div class="main-rate-title">
             <span style="font-size: 1.4rem;">🇻🇪</span> DÓLAR BCV
@@ -1199,7 +1232,9 @@
             👑 ACTIVAR PREMIUM
           </button>
         </div>
+        </div> <!-- End inicio-left-col -->
 
+        <div class="inicio-right-col">
         <!-- Todas las Tasas -->
         <div class="section-header">
           <span class="section-title">TODAS LAS TASAS</span>
@@ -1273,6 +1308,7 @@
             <span>Favoritos</span>
           </div>
         </div>
+        </div> <!-- End inicio-right-col -->
 
       </div>
 
