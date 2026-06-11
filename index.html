@@ -1785,7 +1785,7 @@
           diffUsdLine1.style.color = "#ef4444";
         }
         diffUsdLine1.textContent = `| BCV: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
-        diffUsdLine2.textContent = `| BCV: ${baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdVal.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
+        diffUsdLine2.textContent = `| BCV: ${usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
 
         // EUR
         const diffEur = baseVes - eurBCVVes;
@@ -1807,7 +1807,7 @@
           diffEurLine1.style.color = "#ef4444";
         }
         diffEurLine1.textContent = `| BCV: ${signEur}${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurSignEquiv}${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
-        diffEurLine2.textContent = `| BCV: ${baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurVal.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
+        diffEurLine2.textContent = `| BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
 
         // USDT
         const diffUsdt = baseVes - usdtVes;
@@ -1829,7 +1829,7 @@
           diffUsdtLine1.style.color = "#ef4444";
         }
         diffUsdtLine1.textContent = `| BCV: ${signUsdt}${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtSignEquiv}${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
-        diffUsdtLine2.textContent = `| BCV: ${baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtVal.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
+        diffUsdtLine2.textContent = `| BCV: ${usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
       }
 
       function calculateManualExchange() {
