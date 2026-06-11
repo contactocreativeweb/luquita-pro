@@ -1199,10 +1199,10 @@
           </div>
         </div>
         <div class="header-actions">
-          <button class="icon-btn" id="header_install_btn" onclick="triggerPwaInstall()" title="Instalar App" style="display: none;">
+          <button class="icon-btn" id="header_install_btn" onclick="triggerPwaInstall()" title="Instalar App">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </button>
-          <button class="icon-btn" onclick="shareCalculation()" title="Compartir">
+          <button class="icon-btn" onclick="shareApp()" title="Compartir App">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
           </button>
           <button class="icon-btn" onclick="forceUpdate()" title="Sincronizar tasas">
@@ -2054,6 +2054,22 @@
         navigator.clipboard.writeText(valText).then(() => {
           alert(`Copiado: ${valText} Bs. (Tasa ${label})`);
         });
+      }
+
+      // Compartir la App (General)
+      function shareApp() {
+        const url = "https://luquita-app.vercel.app"; // Usando URL principal
+        if (navigator.share) {
+          navigator.share({
+            title: 'Luquita PRO Premium',
+            text: '¡Prueba Luquita PRO, la mejor calculadora de cambio de divisas de Venezuela! Tasas del BCV, Binance y más en tiempo real.',
+            url: url
+          }).catch(console.error);
+        } else {
+          // Fallback a Whatsapp
+          const text = encodeURIComponent(`¡Prueba Luquita PRO, la mejor calculadora de cambio de divisas de Venezuela! Tasas del BCV, Binance y más en tiempo real. Entra aquí: ${url}`);
+          window.open("https://api.whatsapp.com/send?text=" + text, '_blank');
+        }
       }
 
       // Compartir resultado por Whatsapp
