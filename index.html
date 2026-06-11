@@ -75,11 +75,11 @@
         --text-dark: #ffffff;
         --text-muted-dark: #9ca3af;
         
-        --bg-light: #090e1a;
-        --card-bg-light: #111827;
-        --border-light: rgba(255, 255, 255, 0.08);
-        --text-light: #ffffff;
-        --text-muted-light: #9ca3af;
+        --bg-light: #f3f4f6;
+        --card-bg-light: #ffffff;
+        --border-light: rgba(0, 0, 0, 0.08);
+        --text-light: #111827;
+        --text-muted-light: #6b7280;
 
         --bg: var(--bg-dark);
         --card-bg: var(--card-bg-dark);
@@ -100,13 +100,13 @@
       }
 
       body.light-mode {
-        --bg: var(--bg-dark);
-        --card-bg: var(--card-bg-dark);
-        --border-color: var(--border-dark);
-        --text: var(--text-dark);
-        --text-muted: var(--text-muted-dark);
-        --glass: rgba(255, 255, 255, 0.03);
-        --glass-border: rgba(255, 255, 255, 0.06);
+        --bg: var(--bg-light);
+        --card-bg: var(--card-bg-light);
+        --border-color: var(--border-light);
+        --text: var(--text-light);
+        --text-muted: var(--text-muted-light);
+        --glass: rgba(0, 0, 0, 0.03);
+        --glass-border: rgba(0, 0, 0, 0.08);
       }
 
       * {
@@ -1114,7 +1114,7 @@
           </div>
         </div>
         <div class="header-actions">
-          <button class="icon-btn" onclick="refreshData()" title="Sincronizar tasas">
+          <button class="icon-btn" onclick="location.reload()" title="Sincronizar tasas">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 2v6h-6"></path>
               <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
@@ -1266,7 +1266,10 @@
 
           <div style="background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.25); border-radius: var(--radius-md); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
             <h6 style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto Entregado (Bs)</h6>
-            <div class="calc-result-val" id="manual_ves_result" style="color: var(--accent-usd); font-size: 1.3rem;">0.00 Bs</div>
+            <div style="display: flex; align-items: baseline; justify-content: flex-end; width: 60%;">
+              <input type="number" step="any" id="manual_ves_result" class="calc-result-val" style="background: transparent; border: none; outline: none; box-shadow: none; color: var(--accent-usd); font-size: 1.3rem; text-align: right; width: 100%; padding: 0;" value="0" oninput="calculateManualFromBs(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualFromBs(0); }">
+              <span style="color: var(--accent-usd); font-size: 1.3rem; margin-left: 4px;">Bs</span>
+            </div>
           </div>
         </div>
 
@@ -1735,7 +1738,9 @@
         const manualVes = amount * rateManual;
         
         // 1. Mostrar bolívares calculados del cambio manual
-        document.getElementById('manual_ves_result').textContent = manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        if (sourceField !== 'manual_ves') {
+          document.getElementById('manual_ves_result').value = manualVes > 0 ? manualVes.toFixed(2) : '0';
+        }
         
         // 2. Sincronizar inputs de cantidades (USD, EUR, USDT)
         if (sourceField !== 'manual_amount') {
@@ -1848,8 +1853,15 @@
       }
 
       function calculateManualExchange() {
-        const amountManual = parseFloat(document.getElementById('manual_amount_val').value) || 0;
-        updateAllCalculations(amountManual, 'manual_amount');
+        const amount = parseFloat(document.getElementById('manual_amount_val').value) || 0;
+        updateAllCalculations(amount, 'manual_amount');
+      }
+
+      function calculateManualFromBs(val) {
+        const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
+        const bsAmount = parseFloat(val) || 0;
+        const amount = rateManual > 0 ? bsAmount / rateManual : 0;
+        updateAllCalculations(amount, 'manual_ves');
       }
 
       // Sincronizador de montos antiguo (redirección)
@@ -2108,13 +2120,16 @@
       function toggleTheme() {
         const body = document.body;
         const icon = document.getElementById('themeIcon');
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
         if (body.classList.contains('light-mode')) {
           body.classList.remove('light-mode');
           icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>';
+          if (themeMeta) themeMeta.setAttribute('content', '#0a0f1d');
           localStorage.setItem('theme', 'dark');
         } else {
           body.classList.add('light-mode');
           icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+          if (themeMeta) themeMeta.setAttribute('content', '#f3f4f6');
           localStorage.setItem('theme', 'light');
         }
       }
@@ -2221,16 +2236,17 @@
 
       // On Load
       window.addEventListener('DOMContentLoaded', () => {
-        // Cargar tema inicial (Forzar Dark Mode por defecto)
+        // Cargar tema inicial
         const savedTheme = localStorage.getItem('theme');
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
         if (savedTheme === 'light') {
-          // El usuario solicitó explícitamente modo oscuro en la UI del mockup, así que lo forzamos a dark
-          document.body.classList.remove('light-mode');
-          document.getElementById('themeIcon').innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>';
-          localStorage.setItem('theme', 'dark');
+          document.body.classList.add('light-mode');
+          document.getElementById('themeIcon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+          if (themeMeta) themeMeta.setAttribute('content', '#f3f4f6');
         } else {
           document.body.classList.remove('light-mode');
           document.getElementById('themeIcon').innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path>';
+          if (themeMeta) themeMeta.setAttribute('content', '#0a0f1d');
         }
 
         // Cargar datos
