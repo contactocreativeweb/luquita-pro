@@ -1282,7 +1282,7 @@
                     <span class="ves-value" id="usd_output_ves">0,00</span>
                   </div>
                 </div>
-                <div class="ves-result-rate" id="usd_rate_info" style="display: none;">Rate: --.--</div>
+                <div class="ves-result-rate" id="usd_rate_info">Tasa BCV: --,-- Bs</div>
               </div>
               
               <!-- Fila de Diferencia Positiva contra Tasa Manual -->
@@ -1315,7 +1315,7 @@
                     <span class="ves-value" id="eur_output_ves">0,00</span>
                   </div>
                 </div>
-                <div class="ves-result-rate" id="eur_rate_info" style="display: none;">Rate: --.--</div>
+                <div class="ves-result-rate" id="eur_rate_info">Tasa BCV: --,-- Bs</div>
               </div>
               
               <!-- Fila de Diferencia (en caso de que sea euro) -->
@@ -1348,7 +1348,7 @@
                     <span class="ves-value" id="usdt_output_ves">0,00</span>
                   </div>
                 </div>
-                <div class="ves-result-rate" id="usdt_rate_info" style="display: none;">Rate: --.--</div>
+                <div class="ves-result-rate" id="usdt_rate_info">Tasa USDT: --,-- Bs</div>
               </div>
               
               <!-- Fila de diferencia contra Binance -->
@@ -2087,9 +2087,9 @@
           document.getElementById('row_eur_val').textContent = rates.eur.toFixed(2) + " Bs";
           document.getElementById('row_usdt_val').textContent = rates.usdt.toFixed(2) + " Bs";
           
-          document.getElementById('usd_rate_info').textContent = "Rate: " + rates.usd.toFixed(2);
-          document.getElementById('eur_rate_info').textContent = "Rate: " + rates.eur.toFixed(2);
-          document.getElementById('usdt_rate_info').textContent = "Rate: " + rates.usdt.toFixed(2);
+          document.getElementById('usd_rate_info').textContent = "Tasa BCV: " + rates.usd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          document.getElementById('eur_rate_info').textContent = "Tasa BCV: " + rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          document.getElementById('usdt_rate_info').textContent = "Tasa USDT: " + rates.usdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
           
           // Re-sincronizar cálculos actuales
           calculateManualExchange();
