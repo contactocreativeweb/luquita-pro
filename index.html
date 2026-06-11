@@ -1246,17 +1246,17 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Tasa Manual (Bs)</label>
-              <input type="number" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="37.10" oninput="calculateManualExchange()">
+              <input type="number" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()">
             </div>
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto a cambiar ($)</label>
-              <input type="number" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="100" oninput="calculateManualExchange()">
+              <input type="number" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()">
             </div>
           </div>
 
           <div style="background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.25); border-radius: var(--radius-md); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
             <h6 style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto Entregado (Bs)</h6>
-            <div class="calc-result-val" id="manual_ves_result" style="color: var(--accent-usd); font-size: 1.3rem;">3,710.00 Bs</div>
+            <div class="calc-result-val" id="manual_ves_result" style="color: var(--accent-usd); font-size: 1.3rem;">0.00 Bs</div>
           </div>
         </div>
 
@@ -1269,7 +1269,7 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">$</span>
-              <input type="number" id="usd_input" class="currency-input" value="100" readonly>
+              <input type="number" id="usd_input" class="currency-input" value="0" readonly>
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('usd_output_ves', 'Dólar BCV')">
@@ -1279,16 +1279,16 @@
                   <span class="ves-result-label">Equivalente al BCV</span>
                   <div class="ves-result-value-row">
                     <span class="ves-symbol">Bs.</span>
-                    <span class="ves-value" id="usd_output_ves">3,672.00</span>
+                    <span class="ves-value" id="usd_output_ves">0,00</span>
                   </div>
                 </div>
-                <div class="ves-result-rate" id="usd_rate_info">Rate: 36.72</div>
+                <div class="ves-result-rate" id="usd_rate_info">Rate: --.--</div>
               </div>
               
               <!-- Fila de Diferencia Positiva contra Tasa Manual -->
               <div id="diff_usd_row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(16, 185, 129, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.2);">
                 <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">Diferencia a tu favor:</span>
-                <span id="diff_usd_val" style="font-size: 0.85rem; font-weight: 800; color: #10b981;">+38.00 Bs</span>
+                <span id="diff_usd_val" style="font-size: 0.85rem; font-weight: 800; color: #10b981;">0,00 Bs</span>
               </div>
             </div>
           </div>
@@ -1302,7 +1302,7 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">€</span>
-              <input type="number" id="eur_input" class="currency-input" value="100" readonly>
+              <input type="number" id="eur_input" class="currency-input" value="0" readonly>
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('eur_output_ves', 'Euro BCV')">
@@ -1312,16 +1312,16 @@
                   <span class="ves-result-label">Equivalente al BCV</span>
                   <div class="ves-result-value-row">
                     <span class="ves-symbol">Bs.</span>
-                    <span class="ves-value" id="eur_output_ves">3,981.00</span>
+                    <span class="ves-value" id="eur_output_ves">0,00</span>
                   </div>
                 </div>
-                <div class="ves-result-rate" id="eur_rate_info">Rate: 39.81</div>
+                <div class="ves-result-rate" id="eur_rate_info">Rate: --.--</div>
               </div>
               
               <!-- Fila de Diferencia (en caso de que sea euro) -->
               <div id="diff_eur_row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(239, 68, 68, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);">
                 <span id="diff_eur_label" style="font-size: 0.75rem; font-weight: 700; color: #ef4444;">Diferencia contra Euro:</span>
-                <span id="diff_eur_val" style="font-size: 0.85rem; font-weight: 800; color: #ef4444;">-271.00 Bs</span>
+                <span id="diff_eur_val" style="font-size: 0.85rem; font-weight: 800; color: #ef4444;">0,00 Bs</span>
               </div>
             </div>
           </div>
@@ -1335,7 +1335,7 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">₮</span>
-              <input type="number" id="usdt_input" class="currency-input" value="100" readonly>
+              <input type="number" id="usdt_input" class="currency-input" value="0" readonly>
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('usdt_output_ves', 'USDT Binance')">
@@ -1345,16 +1345,16 @@
                   <span class="ves-result-label">Equivalente Binance</span>
                   <div class="ves-result-value-row">
                     <span class="ves-symbol">Bs.</span>
-                    <span class="ves-value" id="usdt_output_ves">3,745.00</span>
+                    <span class="ves-value" id="usdt_output_ves">0,00</span>
                   </div>
                 </div>
-                <div class="ves-result-rate" id="usdt_rate_info">Rate: 37.45</div>
+                <div class="ves-result-rate" id="usdt_rate_info">Rate: --.--</div>
               </div>
               
               <!-- Fila de diferencia contra Binance -->
               <div id="diff_usdt_row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(239, 68, 68, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);">
                 <span style="font-size: 0.75rem; font-weight: 700; color: #ef4444;">Diferencia bajo Binance:</span>
-                <span id="diff_usdt_val" style="font-size: 0.85rem; font-weight: 800; color: #ef4444;">-35.00 Bs</span>
+                <span id="diff_usdt_val" style="font-size: 0.85rem; font-weight: 800; color: #ef4444;">0,00 Bs</span>
               </div>
             </div>
           </div>
@@ -1887,8 +1887,8 @@
 
       // Compartir resultado por Whatsapp
       function shareCalculation() {
-        const rateManual = document.getElementById('manual_rate_val').value || "37.10";
-        const amountManual = document.getElementById('manual_amount_val').value || "100";
+        const rateManual = document.getElementById('manual_rate_val').value || "0";
+        const amountManual = document.getElementById('manual_amount_val').value || "0";
         const manualVes = rateManual * amountManual;
         
         const text = `*Cálculo de cambio con Luquita PRO* 💱\n\n` +
@@ -2084,7 +2084,7 @@
           document.getElementById('usdt_rate_info').textContent = "Rate: " + rates.usdt.toFixed(2);
           
           // Re-sincronizar cálculos actuales
-          syncCalculations(document.getElementById('global_base_amount').value);
+          calculateManualExchange();
           calculateCommercial();
           calculateInverse();
           calculateUsdtCommission();
