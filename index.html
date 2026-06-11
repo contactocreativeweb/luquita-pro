@@ -1951,18 +1951,23 @@
 
       // Compartir resultado por Whatsapp
       function shareCalculation() {
-        const rateManual = document.getElementById('manual_rate_val').value || "0";
-        const amountManual = document.getElementById('manual_amount_val').value || "0";
+        const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
+        const amountManual = parseFloat(document.getElementById('manual_amount_val').value) || 0;
         const manualVes = rateManual * amountManual;
         
+        const bcvVes = amountManual * rates.usd;
+        const diffVes = manualVes - bcvVes;
+        const diffUsd = rates.usd > 0 ? diffVes / rates.usd : 0;
+        const diffSign = diffUsd >= 0 ? '+' : '';
+        
         const text = `*Cálculo de cambio con Luquita PRO* 💱\n\n` +
-          `• *Monto:* ${amountManual} USD\n` +
-          `• *Tasa Acordada:* ${rateManual} Bs\n` +
-          `• *Recibes:* ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (Cambio Manual)\n\n` +
+          `• *Monto:* ${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD\n` +
+          `• *Tasa Manual:* ${rateManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs\n` +
+          `• *Recibes:* ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs\n\n` +
           `*Comparativa contra tasas oficiales (BCV):*\n` +
-          `• BCV Dólar: ${(amountManual * rates.usd).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs\n` +
-          `• Diferencia a favor: ${(manualVes - (amountManual * rates.usd)).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs\n\n` +
-          `Calculado con Luquita PRO 🚀`;
+          `• *BCV Dólar:* ${bcvVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)\n` +
+          `• *Diferencia a favor:* ${diffVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${diffSign}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)\n\n` +
+          `${window.location.origin}`;
           
         const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
         window.open(url, '_blank');
