@@ -127,6 +127,7 @@
         --glass-15: rgba(0, 0, 0, 0.15);
         --glass-25: rgba(0, 0, 0, 0.25);
         --glass-80: rgba(0, 0, 0, 0.8);
+        --card-shadow: 0 4px 20px rgba(0,0,0,0.06);
       }
 
       * {
@@ -565,6 +566,10 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       }
 
+      body.light-mode .card-2-section {
+        box-shadow: var(--card-shadow);
+      }
+
       .card-section-top {
         padding: 16px 20px;
         background: var(--glass-1);
@@ -698,6 +703,10 @@
         padding: 20px;
       }
 
+      body.light-mode .calc-card {
+        box-shadow: var(--card-shadow);
+      }
+
       .calc-card-title {
         font-size: 1rem;
         font-weight: 800;
@@ -740,7 +749,8 @@
       }
 
       body.light-mode .calc-field {
-        background: var(--glass-80);
+        background: rgba(0,0,0,0.04);
+        border-color: rgba(0,0,0,0.12);
       }
 
       .calc-result-box {
