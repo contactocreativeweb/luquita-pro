@@ -1246,11 +1246,11 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Tasa Manual (Bs)</label>
-              <input type="number" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()">
+              <input type="number" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualExchange(); }">
             </div>
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto a cambiar ($)</label>
-              <input type="number" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()">
+              <input type="number" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualExchange(); }">
             </div>
           </div>
 
