@@ -1742,21 +1742,22 @@
         document.getElementById('eur_output_ves').textContent = eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         document.getElementById('usdt_output_ves').textContent = usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-        // 3. Calcular Diferencias Positivas (Ganancia o Pérdida a favor del usuario)
+        // 3. Calcular Diferencias Positivas (Ganancia o Pérdida a favor del usuario) y sus equivalentes en USD/EUR/USDT
         const diffUsd = manualVes - usdBCVVes;
         const diffUsdValEl = document.getElementById('diff_usd_val');
         const diffUsdRowEl = document.getElementById('diff_usd_row');
+        const diffUsdEquiv = diffUsd / rates.usd;
         
         if (diffUsd >= 0) {
           diffUsdRowEl.style.background = "rgba(16, 185, 129, 0.1)";
           diffUsdRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
           diffUsdValEl.style.color = "#10b981";
-          diffUsdValEl.textContent = "+" + diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          diffUsdValEl.textContent = `+${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (+${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
         } else {
           diffUsdRowEl.style.background = "rgba(239, 68, 68, 0.1)";
           diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
           diffUsdValEl.style.color = "#ef4444";
-          diffUsdValEl.textContent = diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          diffUsdValEl.textContent = `${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
         }
 
         // Diferencia contra Euro
@@ -1764,6 +1765,7 @@
         const diffEurValEl = document.getElementById('diff_eur_val');
         const diffEurRowEl = document.getElementById('diff_eur_row');
         const diffEurLabelEl = document.getElementById('diff_eur_label');
+        const diffEurEquiv = diffEur / rates.eur;
         
         if (diffEur >= 0) {
           diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
@@ -1771,14 +1773,14 @@
           diffEurValEl.style.color = "#10b981";
           diffEurLabelEl.textContent = "Diferencia a tu favor:";
           diffEurLabelEl.style.color = "#10b981";
-          diffEurValEl.textContent = "+" + diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          diffEurValEl.textContent = `+${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (+${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
         } else {
           diffEurRowEl.style.background = "rgba(239, 68, 68, 0.1)";
           diffEurRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
           diffEurValEl.style.color = "#ef4444";
           diffEurLabelEl.textContent = "Diferencia bajo Euro:";
           diffEurLabelEl.style.color = "#ef4444";
-          diffEurValEl.textContent = diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          diffEurValEl.textContent = `${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
         }
 
         // Diferencia contra USDT Binance
@@ -1786,6 +1788,7 @@
         const diffUsdtValEl = document.getElementById('diff_usdt_val');
         const diffUsdtRowEl = document.getElementById('diff_usdt_row');
         const diffUsdtLabel = diffUsdtRowEl.firstElementChild;
+        const diffUsdtEquiv = diffUsdt / rates.usdt;
 
         if (diffUsdt >= 0) {
           diffUsdtRowEl.style.background = "rgba(16, 185, 129, 0.1)";
@@ -1793,14 +1796,14 @@
           diffUsdtValEl.style.color = "#10b981";
           diffUsdtLabel.textContent = "Diferencia sobre Binance:";
           diffUsdtLabel.style.color = "#10b981";
-          diffUsdtValEl.textContent = "+" + diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          diffUsdtValEl.textContent = `+${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (+${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
         } else {
           diffUsdtRowEl.style.background = "rgba(239, 68, 68, 0.1)";
           diffUsdtRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
           diffUsdtValEl.style.color = "#ef4444";
           diffUsdtLabel.textContent = "Diferencia bajo Binance:";
           diffUsdtLabel.style.color = "#ef4444";
-          diffUsdtValEl.textContent = diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          diffUsdtValEl.textContent = `${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
         }
       }
 
