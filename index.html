@@ -1256,7 +1256,7 @@
         </div>
 
         <div class="rates-list-compact">
-          <div class="rate-row-card" onclick="switchTab('conversor')">
+          <div class="rate-row-card" onclick="goToCalculator('usd_input')">
             <div class="rate-row-info">
               <div class="rate-row-icon" style="color: var(--accent-usd);">🇺🇸</div>
               <div class="rate-row-details">
@@ -1270,7 +1270,7 @@
             </div>
           </div>
 
-          <div class="rate-row-card" onclick="switchTab('conversor')">
+          <div class="rate-row-card" onclick="goToCalculator('eur_input')">
             <div class="rate-row-info">
               <div class="rate-row-icon" style="color: var(--accent-eur);">🇪🇺</div>
               <div class="rate-row-details">
@@ -1284,7 +1284,7 @@
             </div>
           </div>
 
-          <div class="rate-row-card" onclick="switchTab('conversor')">
+          <div class="rate-row-card" onclick="goToCalculator('usdt_input')">
             <div class="rate-row-info">
               <div class="rate-row-icon" style="color: var(--accent-usdt);">₮</div>
               <div class="rate-row-details">
@@ -2188,6 +2188,18 @@
 
       function toggleAlertElement(el) {
         el.classList.toggle('off');
+      }
+
+      function goToCalculator(inputId) {
+        switchTab('conversor');
+        setTimeout(() => {
+          const input = document.getElementById(inputId);
+          if (input) {
+            input.focus();
+            input.select();
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 150);
       }
 
       // Promoción Premium
