@@ -1239,15 +1239,24 @@
       <!-- ================= PANTALLA CONVERSOR ================= -->
       <div id="screen_conversor" class="app-screen">
         
-        <!-- Input de Divisa Compartido Superior -->
-        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 16px 20px; margin-bottom: 20px;">
-          <label style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 8px;">Monto base de conversión</label>
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: baseline; width: 100%;">
-              <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-right: 8px;">$</span>
-              <input type="number" id="global_base_amount" class="currency-input" style="font-size: 2.1rem; color: var(--primary);" value="1" oninput="syncCalculations(this.value)">
+        <!-- PANEL DE CAMBIO MANUAL (Sustituyendo Monto Base) -->
+        <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 20px; margin-bottom: 20px;">
+          <label style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 12px; letter-spacing: 0.5px;">⚙️ Configuración Cambio Manual</label>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Tasa Manual (Bs)</label>
+              <input type="number" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="37.10" oninput="calculateManualExchange()">
             </div>
-            <span style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); background: rgba(16, 185, 129, 0.1); padding: 6px 12px; border-radius: 20px;">USD / EUR / USDT</span>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto a cambiar ($)</label>
+              <input type="number" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="100" oninput="calculateManualExchange()">
+            </div>
+          </div>
+
+          <div style="background: rgba(16, 185, 129, 0.05); border: 1px dashed rgba(16, 185, 129, 0.25); border-radius: var(--radius-md); padding: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <h6 style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto Entregado (Bs)</h6>
+            <div class="calc-result-val" id="manual_ves_result" style="color: var(--accent-usd); font-size: 1.3rem;">3,710.00 Bs</div>
           </div>
         </div>
 
@@ -1260,19 +1269,27 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">$</span>
-              <input type="number" id="usd_input" class="currency-input" value="1" oninput="calculateFromUSD(this.value)">
+              <input type="number" id="usd_input" class="currency-input" value="100" readonly>
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('usd_output_ves', 'Dólar BCV')">
-            <div class="ves-result-container">
-              <div class="ves-result-left">
-                <span class="ves-result-label">Equivalente en Bolívares</span>
-                <div class="ves-result-value-row">
-                  <span class="ves-symbol">Bs.</span>
-                  <span class="ves-value" id="usd_output_ves">36.72</span>
+            <div class="ves-result-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="ves-result-left">
+                  <span class="ves-result-label">Equivalente al BCV</span>
+                  <div class="ves-result-value-row">
+                    <span class="ves-symbol">Bs.</span>
+                    <span class="ves-value" id="usd_output_ves">3,672.00</span>
+                  </div>
                 </div>
+                <div class="ves-result-rate" id="usd_rate_info">Rate: 36.72</div>
               </div>
-              <div class="ves-result-rate" id="usd_rate_info">Rate: 36.72</div>
+              
+              <!-- Fila de Diferencia Positiva contra Tasa Manual -->
+              <div id="diff_usd_row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(16, 185, 129, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">Diferencia a tu favor:</span>
+                <span id="diff_usd_val" style="font-size: 0.85rem; font-weight: 800; color: #10b981;">+38.00 Bs</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1285,19 +1302,27 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">€</span>
-              <input type="number" id="eur_input" class="currency-input" value="1" oninput="calculateFromEUR(this.value)">
+              <input type="number" id="eur_input" class="currency-input" value="100" readonly>
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('eur_output_ves', 'Euro BCV')">
-            <div class="ves-result-container">
-              <div class="ves-result-left">
-                <span class="ves-result-label">Equivalente en Bolívares</span>
-                <div class="ves-result-value-row">
-                  <span class="ves-symbol">Bs.</span>
-                  <span class="ves-value" id="eur_output_ves">39.81</span>
+            <div class="ves-result-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="ves-result-left">
+                  <span class="ves-result-label">Equivalente al BCV</span>
+                  <div class="ves-result-value-row">
+                    <span class="ves-symbol">Bs.</span>
+                    <span class="ves-value" id="eur_output_ves">3,981.00</span>
+                  </div>
                 </div>
+                <div class="ves-result-rate" id="eur_rate_info">Rate: 39.81</div>
               </div>
-              <div class="ves-result-rate" id="eur_rate_info">Rate: 39.81</div>
+              
+              <!-- Fila de Diferencia (en caso de que sea euro) -->
+              <div id="diff_eur_row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(239, 68, 68, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);">
+                <span id="diff_eur_label" style="font-size: 0.75rem; font-weight: 700; color: #ef4444;">Diferencia contra Euro:</span>
+                <span id="diff_eur_val" style="font-size: 0.85rem; font-weight: 800; color: #ef4444;">-271.00 Bs</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1310,19 +1335,27 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">₮</span>
-              <input type="number" id="usdt_input" class="currency-input" value="1" oninput="calculateFromUSDT(this.value)">
+              <input type="number" id="usdt_input" class="currency-input" value="100" readonly>
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('usdt_output_ves', 'USDT Binance')">
-            <div class="ves-result-container">
-              <div class="ves-result-left">
-                <span class="ves-result-label">Equivalente en Bolívares</span>
-                <div class="ves-result-value-row">
-                  <span class="ves-symbol">Bs.</span>
-                  <span class="ves-value" id="usdt_output_ves">37.45</span>
+            <div class="ves-result-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="ves-result-left">
+                  <span class="ves-result-label">Equivalente Binance</span>
+                  <div class="ves-result-value-row">
+                    <span class="ves-symbol">Bs.</span>
+                    <span class="ves-value" id="usdt_output_ves">3,745.00</span>
+                  </div>
                 </div>
+                <div class="ves-result-rate" id="usdt_rate_info">Rate: 37.45</div>
               </div>
-              <div class="ves-result-rate" id="usdt_rate_info">Rate: 37.45</div>
+              
+              <!-- Fila de diferencia contra Binance -->
+              <div id="diff_usdt_row" style="display: flex; justify-content: space-between; align-items: center; background: rgba(239, 68, 68, 0.1); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.2);">
+                <span style="font-size: 0.75rem; font-weight: 700; color: #ef4444;">Diferencia bajo Binance:</span>
+                <span id="diff_usdt_val" style="font-size: 0.85rem; font-weight: 800; color: #ef4444;">-35.00 Bs</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1686,37 +1719,110 @@
         }
       }
 
-      // Sincronizador de montos en conversor
-      function syncCalculations(val) {
-        const amt = parseFloat(val) || 0;
-        document.getElementById('usd_input').value = amt;
-        document.getElementById('eur_input').value = amt;
-        document.getElementById('usdt_input').value = amt;
+      // Lógica de Cambio Manual y cálculo de diferencias a favor
+      function calculateManualExchange() {
+        const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
+        const amountManual = parseFloat(document.getElementById('manual_amount_val').value) || 0;
         
-        calculateFromUSD(amt);
-        calculateFromEUR(amt);
-        calculateFromUSDT(amt);
+        // 1. Mostrar bolívares calculados por la tasa manual
+        const manualVes = rateManual * amountManual;
+        document.getElementById('manual_ves_result').textContent = manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        
+        // Sincronizar inputs no editables de las tarjetas de tasa
+        document.getElementById('usd_input').value = amountManual;
+        document.getElementById('eur_input').value = amountManual;
+        document.getElementById('usdt_input').value = amountManual;
+
+        // 2. Equivalentes BCV
+        const usdBCVVes = amountManual * rates.usd;
+        const eurBCVVes = amountManual * rates.eur;
+        const usdtVes = amountManual * rates.usdt;
+
+        document.getElementById('usd_output_ves').textContent = usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('eur_output_ves').textContent = eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        document.getElementById('usdt_output_ves').textContent = usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // 3. Calcular Diferencias Positivas (Ganancia o Pérdida a favor del usuario)
+        const diffUsd = manualVes - usdBCVVes;
+        const diffUsdValEl = document.getElementById('diff_usd_val');
+        const diffUsdRowEl = document.getElementById('diff_usd_row');
+        
+        if (diffUsd >= 0) {
+          diffUsdRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+          diffUsdRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+          diffUsdValEl.style.color = "#10b981";
+          diffUsdValEl.textContent = "+" + diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        } else {
+          diffUsdRowEl.style.background = "rgba(239, 68, 68, 0.1)";
+          diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
+          diffUsdValEl.style.color = "#ef4444";
+          diffUsdValEl.textContent = diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        }
+
+        // Diferencia contra Euro
+        const diffEur = manualVes - eurBCVVes;
+        const diffEurValEl = document.getElementById('diff_eur_val');
+        const diffEurRowEl = document.getElementById('diff_eur_row');
+        const diffEurLabelEl = document.getElementById('diff_eur_label');
+        
+        if (diffEur >= 0) {
+          diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+          diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+          diffEurValEl.style.color = "#10b981";
+          diffEurLabelEl.textContent = "Diferencia a tu favor:";
+          diffEurLabelEl.style.color = "#10b981";
+          diffEurValEl.textContent = "+" + diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        } else {
+          diffEurRowEl.style.background = "rgba(239, 68, 68, 0.1)";
+          diffEurRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
+          diffEurValEl.style.color = "#ef4444";
+          diffEurLabelEl.textContent = "Diferencia bajo Euro:";
+          diffEurLabelEl.style.color = "#ef4444";
+          diffEurValEl.textContent = diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        }
+
+        // Diferencia contra USDT Binance
+        const diffUsdt = manualVes - usdtVes;
+        const diffUsdtValEl = document.getElementById('diff_usdt_val');
+        const diffUsdtRowEl = document.getElementById('diff_usdt_row');
+        const diffUsdtLabel = diffUsdtRowEl.firstElementChild;
+
+        if (diffUsdt >= 0) {
+          diffUsdtRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+          diffUsdtRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+          diffUsdtValEl.style.color = "#10b981";
+          diffUsdtLabel.textContent = "Diferencia sobre Binance:";
+          diffUsdtLabel.style.color = "#10b981";
+          diffUsdtValEl.textContent = "+" + diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        } else {
+          diffUsdtRowEl.style.background = "rgba(239, 68, 68, 0.1)";
+          diffUsdtRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
+          diffUsdtValEl.style.color = "#ef4444";
+          diffUsdtLabel.textContent = "Diferencia bajo Binance:";
+          diffUsdtLabel.style.color = "#ef4444";
+          diffUsdtValEl.textContent = diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        }
+      }
+
+      // Sincronizador de montos antiguo (redirección)
+      function syncCalculations(val) {
+        document.getElementById('manual_amount_val').value = val;
+        calculateManualExchange();
       }
 
       function calculateFromUSD(val) {
-        const amt = parseFloat(val) || 0;
-        const result = amt * rates.usd;
-        document.getElementById('usd_output_ves').textContent = result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        saveToHistoryDebounced(amt, 'USD', result, 'Dólar BCV');
+        document.getElementById('manual_amount_val').value = val;
+        calculateManualExchange();
       }
 
       function calculateFromEUR(val) {
-        const amt = parseFloat(val) || 0;
-        const result = amt * rates.eur;
-        document.getElementById('eur_output_ves').textContent = result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        saveToHistoryDebounced(amt, 'EUR', result, 'Euro BCV');
+        document.getElementById('manual_amount_val').value = val;
+        calculateManualExchange();
       }
 
       function calculateFromUSDT(val) {
-        const amt = parseFloat(val) || 0;
-        const result = amt * rates.usdt;
-        document.getElementById('usdt_output_ves').textContent = result.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        saveToHistoryDebounced(amt, 'USDT', result, 'USDT Binance');
+        document.getElementById('manual_amount_val').value = val;
+        calculateManualExchange();
       }
 
       // Debounce para no inundar el historial al teclear
@@ -1778,12 +1884,18 @@
 
       // Compartir resultado por Whatsapp
       function shareCalculation() {
-        const baseAmount = document.getElementById('global_base_amount').value || "1";
-        const text = `*Conversión de divisas con Luquita PRO* 💱\n\n` +
-          `• *${baseAmount} USD* = ${(baseAmount * rates.usd).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (BCV)\n` +
-          `• *${baseAmount} EUR* = ${(baseAmount * rates.eur).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (BCV)\n` +
-          `• *${baseAmount} USDT* = ${(baseAmount * rates.usdt).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (Binance)\n\n` +
-          `Calculado con Luquita PRO Premium 🚀`;
+        const rateManual = document.getElementById('manual_rate_val').value || "37.10";
+        const amountManual = document.getElementById('manual_amount_val').value || "100";
+        const manualVes = rateManual * amountManual;
+        
+        const text = `*Cálculo de cambio con Luquita PRO* 💱\n\n` +
+          `• *Monto:* ${amountManual} USD\n` +
+          `• *Tasa Acordada:* ${rateManual} Bs\n` +
+          `• *Recibes:* ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs (Cambio Manual)\n\n` +
+          `*Comparativa contra tasas oficiales (BCV):*\n` +
+          `• BCV Dólar: ${(amountManual * rates.usd).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs\n` +
+          `• Diferencia a favor: ${(manualVes - (amountManual * rates.usd)).toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs\n\n` +
+          `Calculado con Luquita PRO 🚀`;
           
         const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
         window.open(url, '_blank');
