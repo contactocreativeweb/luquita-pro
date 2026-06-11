@@ -605,6 +605,16 @@
         font-weight: 800;
       }
 
+      /* Hide input number spinners */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+
       .ves-result-container {
         display: flex;
         justify-content: space-between;
@@ -1246,11 +1256,11 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Tasa Manual (Bs)</label>
-              <input type="number" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualExchange(); }">
+              <input type="number" step="any" id="manual_rate_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualExchange(); }">
             </div>
             <div style="display: flex; flex-direction: column; gap: 6px;">
               <label style="font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Monto a cambiar ($)</label>
-              <input type="number" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualExchange(); }">
+              <input type="number" step="any" id="manual_amount_val" class="calc-field" style="font-size: 1.1rem; padding: 10px;" value="0" placeholder="0" oninput="calculateManualExchange()" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateManualExchange(); }">
             </div>
           </div>
 
@@ -1269,7 +1279,7 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">$</span>
-              <input type="number" id="usd_input" class="currency-input" value="0" oninput="calculateFromUSD(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromUSD(0); }">
+              <input type="number" step="any" id="usd_input" class="currency-input" value="0" oninput="calculateFromUSD(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromUSD(0); }">
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('usd_output_ves', 'Dólar BCV')">
@@ -1302,7 +1312,7 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">€</span>
-              <input type="number" id="eur_input" class="currency-input" value="0" oninput="calculateFromEUR(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromEUR(0); }">
+              <input type="number" step="any" id="eur_input" class="currency-input" value="0" oninput="calculateFromEUR(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromEUR(0); }">
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('eur_output_ves', 'Euro BCV')">
@@ -1335,7 +1345,7 @@
             </div>
             <div class="input-row">
               <span class="currency-symbol-input">₮</span>
-              <input type="number" id="usdt_input" class="currency-input" value="0" oninput="calculateFromUSDT(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromUSDT(0); }">
+              <input type="number" step="any" id="usdt_input" class="currency-input" value="0" oninput="calculateFromUSDT(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromUSDT(0); }">
             </div>
           </div>
           <div class="card-section-bottom" onclick="copyResultToClipboard('usdt_output_ves', 'USDT Binance')">
