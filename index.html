@@ -1588,7 +1588,14 @@
       <footer>
         Calculado según datos de fuentes oficiales e intermediarios autorizados.<br>
         <strong>Luquita PRO Premium</strong> © 2026 - Con la confianza de más de 10M de usuarios.<br>
-        <span style="opacity: 0.5;">Versión 4.0.0 (Premium Beta)</span>
+        <span style="opacity: 0.5;">Versión 4.0.0</span>
+        
+        <!-- Contador de Visitas Premium -->
+        <div id="visitCounter" style="margin-top: 15px; font-weight: 700; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.8;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <span style="letter-spacing: 0.5px; opacity: 0.8;">VISITAS:</span>
+          <span id="visitCountValue" style="background: rgba(16, 185, 129, 0.1); color: var(--primary); padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.2);">...</span>
+        </div>
       </footer>
 
       <!-- Barra Navegación Flotante -->
@@ -2000,6 +2007,26 @@
         }
       }
 
+      // Contador de visitas usando API persistente
+      async function updateVisitCounter() {
+        const url = 'https://api.counterapi.dev/v1/luquita_pro_v2/visits/up';
+        const baseVisits = 412; // Historial anterior de visitas acumuladas
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.count) {
+              document.getElementById('visitCountValue').textContent = (baseVisits + data.count).toLocaleString();
+            }
+          } else {
+            document.getElementById('visitCountValue').textContent = baseVisits + "+";
+          }
+        } catch (e) {
+          console.error("Error actualizando contador:", e);
+          document.getElementById('visitCountValue').textContent = baseVisits + "+";
+        }
+      }
+
       // Registro del Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -2025,6 +2052,7 @@
 
         // Cargar datos
         fetchRates();
+        updateVisitCounter();
         calculateCommercial();
         calculateInverse();
         calculateUsdtCommission();
