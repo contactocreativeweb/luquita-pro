@@ -1285,11 +1285,11 @@
           <div class="card-section-bottom" onclick="copyResultToClipboard('usd_output_ves', 'Dólar BCV')">
             <div class="ves-result-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="ves-result-left">
+                <div class="ves-result-left" style="flex: 1; margin-right: 12px;">
                   <span class="ves-result-label">Equivalente al BCV</span>
-                  <div class="ves-result-value-row">
-                    <span class="ves-symbol">Bs.</span>
-                    <span class="ves-value" id="usd_output_ves">0,00</span>
+                  <div class="ves-result-value-row" style="display: flex; align-items: baseline;">
+                    <span class="ves-symbol" style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-right: 8px;">Bs.</span>
+                    <input type="number" step="any" id="usd_output_ves" class="ves-value" style="background: transparent; border: none; outline: none; box-shadow: none; width: 100%; padding: 0;" value="0" oninput="calculateFromUSDBs(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromUSDBs(0); }">
                   </div>
                 </div>
                 <div class="ves-result-rate" id="usd_rate_info">Tasa BCV: --,-- Bs</div>
@@ -1318,11 +1318,11 @@
           <div class="card-section-bottom" onclick="copyResultToClipboard('eur_output_ves', 'Euro BCV')">
             <div class="ves-result-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="ves-result-left">
+                <div class="ves-result-left" style="flex: 1; margin-right: 12px;">
                   <span class="ves-result-label">Equivalente al BCV</span>
-                  <div class="ves-result-value-row">
-                    <span class="ves-symbol">Bs.</span>
-                    <span class="ves-value" id="eur_output_ves">0,00</span>
+                  <div class="ves-result-value-row" style="display: flex; align-items: baseline;">
+                    <span class="ves-symbol" style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-right: 8px;">Bs.</span>
+                    <input type="number" step="any" id="eur_output_ves" class="ves-value" style="background: transparent; border: none; outline: none; box-shadow: none; width: 100%; padding: 0;" value="0" oninput="calculateFromEURBs(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromEURBs(0); }">
                   </div>
                 </div>
                 <div class="ves-result-rate" id="eur_rate_info">Tasa BCV: --,-- Bs</div>
@@ -1351,11 +1351,11 @@
           <div class="card-section-bottom" onclick="copyResultToClipboard('usdt_output_ves', 'USDT Binance')">
             <div class="ves-result-container" style="flex-direction: column; align-items: stretch; gap: 8px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="ves-result-left">
+                <div class="ves-result-left" style="flex: 1; margin-right: 12px;">
                   <span class="ves-result-label">Equivalente Binance</span>
-                  <div class="ves-result-value-row">
-                    <span class="ves-symbol">Bs.</span>
-                    <span class="ves-value" id="usdt_output_ves">0,00</span>
+                  <div class="ves-result-value-row" style="display: flex; align-items: baseline;">
+                    <span class="ves-symbol" style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-right: 8px;">Bs.</span>
+                    <input type="number" step="any" id="usdt_output_ves" class="ves-value" style="background: transparent; border: none; outline: none; box-shadow: none; width: 100%; padding: 0;" value="0" oninput="calculateFromUSDTBs(this.value)" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') { this.value='0'; calculateFromUSDTBs(0); }">
                   </div>
                 </div>
                 <div class="ves-result-rate" id="usdt_rate_info">Tasa USDT: --,-- Bs</div>
@@ -1730,43 +1730,45 @@
       }
 
       // Lógica de Cambio Manual y cálculo de diferencias a favor
-      function updateAllCalculations(baseVes, sourceField) {
+      function updateAllCalculations(amount, sourceField) {
         const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
+        const manualVes = amount * rateManual;
         
-        // 1. Mostrar bolívares calculados
-        document.getElementById('manual_ves_result').textContent = baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+        // 1. Mostrar bolívares calculados del cambio manual
+        document.getElementById('manual_ves_result').textContent = manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
         
-        // 2. Sincronizar inputs
-        const usdVal = rates.usd > 0 ? baseVes / rates.usd : 0;
-        const eurVal = rates.eur > 0 ? baseVes / rates.eur : 0;
-        const usdtVal = rates.usdt > 0 ? baseVes / rates.usdt : 0;
-        const amountManual = rateManual > 0 ? baseVes / rateManual : (sourceField === 'usd' ? usdVal : (sourceField === 'eur' ? eurVal : (sourceField === 'usdt' ? usdtVal : 0)));
-
-        if (sourceField !== 'manual') {
-          document.getElementById('manual_amount_val').value = amountManual > 0 ? amountManual.toFixed(2) : '0';
+        // 2. Sincronizar inputs de cantidades (USD, EUR, USDT)
+        if (sourceField !== 'manual_amount') {
+          document.getElementById('manual_amount_val').value = amount > 0 ? amount.toFixed(2) : '0';
         }
-        if (sourceField !== 'usd') {
-          document.getElementById('usd_input').value = usdVal > 0 ? usdVal.toFixed(2) : '0';
+        if (sourceField !== 'usd_input') {
+          document.getElementById('usd_input').value = amount > 0 ? amount.toFixed(2) : '0';
         }
-        if (sourceField !== 'eur') {
-          document.getElementById('eur_input').value = eurVal > 0 ? eurVal.toFixed(2) : '0';
+        if (sourceField !== 'eur_input') {
+          document.getElementById('eur_input').value = amount > 0 ? amount.toFixed(2) : '0';
         }
-        if (sourceField !== 'usdt') {
-          document.getElementById('usdt_input').value = usdtVal > 0 ? usdtVal.toFixed(2) : '0';
+        if (sourceField !== 'usdt_input') {
+          document.getElementById('usdt_input').value = amount > 0 ? amount.toFixed(2) : '0';
         }
 
-        // 3. Equivalentes BCV (muestran los bolívares de baseVes)
-        document.getElementById('usd_output_ves').textContent = baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('eur_output_ves').textContent = baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('usdt_output_ves').textContent = baseVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        // 3. Sincronizar inputs de Bolívares oficiales
+        const usdBCVVes = amount * rates.usd;
+        const eurBCVVes = amount * rates.eur;
+        const usdtVes = amount * rates.usdt;
+
+        if (sourceField !== 'usd_output') {
+          document.getElementById('usd_output_ves').value = usdBCVVes > 0 ? usdBCVVes.toFixed(2) : '0';
+        }
+        if (sourceField !== 'eur_output') {
+          document.getElementById('eur_output_ves').value = eurBCVVes > 0 ? eurBCVVes.toFixed(2) : '0';
+        }
+        if (sourceField !== 'usdt_output') {
+          document.getElementById('usdt_output_ves').value = usdtVes > 0 ? usdtVes.toFixed(2) : '0';
+        }
 
         // 4. Calcular Diferencias
-        const usdBCVVes = amountManual * rates.usd;
-        const eurBCVVes = amountManual * rates.eur;
-        const usdtVes = amountManual * rates.usdt;
-
         // USD
-        const diffUsd = baseVes - usdBCVVes;
+        const diffUsd = manualVes - usdBCVVes;
         const diffUsdEquiv = rates.usd > 0 ? diffUsd / rates.usd : 0;
         const diffUsdLine1 = document.getElementById('diff_usd_line1');
         const diffUsdLine2 = document.getElementById('diff_usd_line2');
@@ -1785,10 +1787,10 @@
           diffUsdLine1.style.color = "#ef4444";
         }
         diffUsdLine1.textContent = `| BCV: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
-        diffUsdLine2.textContent = `| BCV: ${usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
+        diffUsdLine2.textContent = `| BCV: ${usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
 
         // EUR
-        const diffEur = baseVes - eurBCVVes;
+        const diffEur = manualVes - eurBCVVes;
         const diffEurEquiv = rates.eur > 0 ? diffEur / rates.eur : 0;
         const diffEurLine1 = document.getElementById('diff_eur_line1');
         const diffEurLine2 = document.getElementById('diff_eur_line2');
@@ -1807,10 +1809,10 @@
           diffEurLine1.style.color = "#ef4444";
         }
         diffEurLine1.textContent = `| BCV: ${signEur}${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurSignEquiv}${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
-        diffEurLine2.textContent = `| BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
+        diffEurLine2.textContent = `| BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
 
         // USDT
-        const diffUsdt = baseVes - usdtVes;
+        const diffUsdt = manualVes - usdtVes;
         const diffUsdtEquiv = rates.usdt > 0 ? diffUsdt / rates.usdt : 0;
         const diffUsdtLine1 = document.getElementById('diff_usdt_line1');
         const diffUsdtLine2 = document.getElementById('diff_usdt_line2');
@@ -1829,14 +1831,25 @@
           diffUsdtLine1.style.color = "#ef4444";
         }
         diffUsdtLine1.textContent = `| BCV: ${signUsdt}${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtSignEquiv}${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
-        diffUsdtLine2.textContent = `| BCV: ${usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amountManual.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
+        diffUsdtLine2.textContent = `| BCV: ${usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
+
+        // Guardar en historial si es un monto válido
+        if (amount > 0) {
+          if (sourceField === 'manual_amount') {
+            saveToHistoryDebounced(amount, 'USD', manualVes, 'Manual');
+          } else if (sourceField === 'usd_input' || sourceField === 'usd_output') {
+            saveToHistoryDebounced(amount, 'USD', usdBCVVes, 'Dólar BCV');
+          } else if (sourceField === 'eur_input' || sourceField === 'eur_output') {
+            saveToHistoryDebounced(amount, 'EUR', eurBCVVes, 'Euro BCV');
+          } else if (sourceField === 'usdt_input' || sourceField === 'usdt_output') {
+            saveToHistoryDebounced(amount, 'USDT', usdtVes, 'USDT Binance');
+          }
+        }
       }
 
       function calculateManualExchange() {
-        const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
         const amountManual = parseFloat(document.getElementById('manual_amount_val').value) || 0;
-        const manualVes = rateManual * amountManual;
-        updateAllCalculations(manualVes, 'manual');
+        updateAllCalculations(amountManual, 'manual_amount');
       }
 
       // Sincronizador de montos antiguo (redirección)
@@ -1847,20 +1860,35 @@
 
       function calculateFromUSD(val) {
         const usdAmount = parseFloat(val) || 0;
-        const baseVes = usdAmount * rates.usd;
-        updateAllCalculations(baseVes, 'usd');
+        updateAllCalculations(usdAmount, 'usd_input');
       }
 
       function calculateFromEUR(val) {
         const eurAmount = parseFloat(val) || 0;
-        const baseVes = eurAmount * rates.eur;
-        updateAllCalculations(baseVes, 'eur');
+        updateAllCalculations(eurAmount, 'eur_input');
       }
 
       function calculateFromUSDT(val) {
         const usdtAmount = parseFloat(val) || 0;
-        const baseVes = usdtAmount * rates.usdt;
-        updateAllCalculations(baseVes, 'usdt');
+        updateAllCalculations(usdtAmount, 'usdt_input');
+      }
+
+      function calculateFromUSDBs(val) {
+        const bsAmount = parseFloat(val) || 0;
+        const usdAmount = rates.usd > 0 ? bsAmount / rates.usd : 0;
+        updateAllCalculations(usdAmount, 'usd_output');
+      }
+
+      function calculateFromEURBs(val) {
+        const bsAmount = parseFloat(val) || 0;
+        const eurAmount = rates.eur > 0 ? bsAmount / rates.eur : 0;
+        updateAllCalculations(eurAmount, 'eur_output');
+      }
+
+      function calculateFromUSDTBs(val) {
+        const bsAmount = parseFloat(val) || 0;
+        const usdtAmount = rates.usdt > 0 ? bsAmount / rates.usdt : 0;
+        updateAllCalculations(usdtAmount, 'usdt_output');
       }
 
       // Debounce para no inundar el historial al teclear
@@ -1914,7 +1942,8 @@
 
       // Copiar resultado al portapapeles
       function copyResultToClipboard(elementId, label) {
-        const valText = document.getElementById(elementId).textContent;
+        const el = document.getElementById(elementId);
+        const valText = el.tagName === 'INPUT' ? parseFloat(el.value).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : el.textContent;
         navigator.clipboard.writeText(valText).then(() => {
           alert(`Copiado: ${valText} Bs. (Tasa ${label})`);
         });
