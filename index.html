@@ -1185,11 +1185,18 @@
           <div class="header-logo-container">
             <img src="/logo-192.png" alt="Luquita PRO logo">
           </div>
-          <div>
+          <div style="display: flex; flex-direction: column;">
             <h1 class="brand-title">Luquita<span>PRO</span></h1>
+            <span id="header_timestamp" style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600;">--/--/---- --:--</span>
           </div>
         </div>
         <div class="header-actions">
+          <button class="icon-btn" id="header_install_btn" onclick="triggerPwaInstall()" title="Instalar App" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </button>
+          <button class="icon-btn" onclick="shareCalculation()" title="Compartir">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          </button>
           <button class="icon-btn" onclick="forceUpdate()" title="Sincronizar tasas">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 2v6h-6"></path>
@@ -1712,8 +1719,8 @@
 
       <!-- Footer -->
       <footer>
-        Calculado según datos de fuentes oficiales e intermediarios autorizados.<br>
-        <strong>Luquita PRO Premium</strong> © 2026 - Con la confianza de más de 10M de usuarios.<br>
+        Calculado según datos oficiales del Banco Central de Venezuela.<br>
+        <strong>© Creativeweb IA 2026 - Todos los Derechos Reservados</strong><br>
         <span style="opacity: 0.5;">Versión 4.0.0</span>
         
         <!-- Contador de Visitas Premium -->
@@ -2186,6 +2193,16 @@
         alert(`Alerta guardada para: ${divisa} ${cond} ${val.toFixed(2)} Bs. Te enviaremos notificaciones push en tiempo real.`);
       }
 
+      function updateHeaderTime() {
+        const now = new Date();
+        const dateString = now.toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const timeString = now.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit', hour12: true });
+        const timeEl = document.getElementById('header_timestamp');
+        if (timeEl) timeEl.textContent = `${dateString} - ${timeString}`;
+      }
+      setInterval(updateHeaderTime, 1000);
+      updateHeaderTime();
+
       function toggleAlertElement(el) {
         el.classList.toggle('off');
       }
@@ -2287,6 +2304,8 @@
         e.preventDefault();
         deferredPrompt = e;
         document.getElementById('pwa_install_pill').style.display = 'inline-flex';
+        const headerBtn = document.getElementById('header_install_btn');
+        if (headerBtn) headerBtn.style.display = 'flex';
       });
 
       function triggerPwaInstall() {
