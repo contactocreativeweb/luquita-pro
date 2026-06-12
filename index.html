@@ -2389,6 +2389,11 @@
 
       // On Load
       window.addEventListener('DOMContentLoaded', () => {
+        // Limpiar URL si viene de un forceUpdate (?v=...)
+        if (window.location.search.includes('?v=')) {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
         // Forzar tema oscuro por defecto siempre al iniciar
         localStorage.setItem('theme', 'dark');
         const themeMeta = document.querySelector('meta[name="theme-color"]');
