@@ -1844,17 +1844,27 @@
         }
         
         // 2. Sincronizar inputs de cantidades (USD, EUR, USDT)
+        // Si hay tasa manual activa → mostrar el total equivalente en cada divisa
         if (sourceField !== 'manual_amount') {
           document.getElementById('manual_amount_val').value = amount > 0 ? amount.toFixed(2) : '0';
         }
         if (sourceField !== 'usd_input') {
-          document.getElementById('usd_input').value = amount > 0 ? amount.toFixed(2) : '0';
+          const usdDisplay = (rateManual > 0 && manualVes > 0 && rates.usd > 0)
+            ? (manualVes / rates.usd).toFixed(2)
+            : (amount > 0 ? amount.toFixed(2) : '0');
+          document.getElementById('usd_input').value = usdDisplay;
         }
         if (sourceField !== 'eur_input') {
-          document.getElementById('eur_input').value = amount > 0 ? amount.toFixed(2) : '0';
+          const eurDisplay = (rateManual > 0 && manualVes > 0 && rates.eur > 0)
+            ? (manualVes / rates.eur).toFixed(2)
+            : (amount > 0 ? amount.toFixed(2) : '0');
+          document.getElementById('eur_input').value = eurDisplay;
         }
         if (sourceField !== 'usdt_input') {
-          document.getElementById('usdt_input').value = amount > 0 ? amount.toFixed(2) : '0';
+          const usdtDisplay = (rateManual > 0 && manualVes > 0 && rates.usdt > 0)
+            ? (manualVes / rates.usdt).toFixed(2)
+            : (amount > 0 ? amount.toFixed(2) : '0');
+          document.getElementById('usdt_input').value = usdtDisplay;
         }
 
         // 3. Sincronizar inputs de Bolívares oficiales
