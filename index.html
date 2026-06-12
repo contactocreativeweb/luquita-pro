@@ -1892,45 +1892,76 @@
             diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
             diffUsdLine1.style.color = "#ef4444";
           }
-          diffUsdLine1.textContent = `| Manual vs BCV: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
-          diffUsdLine2.textContent = `| BCV: ${usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
+          // Línea 1: diferencia (sin prefijo)
+          diffUsdLine1.textContent = `| ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
+          // Línea 2: total = BCV Bs + diferencia = manualVes, expresado en USD al BCV
+          const totalManualUsdEquiv = rates.usd > 0 ? manualVes / rates.usd : 0;
+          diffUsdLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
         } else {
           diffUsdRowEl.style.display = 'none';
         }
 
-        // EUR — muestra equivalente BCV. La diff solo aplica si hay tasa manual en EUR
+        // EUR — misma lógica: diff y total al aplicar tasa manual
         const diffEurRowEl = document.getElementById('diff_eur_row');
         const diffEurLine1 = document.getElementById('diff_eur_line1');
         const diffEurLine2 = document.getElementById('diff_eur_line2');
-        // La tasa manual es en USD, no aplica para EUR: solo mostramos el total BCV
-        diffEurRowEl.style.display = 'flex';
-        diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
-        diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
-        diffEurLine1.style.color = "#10b981";
-        diffEurLine1.textContent = `| Equivalente BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
-        diffEurLine2.textContent = `| Tasa: ${rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
+        if (rateManual > 0) {
+          const diffEur = manualVes - eurBCVVes;
+          const diffEurEquiv = rates.eur > 0 ? diffEur / rates.eur : 0;
+          const signEur = diffEur >= 0 ? '+' : '';
+          const eurSignEquiv = diffEurEquiv >= 0 ? '+' : '';
+          diffEurRowEl.style.display = 'flex';
+          if (diffEur >= 0) {
+            diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+            diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+            diffEurLine1.style.color = "#10b981";
+          } else {
+            diffEurRowEl.style.background = "rgba(239, 68, 68, 0.1)";
+            diffEurRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
+            diffEurLine1.style.color = "#ef4444";
+          }
+          diffEurLine1.textContent = `| ${signEur}${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurSignEquiv}${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
+          const totalManualEurEquiv = rates.eur > 0 ? manualVes / rates.eur : 0;
+          diffEurLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
+        } else {
+          diffEurRowEl.style.display = 'flex';
+          diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+          diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+          diffEurLine1.style.color = "#10b981";
+          diffEurLine1.textContent = `| Equivalente BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
+          diffEurLine2.textContent = `| Tasa: ${rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
+        }
 
-        // USDT
-        const diffUsdt = manualVes - usdtVes;
-        const diffUsdtEquiv = rates.usdt > 0 ? diffUsdt / rates.usdt : 0;
+        // USDT — misma lógica
+        const diffUsdtRowEl = document.getElementById('diff_usdt_row');
         const diffUsdtLine1 = document.getElementById('diff_usdt_line1');
         const diffUsdtLine2 = document.getElementById('diff_usdt_line2');
-        const diffUsdtRowEl = document.getElementById('diff_usdt_row');
-
-        const signUsdt = diffUsdt >= 0 ? '+' : '';
-        const usdtSignEquiv = diffUsdtEquiv >= 0 ? '+' : '';
-
-        if (diffUsdt >= 0) {
-          diffUsdtRowEl.style.background = "rgba(16, 185, 129, 0.1)";
-          diffUsdtRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
-          diffUsdtLine1.style.color = "#10b981";
+        if (rateManual > 0) {
+          const diffUsdt = manualVes - usdtVes;
+          const diffUsdtEquiv = rates.usdt > 0 ? diffUsdt / rates.usdt : 0;
+          const signUsdt = diffUsdt >= 0 ? '+' : '';
+          const usdtSignEquiv = diffUsdtEquiv >= 0 ? '+' : '';
+          diffUsdtRowEl.style.display = 'flex';
+          if (diffUsdt >= 0) {
+            diffUsdtRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+            diffUsdtRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+            diffUsdtLine1.style.color = "#10b981";
+          } else {
+            diffUsdtRowEl.style.background = "rgba(239, 68, 68, 0.1)";
+            diffUsdtRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
+            diffUsdtLine1.style.color = "#ef4444";
+          }
+          diffUsdtLine1.textContent = `| ${signUsdt}${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtSignEquiv}${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
+          const totalManualUsdtEquiv = rates.usdt > 0 ? manualVes / rates.usdt : 0;
+          diffUsdtLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
         } else {
-          diffUsdtRowEl.style.background = "rgba(239, 68, 68, 0.1)";
-          diffUsdtRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
-          diffUsdtLine1.style.color = "#ef4444";
+          diffUsdtRowEl.style.display = 'flex';
+          diffUsdtRowEl.style.background = "rgba(245, 158, 11, 0.08)";
+          diffUsdtRowEl.style.borderColor = "rgba(245, 158, 11, 0.25)";
+          diffUsdtLine1.style.color = "var(--accent-usdt)";
+          diffUsdtLine1.textContent = `| Equivalente Binance: ${usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
+          diffUsdtLine2.textContent = `| Tasa: ${rates.usdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT`;
         }
-        diffUsdtLine1.textContent = `| BCV: ${signUsdt}${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtSignEquiv}${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
-        diffUsdtLine2.textContent = `| BCV: ${usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
 
         // Guardar en historial si es un monto válido
         if (amount > 0) {
