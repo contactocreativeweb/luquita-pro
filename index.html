@@ -1714,7 +1714,7 @@
                 <p>Oficial Banco Central</p>
               </div>
             </div>
-            <div class="rate-row-value">36.72 Bs</div>
+            <div class="rate-row-value" id="fav_usd_rate">-- Bs</div>
           </div>
           <div class="rate-row-card">
             <div class="rate-row-info">
@@ -1725,7 +1725,7 @@
                 <p>Referencial P2P</p>
               </div>
             </div>
-            <div class="rate-row-value">37.45 Bs</div>
+            <div class="rate-row-value" id="fav_usdt_rate">-- Bs</div>
           </div>
         </div>
 
@@ -2340,6 +2340,12 @@
           document.getElementById('usd_rate_info').textContent = "Tasa BCV: " + rates.usd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
           document.getElementById('eur_rate_info').textContent = "Tasa BCV: " + rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
           document.getElementById('usdt_rate_info').textContent = "Tasa USDT: " + rates.usdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+
+          // Actualizar favoritos
+          const favUsd = document.getElementById('fav_usd_rate');
+          if (favUsd) favUsd.textContent = rates.usd.toFixed(2) + " Bs";
+          const favUsdt = document.getElementById('fav_usdt_rate');
+          if (favUsdt) favUsdt.textContent = rates.usdt.toFixed(2) + " Bs";
           
           // Re-sincronizar cálculos actuales
           calculateManualExchange();
