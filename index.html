@@ -1873,49 +1873,42 @@
         }
 
         // 4. Calcular Diferencias
-        // USD
-        const diffUsd = manualVes - usdBCVVes;
-        const diffUsdEquiv = rates.usd > 0 ? diffUsd / rates.usd : 0;
+        // USD — solo muestra diferencia vs tasa manual si se ingresó tasa manual
+        const diffUsdRowEl = document.getElementById('diff_usd_row');
         const diffUsdLine1 = document.getElementById('diff_usd_line1');
         const diffUsdLine2 = document.getElementById('diff_usd_line2');
-        const diffUsdRowEl = document.getElementById('diff_usd_row');
-
-        const signUsd = diffUsd >= 0 ? '+' : '';
-        const usdSignEquiv = diffUsdEquiv >= 0 ? '+' : '';
-
-        if (diffUsd >= 0) {
-          diffUsdRowEl.style.background = "rgba(16, 185, 129, 0.1)";
-          diffUsdRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
-          diffUsdLine1.style.color = "#10b981";
+        if (rateManual > 0) {
+          const diffUsd = manualVes - usdBCVVes;
+          const diffUsdEquiv = rates.usd > 0 ? diffUsd / rates.usd : 0;
+          const signUsd = diffUsd >= 0 ? '+' : '';
+          const usdSignEquiv = diffUsdEquiv >= 0 ? '+' : '';
+          diffUsdRowEl.style.display = 'flex';
+          if (diffUsd >= 0) {
+            diffUsdRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+            diffUsdRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+            diffUsdLine1.style.color = "#10b981";
+          } else {
+            diffUsdRowEl.style.background = "rgba(239, 68, 68, 0.1)";
+            diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
+            diffUsdLine1.style.color = "#ef4444";
+          }
+          diffUsdLine1.textContent = `| Manual vs BCV: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
+          diffUsdLine2.textContent = `| BCV: ${usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
         } else {
-          diffUsdRowEl.style.background = "rgba(239, 68, 68, 0.1)";
-          diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
-          diffUsdLine1.style.color = "#ef4444";
+          diffUsdRowEl.style.display = 'none';
         }
-        diffUsdLine1.textContent = `| BCV: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
-        diffUsdLine2.textContent = `| BCV: ${usdBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
 
-        // EUR
-        const diffEur = manualVes - eurBCVVes;
-        const diffEurEquiv = rates.eur > 0 ? diffEur / rates.eur : 0;
+        // EUR — muestra equivalente BCV. La diff solo aplica si hay tasa manual en EUR
+        const diffEurRowEl = document.getElementById('diff_eur_row');
         const diffEurLine1 = document.getElementById('diff_eur_line1');
         const diffEurLine2 = document.getElementById('diff_eur_line2');
-        const diffEurRowEl = document.getElementById('diff_eur_row');
-
-        const signEur = diffEur >= 0 ? '+' : '';
-        const eurSignEquiv = diffEurEquiv >= 0 ? '+' : '';
-
-        if (diffEur >= 0) {
-          diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
-          diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
-          diffEurLine1.style.color = "#10b981";
-        } else {
-          diffEurRowEl.style.background = "rgba(239, 68, 68, 0.1)";
-          diffEurRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
-          diffEurLine1.style.color = "#ef4444";
-        }
-        diffEurLine1.textContent = `| BCV: ${signEur}${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurSignEquiv}${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
-        diffEurLine2.textContent = `| BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
+        // La tasa manual es en USD, no aplica para EUR: solo mostramos el total BCV
+        diffEurRowEl.style.display = 'flex';
+        diffEurRowEl.style.background = "rgba(16, 185, 129, 0.1)";
+        diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
+        diffEurLine1.style.color = "#10b981";
+        diffEurLine1.textContent = `| Equivalente BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
+        diffEurLine2.textContent = `| Tasa: ${rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
 
         // USDT
         const diffUsdt = manualVes - usdtVes;
