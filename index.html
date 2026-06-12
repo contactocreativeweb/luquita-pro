@@ -1902,8 +1902,8 @@
             diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
             diffUsdLine1.style.color = "#ef4444";
           }
-          // Línea 1: diferencia (sin prefijo)
-          diffUsdLine1.textContent = `| ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
+          // Línea 1: diferencia con etiqueta BCV Bs
+          diffUsdLine1.textContent = `| BCV Bs: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
           // Línea 2: total = BCV Bs + diferencia = manualVes, expresado en USD al BCV
           const totalManualUsdEquiv = rates.usd > 0 ? manualVes / rates.usd : 0;
           diffUsdLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
@@ -1930,7 +1930,7 @@
             diffEurRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
             diffEurLine1.style.color = "#ef4444";
           }
-          diffEurLine1.textContent = `| ${signEur}${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurSignEquiv}${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
+          diffEurLine1.textContent = `| BCV Bs: ${signEur}${diffEur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${eurSignEquiv}${diffEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
           const totalManualEurEquiv = rates.eur > 0 ? manualVes / rates.eur : 0;
           diffEurLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualEurEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR)`;
         } else {
@@ -1961,7 +1961,7 @@
             diffUsdtRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
             diffUsdtLine1.style.color = "#ef4444";
           }
-          diffUsdtLine1.textContent = `| ${signUsdt}${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtSignEquiv}${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
+          diffUsdtLine1.textContent = `| BCV Bs: ${signUsdt}${diffUsdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdtSignEquiv}${diffUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
           const totalManualUsdtEquiv = rates.usdt > 0 ? manualVes / rates.usdt : 0;
           diffUsdtLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualUsdtEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT)`;
         } else {
