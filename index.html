@@ -1516,6 +1516,10 @@
               <h6>Recibes (Dólar BCV)</h6>
               <div class="calc-result-val" id="inv_result_usd">$27.23</div>
             </div>
+            <div class="calc-result-box" style="margin-top: 8px; background: rgba(59,130,246,0.05); border-color: rgba(59,130,246,0.25);">
+              <h6>Recibes (Euro BCV)</h6>
+              <div class="calc-result-val" id="inv_result_eur" style="color: var(--accent-eur);">€25.12</div>
+            </div>
             <div class="calc-result-box" style="margin-top: 8px; background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.25);">
               <h6>Recibes (USDT Binance)</h6>
               <div class="calc-result-val" id="inv_result_usdt" style="color: var(--accent-usdt);">26.70 USDT</div>
@@ -2109,9 +2113,11 @@
       function calculateInverse() {
         const bs = parseFloat(document.getElementById('inv_bs').value) || 0;
         const resultUsd = bs / rates.usd;
+        const resultEur = bs / rates.eur;
         const resultUsdt = bs / rates.usdt;
         
         document.getElementById('inv_result_usd').textContent = `$${resultUsd.toFixed(2)}`;
+        document.getElementById('inv_result_eur').textContent = `€${resultEur.toFixed(2)}`;
         document.getElementById('inv_result_usdt').textContent = `${resultUsdt.toFixed(2)} USDT`;
       }
 
