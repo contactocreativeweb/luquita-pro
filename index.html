@@ -1173,6 +1173,61 @@
           gap: 16px;
         }
       }
+
+      /* Animación de pulso verde para el Conversor */
+      @keyframes nav-tab-pulse-green {
+        0% {
+          background-color: transparent;
+          box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+          color: var(--text-muted);
+        }
+        50% {
+          background-color: rgba(16, 185, 129, 0.25);
+          box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+          color: var(--primary);
+        }
+        100% {
+          background-color: transparent;
+          box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+          color: var(--text-muted);
+        }
+      }
+
+      .nav-tab-pulse:not(.active) {
+        animation: nav-tab-pulse-green 1.6s infinite ease-in-out;
+      }
+
+      .nav-tab-pulse:hover {
+        animation-play-state: paused;
+      }
+
+      @keyframes tool-btn-pulse-green {
+        0% {
+          background-color: var(--card-bg);
+          box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+          border-color: var(--border-color);
+        }
+        50% {
+          background-color: rgba(16, 185, 129, 0.12);
+          box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+          border-color: var(--primary);
+        }
+        100% {
+          background-color: var(--card-bg);
+          box-shadow: 0 0 0 rgba(16, 185, 129, 0);
+          border-color: var(--border-color);
+        }
+      }
+
+      .tool-btn-pulse {
+        animation: tool-btn-pulse-green 1.6s infinite ease-in-out;
+      }
+
+      .tool-btn-pulse:hover {
+        animation-play-state: paused;
+        border-color: var(--primary);
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+      }
     </style>
   </head>
 
@@ -1322,7 +1377,7 @@
         </div>
 
         <div class="tools-panel-grid">
-          <div class="tool-btn" onclick="switchTab('conversor')">
+          <div class="tool-btn tool-btn-pulse" onclick="switchTab('conversor')">
             <div class="tool-btn-icon">🖩</div>
             <span>Calcular</span>
           </div>
@@ -1751,7 +1806,7 @@
           <span class="nav-tab-icon">🏠</span>
           <span>Inicio</span>
         </button>
-        <button class="nav-tab" onclick="switchTab('conversor')">
+        <button class="nav-tab nav-tab-pulse" onclick="switchTab('conversor')">
           <span class="nav-tab-icon">🖩</span>
           <span>Conversor</span>
         </button>
