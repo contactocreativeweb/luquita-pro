@@ -1891,7 +1891,18 @@
       // Lógica de Cambio Manual y cálculo de diferencias a favor
       function updateAllCalculations(amount, sourceField) {
         const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
-        const manualVes = amount * rateManual;
+        
+        // Determinar el valor equivalente en USD como base de la sincronización
+        let usdVal = 0;
+        if (sourceField === 'usd_input' || sourceField === 'usd_output' || sourceField === 'manual_amount' || sourceField === 'manual_ves') {
+          usdVal = amount;
+        } else if (sourceField === 'eur_input' || sourceField === 'eur_output') {
+          usdVal = rates.usd > 0 ? (amount * rates.eur) / rates.usd : 0;
+        } else if (sourceField === 'usdt_input' || sourceField === 'usdt_output') {
+          usdVal = rates.usd > 0 ? (amount * rates.usdt) / rates.usd : 0;
+        }
+
+        const manualVes = rateManual > 0 ? usdVal * rateManual : 0;
         
         // 1. Mostrar bolívares calculados del cambio manual
         if (sourceField !== 'manual_ves') {
@@ -1899,33 +1910,28 @@
         }
         
         // 2. Sincronizar inputs de cantidades (USD, EUR, USDT)
-        // Si hay tasa manual activa → mostrar el total equivalente en cada divisa
+        // Todos los inputs deben mostrar el equivalente en sus respectivas monedas
         if (sourceField !== 'manual_amount') {
-          document.getElementById('manual_amount_val').value = amount > 0 ? amount.toFixed(2) : '0';
+          document.getElementById('manual_amount_val').value = usdVal > 0 ? usdVal.toFixed(2) : '0';
         }
         if (sourceField !== 'usd_input') {
-          const usdDisplay = (rateManual > 0 && manualVes > 0 && rates.usd > 0)
-            ? (manualVes / rates.usd).toFixed(2)
-            : (amount > 0 ? amount.toFixed(2) : '0');
-          document.getElementById('usd_input').value = usdDisplay;
+          document.getElementById('usd_input').value = usdVal > 0 ? usdVal.toFixed(2) : '0';
         }
+        
+        const eurDisplayVal = (rates.eur > 0) ? (usdVal * rates.usd / rates.eur) : 0;
         if (sourceField !== 'eur_input') {
-          const eurDisplay = (rateManual > 0 && manualVes > 0 && rates.eur > 0)
-            ? (manualVes / rates.eur).toFixed(2)
-            : (amount > 0 ? amount.toFixed(2) : '0');
-          document.getElementById('eur_input').value = eurDisplay;
+          document.getElementById('eur_input').value = eurDisplayVal > 0 ? eurDisplayVal.toFixed(2) : '0';
         }
+        
+        const usdtDisplayVal = (rates.usdt > 0) ? (usdVal * rates.usd / rates.usdt) : 0;
         if (sourceField !== 'usdt_input') {
-          const usdtDisplay = (rateManual > 0 && manualVes > 0 && rates.usdt > 0)
-            ? (manualVes / rates.usdt).toFixed(2)
-            : (amount > 0 ? amount.toFixed(2) : '0');
-          document.getElementById('usdt_input').value = usdtDisplay;
+          document.getElementById('usdt_input').value = usdtDisplayVal > 0 ? usdtDisplayVal.toFixed(2) : '0';
         }
 
         // 3. Sincronizar inputs de Bolívares oficiales
-        const usdBCVVes = amount * rates.usd;
-        const eurBCVVes = amount * rates.eur;
-        const usdtVes = amount * rates.usdt;
+        const usdBCVVes = usdVal * rates.usd;
+        const eurBCVVes = usdVal * rates.usd;
+        const usdtVes = usdVal * rates.usd;
 
         if (sourceField !== 'usd_output') {
           document.getElementById('usd_output_ves').value = usdBCVVes > 0 ? usdBCVVes.toFixed(2) : '0';
@@ -1957,9 +1963,7 @@
             diffUsdRowEl.style.borderColor = "rgba(239, 68, 68, 0.2)";
             diffUsdLine1.style.color = "#ef4444";
           }
-          // Línea 1: diferencia con etiqueta BCV Bs
           diffUsdLine1.textContent = `| BCV Bs: ${signUsd}${diffUsd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${usdSignEquiv}${diffUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
-          // Línea 2: total = BCV Bs + diferencia = manualVes, expresado en USD al BCV
           const totalManualUsdEquiv = rates.usd > 0 ? manualVes / rates.usd : 0;
           diffUsdLine2.textContent = `| Total: ${manualVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs (${totalManualUsdEquiv.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD)`;
         } else {
@@ -1994,7 +1998,7 @@
           diffEurRowEl.style.borderColor = "rgba(16, 185, 129, 0.2)";
           diffEurLine1.style.color = "#10b981";
           diffEurLine1.textContent = `| Equivalente BCV: ${eurBCVVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
-          diffEurLine2.textContent = `| Tasa: ${rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
+          diffEurLine2.textContent = `| Tasa: ${rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${eurDisplayVal.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
         }
 
         // USDT — misma lógica
@@ -2025,7 +2029,7 @@
           diffUsdtRowEl.style.borderColor = "rgba(245, 158, 11, 0.25)";
           diffUsdtLine1.style.color = "var(--accent-usdt)";
           diffUsdtLine1.textContent = `| Equivalente Binance: ${usdtVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
-          diffUsdtLine2.textContent = `| Tasa: ${rates.usdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${amount.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT`;
+          diffUsdtLine2.textContent = `| Tasa: ${rates.usdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs × ${usdtDisplayVal.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT`;
         }
 
         // Guardar en historial si es un monto válido
