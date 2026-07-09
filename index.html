@@ -2716,6 +2716,13 @@
           window.history.replaceState({}, document.title, window.location.pathname);
         }
 
+        // Ocultar botón de instalación si ya estamos en la PWA (Standalone mode)
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        if (isStandalone) {
+          const installBtn = document.getElementById('header_install_btn');
+          if (installBtn) installBtn.style.display = 'none';
+        }
+
         // Forzar tema oscuro por defecto siempre al iniciar
         localStorage.setItem('theme', 'dark');
         const themeMeta = document.querySelector('meta[name="theme-color"]');
