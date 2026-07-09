@@ -1,4 +1,4 @@
-const CACHE_NAME = 'luquita-v8';
+const CACHE_NAME = 'luquita-v9';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
