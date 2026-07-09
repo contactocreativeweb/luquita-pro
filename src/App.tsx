@@ -1,6 +1,105 @@
 import { useState, useEffect } from 'react'
 import './index.css'
 
+// ── PWA Install Hook ─────────────────────────────────────────────────────────
+function usePWAInstall() {
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [isIOS, setIsIOS] = useState(false)
+  const [isInstalled, setIsInstalled] = useState(false)
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent.toLowerCase()
+    const isIosDevice = /iphone|ipad|ipod/.test(userAgent)
+    setIsIOS(isIosDevice)
+
+    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true) {
+      setIsInstalled(true)
+    }
+
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+    }
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true)
+      setDeferredPrompt(null)
+    }
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    window.addEventListener('appinstalled', handleAppInstalled)
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      window.removeEventListener('appinstalled', handleAppInstalled)
+    }
+  }, [])
+
+  const install = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      if (outcome === 'accepted') {
+        setDeferredPrompt(null)
+      }
+    }
+  }
+
+  return { install, isIOS, isInstalled, deferredPrompt }
+}
+
+// ── Install Modal ────────────────────────────────────────────────────────────
+function InstallModal({ onClose, pwaInstall }: { onClose: () => void, pwaInstall: ReturnType<typeof usePWAInstall> }) {
+  const { install, isIOS, deferredPrompt } = pwaInstall
+  const appUrl = window.location.href
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(appUrl)
+    alert("¡Enlace copiado!")
+  }
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <h3>Descargar Luquita PRO</h3>
+        
+        {isIOS ? (
+          <div className="ios-install-guide">
+            <p><strong>Para instalar en iPhone / iOS:</strong></p>
+            <ol>
+              <li>Toca el ícono de <strong>Compartir</strong> <span style={{fontSize:'1.2em'}}>⎋</span> en la barra inferior de Safari.</li>
+              <li>Selecciona <strong>"Agregar a Inicio"</strong> (Add to Home Screen).</li>
+            </ol>
+          </div>
+        ) : deferredPrompt ? (
+          <div className="android-install-guide">
+            <p>Instala Luquita en tu dispositivo para un acceso rápido y sin conexión.</p>
+            <button className="share-btn mb" style={{marginTop: 15}} onClick={() => { install(); onClose(); }}>
+              ⬇️ Instalar Aplicación
+            </button>
+          </div>
+        ) : (
+          <div className="other-install-guide">
+            <p>Abre esta página en Safari (iOS) o Chrome (Android) para instalar la aplicación móvil.</p>
+          </div>
+        )}
+
+        <div className="copy-link-section">
+          <p style={{marginTop: 15}}>O copia el enlace para abrirlo en tu navegador móvil:</p>
+          <button className="nav-btn" style={{width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', padding: '12px', borderRadius: '12px', color: '#fff'}} onClick={copyLink}>
+            📋 Copiar Enlace
+          </button>
+        </div>
+
+        <button className="nav-btn mt" style={{width: '100%', marginTop: 15, border: '1px solid rgba(255,255,255,0.05)'}} onClick={onClose}>
+          Cerrar
+        </button>
+      </div>
+    </div>
+  )
+}
+
+
 // ── Tasas hardcoded (editables) ─────────────────────────────────────────────
 const DEFAULT_RATES = {
   bcvUSD: 36.72,
@@ -37,6 +136,9 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('convertir')
   const [rates] = useState(DEFAULT_RATES)
   const visits = useVisits()
+  const [showInstallModal, setShowInstallModal] = useState(false)
+  const pwaInstall = usePWAInstall()
+  const { isInstalled } = pwaInstall
 
   // Cambio manual
   const [tasaManual, setTasaManual] = useState('')
@@ -76,6 +178,11 @@ export default function App() {
           </div>
         </div>
         <div className="header-right">
+          {!isInstalled && (
+            <button className="icon-btn" style={{width: 'auto', padding: '0 12px', borderRadius: '18px', fontSize: '0.8rem', fontWeight: 600, color: 'var(--accent)', borderColor: 'var(--accent-b)', background: 'var(--accent-d)'}} onClick={() => setShowInstallModal(true)}>
+              Descargar
+            </button>
+          )}
           <button className="icon-btn" title="Actualizar">↻</button>
           <button className="icon-btn" title="Configuración">⚙</button>
         </div>
@@ -121,6 +228,9 @@ export default function App() {
           </button>
         ))}
       </nav>
+
+      {/* ── Modals ── */}
+      {showInstallModal && <InstallModal onClose={() => setShowInstallModal(false)} pwaInstall={pwaInstall} />}
     </div>
   )
 }
