@@ -2041,6 +2041,9 @@
 
       // Lógica de Cambio Manual y cálculo de diferencias a favor
       function updateAllCalculations(amount, sourceField) {
+        // Guard: si los elementos del conversor no están en el DOM, salir
+        if (!document.getElementById('manual_rate_val')) return;
+
         const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
         
         // Determinar el valor equivalente en USD como base de la sincronización
@@ -2198,12 +2201,16 @@
       }
 
       function calculateManualExchange() {
-        const amount = parseFloat(document.getElementById('manual_amount_val').value) || 0;
+        const el = document.getElementById('manual_amount_val');
+        if (!el) return;
+        const amount = parseFloat(el.value) || 0;
         updateAllCalculations(amount, 'manual_amount');
       }
 
       function calculateManualFromBs(val) {
-        const rateManual = parseFloat(document.getElementById('manual_rate_val').value) || 0;
+        const rateEl = document.getElementById('manual_rate_val');
+        if (!rateEl) return;
+        const rateManual = parseFloat(rateEl.value) || 0;
         const bsAmount = parseFloat(val) || 0;
         const amount = rateManual > 0 ? bsAmount / rateManual : 0;
         updateAllCalculations(amount, 'manual_ves');
@@ -2211,7 +2218,9 @@
 
       // Sincronizador de montos antiguo (redirección)
       function syncCalculations(val) {
-        document.getElementById('manual_amount_val').value = val;
+        const el = document.getElementById('manual_amount_val');
+        if (!el) return;
+        el.value = val;
         calculateManualExchange();
       }
 
