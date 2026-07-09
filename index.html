@@ -2539,6 +2539,12 @@
       }
 
       // Fetch a la API de ve.dolarapi.com
+      // Helper seguro para setText
+      function setText(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
       async function fetchRates() {
         try {
           const [resUsd, resEur, resParalelo] = await Promise.all([
@@ -2560,22 +2566,21 @@
             rates.usdt = data.promedio || data.price || rates.usdt;
           }
 
-          // Actualizar UI
-          document.getElementById('main_rate_display').textContent = rates.usd.toFixed(2) + " Bs";
-          document.getElementById('row_usd_val').textContent = rates.usd.toFixed(2) + " Bs";
-          document.getElementById('row_eur_val').textContent = rates.eur.toFixed(2) + " Bs";
-          document.getElementById('row_usdt_val').textContent = rates.usdt.toFixed(2) + " Bs";
-          
-          document.getElementById('usd_rate_info').textContent = "Tasa BCV: " + rates.usd.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
-          document.getElementById('eur_rate_info').textContent = "Tasa BCV: " + rates.eur.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
-          document.getElementById('usdt_rate_info').textContent = "Tasa USDT: " + rates.usdt.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs";
+          const fmtVE = (n) => n.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+          // Actualizar UI (null-safe)
+          setText('main_rate_display', rates.usd.toFixed(2) + " Bs");
+          setText('row_usd_val',  rates.usd.toFixed(2)  + " Bs");
+          setText('row_eur_val',  rates.eur.toFixed(2)  + " Bs");
+          setText('row_usdt_val', rates.usdt.toFixed(2) + " Bs");
+          setText('usd_rate_info',  "Tasa BCV: "  + fmtVE(rates.usd)  + " Bs");
+          setText('eur_rate_info',  "Tasa BCV: "  + fmtVE(rates.eur)  + " Bs");
+          setText('usdt_rate_info', "Tasa USDT: " + fmtVE(rates.usdt) + " Bs");
 
           // Actualizar favoritos
-          const favUsd = document.getElementById('fav_usd_rate');
-          if (favUsd) favUsd.textContent = rates.usd.toFixed(2) + " Bs";
-          const favUsdt = document.getElementById('fav_usdt_rate');
-          if (favUsdt) favUsdt.textContent = rates.usdt.toFixed(2) + " Bs";
-          
+          setText('fav_usd_rate',  rates.usd.toFixed(2)  + " Bs");
+          setText('fav_usdt_rate', rates.usdt.toFixed(2) + " Bs");
+
           // Re-sincronizar cálculos actuales
           calculateManualExchange();
           calculateCommercial();
@@ -2667,20 +2672,20 @@
       // Contador de visitas usando API persistente
       async function updateVisitCounter() {
         const url = 'https://api.counterapi.dev/v1/luquita_pro_v2/visits/up';
-        const baseVisits = 412; // Historial anterior de visitas acumuladas
+        const baseVisits = 412;
         try {
           const res = await fetch(url);
           if (res.ok) {
             const data = await res.json();
             if (data && data.count) {
-              document.getElementById('visitCountValue').textContent = (baseVisits + data.count).toLocaleString();
+              setText('visitCountValue', (baseVisits + data.count).toLocaleString());
             }
           } else {
-            document.getElementById('visitCountValue').textContent = baseVisits + "+";
+            setText('visitCountValue', baseVisits + "+");
           }
         } catch (e) {
           console.error("Error actualizando contador:", e);
-          document.getElementById('visitCountValue').textContent = baseVisits + "+";
+          setText('visitCountValue', baseVisits + "+");
         }
       }
 
