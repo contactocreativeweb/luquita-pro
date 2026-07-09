@@ -39,6 +39,11 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
+  // ❌ Nunca procesar en el SW peticiones que no sean http/https (ej. extensiones de chrome)
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
+
   // ❌ Nunca cachear APIs externas ni recursos de terceros
   if (NEVER_CACHE.some(domain => url.hostname.includes(domain))) {
     e.respondWith(fetch(e.request));
