@@ -1228,6 +1228,128 @@
         border-color: var(--primary);
         box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
       }
+
+      /* ── PWA Install Modal ── */
+      .ios-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 9999;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0;
+        animation: overlayIn 0.25s ease;
+      }
+      @keyframes overlayIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      .ios-modal {
+        background: #161827;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 28px 28px 0 0;
+        padding: 28px 24px 40px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to   { transform: translateY(0); }
+      }
+      .ios-modal h3 {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .ios-modal > p {
+        font-size: 0.88rem;
+        color: #9ca3af;
+        margin-bottom: 18px;
+        line-height: 1.5;
+      }
+      .ios-modal ul {
+        text-align: left;
+        list-style: none;
+        margin: 0 0 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .ios-modal ul li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.9rem;
+        color: #d1d5db;
+        line-height: 1.4;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      .ios-modal ul li .step-num {
+        background: var(--primary);
+        color: #000;
+        font-weight: 800;
+        font-size: 0.75rem;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+      }
+      .modal-copy-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: 100%;
+      }
+      .modal-copy-link:hover { background: rgba(255,255,255,0.09); }
+      .modal-copy-link .link-url {
+        font-size: 0.8rem;
+        color: var(--primary);
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex: 1;
+        text-align: left;
+      }
+      .modal-copy-link .copy-icon {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .close-modal {
+        background: var(--primary);
+        color: #000;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 14px;
+        font-size: 0.92rem;
+        font-weight: 800;
+        cursor: pointer;
+        width: 100%;
+        transition: opacity 0.2s, transform 0.15s;
+        letter-spacing: 0.3px;
+      }
+      .close-modal:hover { opacity: 0.9; }
+      .close-modal:active { transform: scale(0.97); }
     </style>
   </head>
 
@@ -1823,27 +1945,56 @@
     </div>
 
     <!-- Modales de Instrucciones de Instalación PWA -->
-    <div id="ios_modal" class="ios-modal-overlay" style="display: none;">
+    <div id="ios_modal" class="ios-modal-overlay" style="display: none;" onclick="if(event.target===this)this.style.display='none'">
       <div class="ios-modal">
-        <h3>Instalar Luquita PRO 📱</h3>
-        <p>Añade la app a tu pantalla de inicio para acceder instantáneamente:</p>
-        <ul style="text-align: left; margin: 16px 0; font-size: 0.85rem; line-height: 1.6;">
-          <li>1. Pulsa el icono de <strong>Compartir</strong> en la barra de Safari.</li>
-          <li>2. Selecciona la opción de <strong>"Agregar a inicio"</strong>.</li>
-          <li>3. Confirma pulsando en <strong>"Añadir"</strong>.</li>
+        <h3>📲 Instalar en iPhone / iOS</h3>
+        <p>Sigue estos pasos en <strong>Safari</strong> para agregar Luquita a tu pantalla de inicio:</p>
+        <ul>
+          <li>
+            <span class="step-num">1</span>
+            <span>Toca el ícono de <strong>Compartir</strong> <strong style="font-size:1.1em">⎋</strong> en la barra inferior de Safari.</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span>Desplázate y selecciona <strong>"Agregar a Inicio"</strong> (Add to Home Screen).</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span>Pulsa <strong>"Añadir"</strong> en la esquina superior derecha. ¡Listo!</span>
+          </li>
         </ul>
+        <p style="font-size:0.82rem;color:#6b7280;margin-bottom:10px;">O copia el enlace y ábrelo en Safari:</p>
+        <div class="modal-copy-link" onclick="copyAppLink()">
+          <span class="link-url" id="modal_app_url">https://luquita-app.vercel.app</span>
+          <span class="copy-icon">📋</span>
+        </div>
         <button class="close-modal" onclick="document.getElementById('ios_modal').style.display='none'">¡Entendido!</button>
       </div>
     </div>
 
-    <div id="android_modal" class="ios-modal-overlay" style="display: none;">
+    <div id="android_modal" class="ios-modal-overlay" style="display: none;" onclick="if(event.target===this)this.style.display='none'">
       <div class="ios-modal">
-        <h3>Instalar Luquita PRO 📱</h3>
-        <p>Añade la app a tu pantalla de inicio:</p>
-        <ul style="text-align: left; margin: 16px 0; font-size: 0.85rem; line-height: 1.6;">
-          <li>1. Pulsa los <strong>tres puntos (⋮)</strong> del navegador.</li>
-          <li>2. Pulsa en <strong>"Instalar aplicación"</strong> o <strong>"Añadir a pantalla de inicio"</strong>.</li>
+        <h3>📲 Instalar en Android</h3>
+        <p>Agrega Luquita PRO a tu pantalla de inicio desde Chrome:</p>
+        <ul>
+          <li>
+            <span class="step-num">1</span>
+            <span>Toca los <strong>tres puntos ⋮</strong> en la esquina superior derecha de Chrome.</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span>Selecciona <strong>"Instalar aplicación"</strong> o <strong>"Agregar a pantalla de inicio"</strong>.</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span>Confirma pulsando <strong>"Instalar"</strong>. ¡Listo!</span>
+          </li>
         </ul>
+        <p style="font-size:0.82rem;color:#6b7280;margin-bottom:10px;">O copia el enlace para abrirlo en Chrome:</p>
+        <div class="modal-copy-link" onclick="copyAppLink()">
+          <span class="link-url" id="modal_app_url_android">https://luquita-app.vercel.app</span>
+          <span class="copy-icon">📋</span>
+        </div>
         <button class="close-modal" onclick="document.getElementById('android_modal').style.display='none'">¡Entendido!</button>
       </div>
     </div>
@@ -2431,6 +2582,26 @@
 
       // Lógica de PWA (beforeinstallprompt)
       let deferredPrompt;
+      const APP_URL = 'https://luquita-app.vercel.app';
+
+      // Actualizar URLs en modales
+      function updateModalUrls() {
+        ['modal_app_url', 'modal_app_url_android'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = APP_URL;
+        });
+      }
+
+      function copyAppLink() {
+        navigator.clipboard.writeText(APP_URL).then(() => {
+          // Feedback visual
+          const btns = document.querySelectorAll('.modal-copy-link .copy-icon');
+          btns.forEach(b => { b.textContent = '✅'; setTimeout(() => b.textContent = '📋', 2000); });
+        }).catch(() => {
+          alert('Enlace: ' + APP_URL);
+        });
+      }
+
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
@@ -2439,7 +2610,15 @@
         if (headerBtn) headerBtn.style.display = 'flex';
       });
 
+      window.addEventListener('appinstalled', () => {
+        deferredPrompt = null;
+        document.getElementById('pwa_install_pill').style.display = 'none';
+        const headerBtn = document.getElementById('header_install_btn');
+        if (headerBtn) headerBtn.style.display = 'none';
+      });
+
       function triggerPwaInstall() {
+        // Si hay prompt nativo de Android/Chrome, usarlo directamente
         if (deferredPrompt) {
           deferredPrompt.prompt();
           deferredPrompt.userChoice.then((choiceResult) => {
@@ -2448,14 +2627,21 @@
             }
             deferredPrompt = null;
           });
+          return;
+        }
+        // Detectar si es iOS/iPadOS
+        const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        // Si ya está instalada como PWA standalone, no hacer nada
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                             window.navigator.standalone === true;
+        if (isStandalone) return;
+
+        updateModalUrls();
+        if (isIos) {
+          document.getElementById('ios_modal').style.display = 'flex';
         } else {
-          // Mostrar modal según SO
-          const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
-          if (isIos) {
-            document.getElementById('ios_modal').style.display = 'flex';
-          } else {
-            document.getElementById('android_modal').style.display = 'flex';
-          }
+          document.getElementById('android_modal').style.display = 'flex';
         }
       }
 
