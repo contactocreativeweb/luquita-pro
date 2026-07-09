@@ -2347,32 +2347,43 @@
 
       // Herramientas Avanzadas
       function calculateCommercial() {
-        const cost = parseFloat(document.getElementById('comm_cost').value) || 0;
-        const margin = parseFloat(document.getElementById('comm_margin').value) || 0;
+        const costEl = document.getElementById('comm_cost');
+        const marginEl = document.getElementById('comm_margin');
+        const resUsdEl = document.getElementById('comm_result_usd');
+        const resVesEl = document.getElementById('comm_result_ves');
+        if (!costEl || !marginEl || !resUsdEl || !resVesEl) return;
+        const cost = parseFloat(costEl.value) || 0;
+        const margin = parseFloat(marginEl.value) || 0;
         const resultUsd = cost * (1 + (margin / 100));
         const resultVes = resultUsd * rates.usd;
-        
-        document.getElementById('comm_result_usd').textContent = `$${resultUsd.toFixed(2)}`;
-        document.getElementById('comm_result_ves').textContent = `${resultVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
+        resUsdEl.textContent = `$${resultUsd.toFixed(2)}`;
+        resVesEl.textContent = `${resultVes.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`;
       }
 
       function calculateInverse() {
-        const bs = parseFloat(document.getElementById('inv_bs').value) || 0;
+        const bsEl = document.getElementById('inv_bs');
+        const resUsdEl = document.getElementById('inv_result_usd');
+        const resEurEl = document.getElementById('inv_result_eur');
+        const resUsdtEl = document.getElementById('inv_result_usdt');
+        if (!bsEl || !resUsdEl || !resEurEl || !resUsdtEl) return;
+        const bs = parseFloat(bsEl.value) || 0;
         const resultUsd = bs / rates.usd;
         const resultEur = bs / rates.eur;
         const resultUsdt = bs / rates.usdt;
-        
-        document.getElementById('inv_result_usd').textContent = `$${resultUsd.toFixed(2)}`;
-        document.getElementById('inv_result_eur').textContent = `€${resultEur.toFixed(2)}`;
-        document.getElementById('inv_result_usdt').textContent = `${resultUsdt.toFixed(2)} USDT`;
+        resUsdEl.textContent = `$${resultUsd.toFixed(2)}`;
+        resEurEl.textContent = `€${resultEur.toFixed(2)}`;
+        resUsdtEl.textContent = `${resultUsdt.toFixed(2)} USDT`;
       }
 
       function calculateUsdtCommission() {
-        const amount = parseFloat(document.getElementById('usdt_p2p_amount').value) || 0;
-        const commission = parseFloat(document.getElementById('usdt_p2p_comm').value) || 0;
+        const amountEl = document.getElementById('usdt_p2p_amount');
+        const commEl = document.getElementById('usdt_p2p_comm');
+        const netEl = document.getElementById('usdt_p2p_net');
+        if (!amountEl || !commEl || !netEl) return;
+        const amount = parseFloat(amountEl.value) || 0;
+        const commission = parseFloat(commEl.value) || 0;
         const net = amount * (1 - (commission / 100));
-        
-        document.getElementById('usdt_p2p_net').textContent = `${net.toFixed(2)} USDT`;
+        netEl.textContent = `${net.toFixed(2)} USDT`;
       }
 
       // Gráficos y Tendencias
@@ -2385,22 +2396,27 @@
       }
 
       function updateChartData() {
-        const selected = document.getElementById('chart_divisa').value;
+        const chartDivisaEl = document.getElementById('chart_divisa');
+        if (!chartDivisaEl) return;
+        const selected = chartDivisaEl.value;
         const rate = rates[selected];
+        if (!rate) return;
         
         // Modificaciones dinámicas del texto informativo
         const titleEl = document.getElementById('info_card_title');
         const descEl = document.getElementById('info_card_desc');
         
-        if (selected === 'usd') {
-          titleEl.textContent = "Sobre el Dólar BCV";
-          descEl.textContent = "Tasa oficial ponderada calculada por el BCV al cierre de las mesas cambiarias de la banca nacional.";
-        } else if (selected === 'eur') {
-          titleEl.textContent = "Sobre el Euro BCV";
-          descEl.textContent = "Valor oficial del Euro determinado diariamente por el BCV según cotización de los mercados de divisas.";
-        } else {
-          titleEl.textContent = "Sobre USDT Binance";
-          descEl.textContent = "Monto de intercambio de Tether (USDT) en el mercado P2P de Binance, la referencia del dólar informal.";
+        if (titleEl && descEl) {
+          if (selected === 'usd') {
+            titleEl.textContent = "Sobre el Dólar BCV";
+            descEl.textContent = "Tasa oficial ponderada calculada por el BCV al cierre de las mesas cambiarias de la banca nacional.";
+          } else if (selected === 'eur') {
+            titleEl.textContent = "Sobre el Euro BCV";
+            descEl.textContent = "Valor oficial del Euro determinado diariamente por el BCV según cotización de los mercados de divisas.";
+          } else {
+            titleEl.textContent = "Sobre USDT Binance";
+            descEl.textContent = "Monto de intercambio de Tether (USDT) en el mercado P2P de Binance, la referencia del dólar informal.";
+          }
         }
 
         // Simular valores de rango según temporalidad
@@ -2413,13 +2429,16 @@
         const minVal = rate * (1 - variation);
         const maxVal = rate * (1 + variation * 0.5);
 
-        document.getElementById('chart_min_val').textContent = minVal.toFixed(2) + " Bs";
-        document.getElementById('chart_max_val').textContent = maxVal.toFixed(2) + " Bs";
+        const minEl = document.getElementById('chart_min_val');
+        const maxEl = document.getElementById('chart_max_val');
+        if (minEl) minEl.textContent = minVal.toFixed(2) + " Bs";
+        if (maxEl) maxEl.textContent = maxVal.toFixed(2) + " Bs";
 
         // Simular trazo de SVG aleatorio o curvo
         const line = document.getElementById('chart_path_line');
         const glow = document.getElementById('chart_path_glow');
         const circle = document.getElementById('chart_circle_end');
+        if (!line || !glow || !circle) return;
 
         let points = [];
         const segments = 10;
